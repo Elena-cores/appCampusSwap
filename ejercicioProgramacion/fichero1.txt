@@ -1,2 +1,3 @@
 Contenido inicial del fichero 1
 Contenido 2
+Contenido posterior al mal paso
