@@ -2,7 +2,7 @@ package es.ceu.gisi.modcomp.cyk_algorithm.algorithm;
 
 import es.ceu.gisi.modcomp.cyk_algorithm.algorithm.exceptions.CYKAlgorithmException;
 import es.ceu.gisi.modcomp.cyk_algorithm.algorithm.interfaces.CYKAlgorithmInterface;
-
+import java.util.LinkedList;
 
 //Comentario de prueba
 /**
@@ -13,7 +13,10 @@ import es.ceu.gisi.modcomp.cyk_algorithm.algorithm.interfaces.CYKAlgorithmInterf
  * @author Sergio Saugar García <sergio.saugargarcia@ceu.es>
  */
 public class CYKAlgorithm implements CYKAlgorithmInterface {
-
+    private LinkedList<Character> nonTerminals;
+    private LinkedList<Character> terminals;
+    
+    
     @Override
     /**
      * Método que añade los elementos no terminales de la gramática.
@@ -22,8 +25,17 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
      * @throws CYKAlgorithmException Si el elemento no es una letra mayúscula.
      */
     public void addNonTerminal(char nonterminal) throws CYKAlgorithmException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
+        nonTerminals = new LinkedList<>();
+        
+        if(!Character.isUpperCase(nonterminal) || Character.isDigit(nonterminal)){  //|| nonterminal == 'S')
+            throw new CYKAlgorithmException(); 
+        } 
+        else{
+        nonTerminals.add(nonterminal);
+        }
     }
+    
 
     @Override
     /**
@@ -32,8 +44,18 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
      * @param terminal Por ejemplo, 'a'
      * @throws CYKAlgorithmException Si el elemento no es una letra minúscula.
      */
+    
+    
     public void addTerminal(char terminal) throws CYKAlgorithmException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
+       terminals = new LinkedList<>();
+       
+       if(!Character.isLowerCase(terminal)|| Character.isDigit(terminal)){
+                throw new CYKAlgorithmException();
+       }
+       else{
+       terminals.add(terminal);
+       }
     }
 
     @Override
