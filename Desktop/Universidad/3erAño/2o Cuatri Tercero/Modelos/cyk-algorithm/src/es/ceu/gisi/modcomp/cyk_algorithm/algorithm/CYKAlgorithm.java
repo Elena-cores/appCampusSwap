@@ -2,6 +2,7 @@ package es.ceu.gisi.modcomp.cyk_algorithm.algorithm;
 
 import es.ceu.gisi.modcomp.cyk_algorithm.algorithm.exceptions.CYKAlgorithmException;
 import es.ceu.gisi.modcomp.cyk_algorithm.algorithm.interfaces.CYKAlgorithmInterface;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -14,10 +15,10 @@ import java.util.Objects;
  * @author Sergio Saugar García <sergio.saugargarcia@ceu.es>
  */
 public class CYKAlgorithm implements CYKAlgorithmInterface {
-    private LinkedList<Character> nonTerminals = new LinkedList<>();
-    private LinkedList<Character> terminals;
+    private ArrayList<Character> nonTerminals = new ArrayList<>();
+    private LinkedList<Character> terminals = new LinkedList<>();
     
-    
+   
     @Override
     /**
      * Método que añade los elementos no terminales de la gramática.
@@ -27,20 +28,18 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
      */
     public void addNonTerminal(char nonterminal) throws CYKAlgorithmException {
 
-       
-
         if (Character.isLowerCase(nonterminal) || Character.isDigit(nonterminal)) {
             throw new CYKAlgorithmException();
         } 
-        else {
-            if(nonTerminals.contains(nonterminal)){
-                throw new CYKAlgorithmException();
-            } 
-            else {
-                nonTerminals.add(nonterminal);
-            }
-                    
+        
+        if(nonTerminals.contains(nonterminal)){
+            throw new CYKAlgorithmException();
         }
+            
+        else {
+            nonTerminals.add(nonterminal);
+            }
+        
     }
         
     @Override
@@ -54,13 +53,14 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
     
     public void addTerminal(char terminal) throws CYKAlgorithmException {
         
-       terminals = new LinkedList<>();
-       
        if(!Character.isLowerCase(terminal)|| Character.isDigit(terminal)){
-                throw new CYKAlgorithmException();
+            throw new CYKAlgorithmException();
+       }
+       if(terminals.contains(terminal)){
+            throw new CYKAlgorithmException();
        }
        else{
-       terminals.add(terminal);
+            terminals.add(terminal);
        }
     }
 
@@ -74,9 +74,20 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
      * conjunto de elementos no terminales.
      */
     public void setStartSymbol(char nonterminal) throws CYKAlgorithmException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
+        
+        if (nonTerminals.size() < 1){
+            throw new CYKAlgorithmException();
+        } 
+        
+        else if (nonTerminals.get(0) != nonterminal){
+            throw new CYKAlgorithmException();
+        }
+        
+        else {
+        nonTerminals.add(nonterminal);
+        }
+    }   
+      
     @Override
     /**
      * Método utilizado para construir la gramática. Admite producciones en FNC,
