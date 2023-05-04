@@ -3,6 +3,7 @@ package es.ceu.gisi.modcomp.cyk_algorithm.algorithm;
 import es.ceu.gisi.modcomp.cyk_algorithm.algorithm.exceptions.CYKAlgorithmException;
 import es.ceu.gisi.modcomp.cyk_algorithm.algorithm.interfaces.CYKAlgorithmInterface;
 import java.util.LinkedList;
+import java.util.Objects;
 
 //Comentario de prueba
 /**
@@ -13,7 +14,7 @@ import java.util.LinkedList;
  * @author Sergio Saugar García <sergio.saugargarcia@ceu.es>
  */
 public class CYKAlgorithm implements CYKAlgorithmInterface {
-    private LinkedList<Character> nonTerminals;
+    private LinkedList<Character> nonTerminals = new LinkedList<>();
     private LinkedList<Character> terminals;
     
     
@@ -25,18 +26,23 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
      * @throws CYKAlgorithmException Si el elemento no es una letra mayúscula.
      */
     public void addNonTerminal(char nonterminal) throws CYKAlgorithmException {
-        
-        nonTerminals = new LinkedList<>();
-        
-        if(!Character.isUpperCase(nonterminal) || Character.isDigit(nonterminal)){  //|| nonterminal == 'S')
-            throw new CYKAlgorithmException(); 
+
+       
+
+        if (Character.isLowerCase(nonterminal) || Character.isDigit(nonterminal)) {
+            throw new CYKAlgorithmException();
         } 
-        else{
-        nonTerminals.add(nonterminal);
+        else {
+            if(nonTerminals.contains(nonterminal)){
+                throw new CYKAlgorithmException();
+            } 
+            else {
+                nonTerminals.add(nonterminal);
+            }
+                    
         }
     }
-    
-
+        
     @Override
     /**
      * Método que añade los elementos terminales de la gramática.
