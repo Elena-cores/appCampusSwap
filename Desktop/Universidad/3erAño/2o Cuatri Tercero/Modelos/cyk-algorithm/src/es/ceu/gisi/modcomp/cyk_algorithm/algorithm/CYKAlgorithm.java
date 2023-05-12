@@ -5,6 +5,8 @@ import es.ceu.gisi.modcomp.cyk_algorithm.algorithm.interfaces.CYKAlgorithmInterf
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Objects;
+import java.util.HashMap;
+import java.util.HashSet;
 
 //Comentario de prueba
 /**
@@ -17,8 +19,15 @@ import java.util.Objects;
 public class CYKAlgorithm implements CYKAlgorithmInterface {
     private ArrayList<Character> nonTerminals = new ArrayList<>();
     private LinkedList<Character> terminals = new LinkedList<>();
+    private HashMap<Character, String> ProduccionFinal = new HashMap<>();
     
+    private ArrayList<String> listProductions = new ArrayList<>(); 
+    
+    char nonterminal;
+    char terminal;
+    char axioma;
    
+    
     @Override
     /**
      * Método que añade los elementos no terminales de la gramática.
@@ -74,7 +83,6 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
      * conjunto de elementos no terminales.
      */
     public void setStartSymbol(char nonterminal) throws CYKAlgorithmException {
-        
         if (nonTerminals.size() < 1){
             throw new CYKAlgorithmException();
         } 
@@ -84,8 +92,10 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
         }
         
         else {
-        nonTerminals.add(nonterminal);
+        axioma = nonterminal;
+        //nonTerminals.add(nonterminal);
         }
+        
     }   
       
     @Override
@@ -100,8 +110,71 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
      * previamente.
      */
     public void addProduction(char nonterminal, String production) throws CYKAlgorithmException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+        
+        for (int i = 1; i < production.length(); i++) {
+            if (!Character.isUpperCase(production.charAt(i)) && !terminals.contains(production.charAt(i))) {
+                throw new CYKAlgorithmException();
+            
+            }
+        }
+        for (char c : production.toCharArray()) {
+            if (Character.isUpperCase(c) && !nonTerminals.contains(c)) {
+                throw new CYKAlgorithmException();
+            } else if (!Character.isUpperCase(c) && !terminals.contains(c)) {
+                throw new CYKAlgorithmException();
+            }
+            for (char cc : production.toCharArray()) {
+                if( (Character.isUpperCase(c) && Character.isLowerCase(cc))|| (Character.isUpperCase(cc) && Character.isLowerCase(c))){
+                throw new CYKAlgorithmException();
+                }
+            }
+            
+          
+        }
+    
+          
+                
+        //Si el array de los no terminales ve que no tiene el noterminal añadido en el addProduction, salta la excepcion
+      if (!nonTerminals.contains(nonterminal)) { 
+          throw new CYKAlgorithmException();
+      }   
+        
+      if (production.length()== 1 && production.contains(production.toUpperCase())) {
+          throw new CYKAlgorithmException();
+      }     
+      if (production.length() > 1 && production.contains(production.toLowerCase())){
+          throw new CYKAlgorithmException();
+      }
+      
+      if (ProduccionFinal.containsKey(nonterminal) && ProduccionFinal.containsValue(production)){
+          throw new CYKAlgorithmException();
+      }
+      
+      if (ProduccionFinal.containsKey( axioma)){
+          throw new CYKAlgorithmException();
+      }
+      
+      
+      
+     
+             
+        
+        
+        
+       
+        
+       
+            
+        else{
+          ProduccionFinal.put(nonterminal, production);
+      } 
+        
+            
+        
+      
+}         
+    
+
 
     @Override
     /**
