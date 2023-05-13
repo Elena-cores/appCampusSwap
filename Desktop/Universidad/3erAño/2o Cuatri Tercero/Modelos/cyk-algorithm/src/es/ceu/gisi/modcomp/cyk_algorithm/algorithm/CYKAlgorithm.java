@@ -120,9 +120,11 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
         for (char c : production.toCharArray()) {
             if (Character.isUpperCase(c) && !nonTerminals.contains(c)) {
                 throw new CYKAlgorithmException();
-            } else if (!Character.isUpperCase(c) && !terminals.contains(c)) {
+            } 
+            else if (!Character.isUpperCase(c) && !terminals.contains(c)) {
                 throw new CYKAlgorithmException();
             }
+            
             for (char cc : production.toCharArray()) {
                 if( (Character.isUpperCase(c) && Character.isLowerCase(cc))|| (Character.isUpperCase(cc) && Character.isLowerCase(c))){
                 throw new CYKAlgorithmException();
@@ -135,40 +137,37 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
           
                 
         //Si el array de los no terminales ve que no tiene el noterminal añadido en el addProduction, salta la excepcion
-      if (!nonTerminals.contains(nonterminal)) { 
-          throw new CYKAlgorithmException();
-      }   
-        
-      if (production.length()== 1 && production.contains(production.toUpperCase())) {
-          throw new CYKAlgorithmException();
-      }     
-      if (production.length() > 1 && production.contains(production.toLowerCase())){
-          throw new CYKAlgorithmException();
-      }
-      
-      if (ProduccionFinal.containsKey(nonterminal) && ProduccionFinal.containsValue(production)){
-          throw new CYKAlgorithmException();
-      }
-      
-      if (ProduccionFinal.containsKey( axioma)){
-          throw new CYKAlgorithmException();
-      }
-      
-      
-      
+        if (!nonTerminals.contains(nonterminal)) { 
+            throw new CYKAlgorithmException();
+        }   
+
+        if (production.length()== 1 && production.contains(production.toUpperCase())) {
+            throw new CYKAlgorithmException();
+        }     
+        if (production.length() > 1 && production.contains(production.toLowerCase())){
+            throw new CYKAlgorithmException();
+        }
+
+        if (ProduccionFinal.containsKey(nonterminal) && ProduccionFinal.containsValue(production)){
+            throw new CYKAlgorithmException();
+        }
+
+        if (ProduccionFinal.containsKey( axioma)){
+            throw new CYKAlgorithmException();
+        }
+
      
-             
+        if (!ProduccionFinal.values().stream().anyMatch(p -> p.matches(".*[a-z].*")) && production.matches(".*[A-Z].*")) {
+            throw new CYKAlgorithmException();
+        }
         
-        
-        
-       
-        
-       
+      
             
         else{
           ProduccionFinal.put(nonterminal, production);
       } 
         
+       
             
         
       
