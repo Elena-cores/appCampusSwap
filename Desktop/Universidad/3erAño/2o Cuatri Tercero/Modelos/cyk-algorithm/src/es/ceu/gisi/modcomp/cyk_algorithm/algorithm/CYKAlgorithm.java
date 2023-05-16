@@ -177,9 +177,10 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
 
         //CONDICION EN COMENTARIO
         //Lanza una excepción si ya existe una producción asociada al mismo elemento no terminal y con el mismo valor.
-       if (ProduccionFinal.containsKey(nonterminal) && ProduccionFinal.containsValue(production)){
-            throw new CYKAlgorithmException();
-        }
+       if (ProduccionFinal.entrySet().stream()
+        .anyMatch(entry -> entry.getKey() == nonterminal && entry.getValue().equals(production))) {
+        throw new CYKAlgorithmException();
+    }
         
         
         //Lanza una excepción CYKAlgorithmException si no existe una producción asociada al axioma.
