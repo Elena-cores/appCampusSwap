@@ -4,9 +4,12 @@ import es.ceu.gisi.modcomp.cyk_algorithm.algorithm.exceptions.CYKAlgorithmExcept
 import es.ceu.gisi.modcomp.cyk_algorithm.algorithm.interfaces.CYKAlgorithmInterface;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Objects;
+
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 
 //Comentario de prueba
 /**
@@ -17,15 +20,13 @@ import java.util.HashSet;
  * @author Sergio Saugar García <sergio.saugargarcia@ceu.es>
  */
 public class CYKAlgorithm implements CYKAlgorithmInterface {
-    private ArrayList<Character> nonTerminals = new ArrayList<>();
-    private LinkedList<Character> terminals = new LinkedList<>();
-    private HashMap<Character, String> ProduccionFinal = new HashMap<>();
+    private final ArrayList<Character> nonTerminals = new ArrayList<>();
+    private final LinkedList<Character> terminals = new LinkedList<>();
+    private final Map<Character, String> ProduccionFinal = new HashMap<>();
+
     
-    private ArrayList<String> listProductions = new ArrayList<>(); 
-    
-    char nonterminal;
-    char terminal;
-    char axioma;
+   
+    private char axioma;
    
     
     @Override
@@ -83,17 +84,23 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
      * conjunto de elementos no terminales.
      */
     public void setStartSymbol(char nonterminal) throws CYKAlgorithmException {
+     /*   if (!nonTerminals.contains(nonterminal)){
+                         throw new CYKAlgorithmException();
+        }*/
+        //si la lista de nonterminals esta vacía salta la excepción
+        
+        
         if (nonTerminals.size() < 1){
             throw new CYKAlgorithmException();
         } 
-        
+        //si el nonterminal que nos pasa el test no es el nonterminal del primer espacio de la estructura de datos, salta la excepción
         else if (nonTerminals.get(0) != nonterminal){
             throw new CYKAlgorithmException();
         }
         
         else {
         axioma = nonterminal;
-        //nonTerminals.add(nonterminal);
+        
         }
         
     }   
@@ -110,63 +117,93 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
      * previamente.
      */
     public void addProduction(char nonterminal, String production) throws CYKAlgorithmException {
-        
+    
+
+
+        //Lanza una excepción si un carácter en la posición i de la producción es una letra minuscula y no está contenido en la lista de terminales.
         for (int i = 1; i < production.length(); i++) {
-            if (!Character.isUpperCase(production.charAt(i)) && !terminals.contains(production.charAt(i))) {
+            if (Character.isLowerCase(production.charAt(i)) && !terminals.contains(production.charAt(i))) {
+                throw new CYKAlgorithmException();
+            }
+                    //Lanza una excepción si un carácter en la posición i de la producción es una letra mayuscula y no está contenido en la lista de noterminales.
+
+            else if (Character.isUpperCase(production.charAt(i)) && !nonTerminals.contains(production.charAt(i))) {
                 throw new CYKAlgorithmException();
             
             }
         }
+        
         for (char c : production.toCharArray()) {
-            if (Character.isUpperCase(c) && !nonTerminals.contains(c)) {
-                throw new CYKAlgorithmException();
-            } 
-            else if (!Character.isUpperCase(c) && !terminals.contains(c)) {
-                throw new CYKAlgorithmException();
-            }
-            
-            for (char cc : production.toCharArray()) {
+            for (char cc : production.toCharArray()) {                
+                
+                if(production.length() == 1 ){
+                    if(Character.isUpperCase(c)){
+                        throw new CYKAlgorithmException();                     
+                    }
+                    if(!terminals.contains(c)){
+                        throw new CYKAlgorithmException(); 
+                    }
+                                        
+                }
+                else if(production.length() == 2 ){
+                    if(!nonTerminals.contains(c)){
+                        throw new CYKAlgorithmException(); 
+                       
+                    }
+                }
+                else if(production.length() > 2){
+                    throw new CYKAlgorithmException(); 
+                }
+                
+                
+                //Lanza una excepción si la producción tiene longitud mayor a 1 y contiene una letra minúscula.
+                if(production.length() > 1 && Character.isLowerCase(c)){
+                    throw new CYKAlgorithmException();
+                }
+                                
+                //Lanza una excepción si en la producción se encuentra una combinación de una letra mayúscula y una minúscula.
                 if( (Character.isUpperCase(c) && Character.isLowerCase(cc))|| (Character.isUpperCase(cc) && Character.isLowerCase(c))){
                 throw new CYKAlgorithmException();
                 }
             }
-            
-          
         }
     
           
-                
-        //Si el array de los no terminales ve que no tiene el noterminal añadido en el addProduction, salta la excepcion
+        //Lanza una excepción si el elemento no terminal no está contenido en la lista de no terminales. 
+        
         if (!nonTerminals.contains(nonterminal)) { 
             throw new CYKAlgorithmException();
         }   
 
-        if (production.length()== 1 && production.contains(production.toUpperCase())) {
-            throw new CYKAlgorithmException();
-        }     
-        if (production.length() > 1 && production.contains(production.toLowerCase())){
-            throw new CYKAlgorithmException();
-        }
-
-        if (ProduccionFinal.containsKey(nonterminal) && ProduccionFinal.containsValue(production)){
-            throw new CYKAlgorithmException();
-        }
-
-        if (ProduccionFinal.containsKey( axioma)){
-            throw new CYKAlgorithmException();
-        }
-
-     
-        if (!ProduccionFinal.values().stream().anyMatch(p -> p.matches(".*[a-z].*")) && production.matches(".*[A-Z].*")) {
+        //CONDICION EN COMENTARIO
+        //Lanza una excepción si ya existe una producción asociada al mismo elemento no terminal y con el mismo valor.
+       if (ProduccionFinal.containsKey(nonterminal) && ProduccionFinal.containsValue(production)){
             throw new CYKAlgorithmException();
         }
         
-      
+        
+        //Lanza una excepción CYKAlgorithmException si no existe una producción asociada al axioma.
+    /*    if(!ProduccionFinal.containsKey(axioma)){
+            if (!nonTerminals.contains(axioma)){
+              
+             throw new CYKAlgorithmException();
+               
+          }
+            else{
+                 setStartSymbol(axioma); 
+
+                //ProduccionFinal.put(axioma, production);
+            }
+        }         
+     */ 
+
             
         else{
-          ProduccionFinal.put(nonterminal, production);
+        ProduccionFinal.put(nonterminal, production);
       } 
-        
+          
+      
+        //Problema actual: no se llega a añadir la produccion por que 
        
             
         
@@ -188,9 +225,63 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
      * conjunto de terminales definido para la gramática introducida, si la
      * gramática es vacía o si el autómata carece de axioma.
      */
+    
     public boolean isDerived(String word) throws CYKAlgorithmException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
+
+      
+    int n = word.length();
+    Set<Character>[][] table = new Set[n][n];
+    
+    // Rellenar la diagonal superior de la tabla
+    for (int i = 0; i < n; i++) {
+        char terminal = word.charAt(i);
+        if (!terminals.contains(terminal)) {
+            throw new CYKAlgorithmException();
+        }
+        for (char nonterminal : nonTerminals) {
+            if (ProduccionFinal.containsKey(nonterminal) && ProduccionFinal.get(nonterminal).contains(Character.toString(terminal))) {
+                if (table[i][i] == null) {
+                    table[i][i] = new HashSet<>();
+                }
+                table[i][i].add(nonterminal);
+            }
+        }
     }
+    
+    // Rellenar la tabla de abajo hacia arriba
+    for (int l = 2; l <= n; l++) {
+        for (int i = 0; i <= n - l; i++) {
+            int j = i + l - 1;
+            if (table[i][j] == null) {
+                table[i][j] = new HashSet<>();
+            }
+            for (int k = i; k < j; k++) {
+                if (table[i][k] != null && table[k + 1][j] != null) {
+                    for (char nonterminal : nonTerminals) {
+                        String production = ProduccionFinal.get(nonterminal);
+                        if (production != null) {
+                            for (int m = 0; m < production.length(); m++) {
+                                char symbol = production.charAt(m);
+                                if (table[i][k].contains(symbol) && table[k + 1][j].contains(nonterminal)) {
+                                    table[i][j].add(nonterminal);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // Comprobar si el axioma está en la esquina superior derecha de la tabla
+    return table[0][n - 1] != null && table[0][n - 1].contains(axioma);
+}
+
+        
+        
+        
+    
 
     @Override
     /**
@@ -219,7 +310,12 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
      * dejando el algoritmo listo para volver a insertar una gramática nueva.
      */
     public void removeGrammar() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
+        nonTerminals.clear();
+        terminals.clear();
+        ProduccionFinal.clear();
+        
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
