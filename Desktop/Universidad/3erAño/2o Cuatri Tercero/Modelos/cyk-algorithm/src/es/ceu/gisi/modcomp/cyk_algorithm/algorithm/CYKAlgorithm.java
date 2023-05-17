@@ -22,7 +22,7 @@ import java.util.Set;
 public class CYKAlgorithm implements CYKAlgorithmInterface {
     private final ArrayList<Character> nonTerminals = new ArrayList<>();
     private final LinkedList<Character> terminals = new LinkedList<>();
-    private final Map<Character, String> ProduccionFinal = new HashMap<>();
+    private final HashMap<Character, ArrayList<String>> ProduccionFinal = new HashMap<>();
 
     
    
@@ -117,7 +117,12 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
      * previamente.
      */
     public void addProduction(char nonterminal, String production) throws CYKAlgorithmException {
-    
+
+           ArrayList<String> productions = this.ProduccionFinal.get(nonterminal);
+         if (productions == null) {
+           productions = new ArrayList<>();
+           
+       }
 
 
         //Lanza una excepción si un carácter en la posición i de la producción es una letra minuscula y no está contenido en la lista de terminales.
@@ -173,35 +178,20 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
         
         if (!nonTerminals.contains(nonterminal)) { 
             throw new CYKAlgorithmException();
-        }   
-
+        }  
+        
+       
+       
         //CONDICION EN COMENTARIO
         //Lanza una excepción si ya existe una producción asociada al mismo elemento no terminal y con el mismo valor.
        if (ProduccionFinal.entrySet().stream()
-        .anyMatch(entry -> entry.getKey() == nonterminal && entry.getValue().equals(production))) {
-        throw new CYKAlgorithmException();
-    }
-        
-        
-        //Lanza una excepción CYKAlgorithmException si no existe una producción asociada al axioma.
-    /*    if(!ProduccionFinal.containsKey(axioma)){
-            if (!nonTerminals.contains(axioma)){
-              
-             throw new CYKAlgorithmException();
-               
-          }
-            else{
-                 setStartSymbol(axioma); 
-
-                //ProduccionFinal.put(axioma, production);
-            }
-        }         
-     */ 
-
-            
-        else{
-        ProduccionFinal.put(nonterminal, production);
-      } 
+        .anyMatch(entry -> entry.getKey() == nonterminal && entry.getValue().contains(production))) {
+    throw new CYKAlgorithmException();
+}
+       else {
+            productions.add(production);
+            ProduccionFinal.put(nonterminal, productions);
+        }
           
       
         //Problema actual: no se llega a añadir la produccion por que 
@@ -227,61 +217,64 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
      * gramática es vacía o si el autómata carece de axioma.
      */
     
-    public boolean isDerived(String word) throws CYKAlgorithmException {
-        
 
-      
+public boolean isDerived(String word) throws CYKAlgorithmException {
+  
     int n = word.length();
-    Set<Character>[][] table = new Set[n][n];
-    
-    // Rellenar la diagonal superior de la tabla
+    ArrayList<String>[][] table = new ArrayList[n][n];
+
+    // Inicializar la tabla
     for (int i = 0; i < n; i++) {
-        char terminal = word.charAt(i);
-        if (!terminals.contains(terminal)) {
-            throw new CYKAlgorithmException();
-        }
-        for (char nonterminal : nonTerminals) {
-            if (ProduccionFinal.containsKey(nonterminal) && ProduccionFinal.get(nonterminal).contains(Character.toString(terminal))) {
-                if (table[i][i] == null) {
-                    table[i][i] = new HashSet<>();
-                }
-                table[i][i].add(nonterminal);
-            }
+        for (int j = 0; j < n; j++) {
+            table[i][j] = new ArrayList<>();
         }
     }
-    
-    // Rellenar la tabla de abajo hacia arriba
-    for (int l = 2; l <= n; l++) {
-        for (int i = 0; i <= n - l; i++) {
-            int j = i + l - 1;
-            if (table[i][j] == null) {
-                table[i][j] = new HashSet<>();
-            }
+
+    // Llenar la diagonal principal de la tabla con los símbolos no terminales correspondientes a las letras de la palabra
+    for (int i = 0; i < n; i++) {
+        char symbol = word.charAt(i);
+        ArrayList<String> productions = this.ProduccionFinal.get(symbol);
+        if (productions != null) {
+            table[i][i].addAll(productions);
+        }
+    }
+
+    // Calcular las derivaciones para las subcadenas de longitud mayor a 1
+    for (int j = 1; j < n; j++) {
+        for (int i = j - 1; i >= 0; i--) {
             for (int k = i; k < j; k++) {
-                if (table[i][k] != null && table[k + 1][j] != null) {
-                    for (char nonterminal : nonTerminals) {
-                        String production = ProduccionFinal.get(nonterminal);
-                        if (production != null) {
-                            for (int m = 0; m < production.length(); m++) {
-                                char symbol = production.charAt(m);
-                                if (table[i][k].contains(symbol) && table[k + 1][j].contains(nonterminal)) {
-                                    table[i][j].add(nonterminal);
-                                }
-                            }
+                ArrayList<String> leftProductions = table[i][k];
+                ArrayList<String> rightProductions = table[k + 1][j];
+                ArrayList<String> combinedProductions = table[i][j];
+
+                for (String left : leftProductions) {
+                    for (String right : rightProductions) {
+                        String combined = left + right;
+                        ArrayList<String> nonTerminalProductions = this.ProduccionFinal.get(combined);
+                        if (nonTerminalProductions != null) {
+                            combinedProductions.addAll(nonTerminalProductions);
                         }
                     }
                 }
             }
         }
     }
-    
-    // Comprobar si el axioma está en la esquina superior derecha de la tabla
-    return table[0][n - 1] != null && table[0][n - 1].contains(axioma);
+
+    // Verificar si el símbolo inicial está presente en la última celda de la tabla
+    ArrayList<String> startProductions = table[0][n - 1];
+    if (startProductions.contains(String.valueOf(axioma))) {
+        return true;
+    } else {
+        return false;
+    }
 }
+
+
+
 
         
         
-        
+       
     
 
     @Override
@@ -315,8 +308,8 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
         nonTerminals.clear();
         terminals.clear();
         ProduccionFinal.clear();
+        axioma ='\0';
         
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -331,9 +324,24 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
      * ejemplo, si se piden las producciones del elemento 'S', el String de
      * salida podría ser: "S::=AB|BC".
      */
-    public String getProductions(char nonterminal) {
-        throw new UnsupportedOperationException("Not supported yet.");
+  
+
+public String getProductions(char nonterminal) {
+    ArrayList<String> productionList = ProduccionFinal.get(nonterminal);
+    if (productionList == null) {
+        return "";
+    } else {
+        StringBuilder sb = new StringBuilder();
+        sb.append(nonterminal).append("::=");
+        for (String production : productionList) {
+            sb.append(production).append("|");
+        }
+        sb.deleteCharAt(sb.length() - 1);  // Eliminar el último "|"
+        return sb.toString();
     }
+
+
+}
 
     @Override
     /**
@@ -342,8 +350,23 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
      * @return Devuelve el agregado de hacer getProductions sobre todos los
      * elementos no terminales.
      */
-    public String getGrammar() {
-        throw new UnsupportedOperationException("Not supported yet.");
+   
+public String getGrammar() {
+    StringBuilder grammar = new StringBuilder();
+    
+    for (char nonterminal : nonTerminals) {
+        String productions = getProductions(nonterminal);
+        if (!productions.isEmpty()) {
+            if (grammar.length() > 0) {
+                grammar.append("\n");
+            }
+            grammar.append(productions);
+        }
+    }
+    
+    return grammar.toString();
+}
+
     }
 
-}
+
