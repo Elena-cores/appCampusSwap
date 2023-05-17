@@ -7,8 +7,9 @@ import java.util.LinkedList;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
+
 
 
 //Comentario de prueba
@@ -23,6 +24,7 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
     private final ArrayList<Character> nonTerminals = new ArrayList<>();
     private final LinkedList<Character> terminals = new LinkedList<>();
     private final HashMap<Character, ArrayList<String>> ProduccionFinal = new HashMap<>();
+   // private final HashMap<String, ArrayList<Character>> ProduccionInversa = new HashMap<>();
 
     
    
@@ -192,9 +194,16 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
             productions.add(production);
             ProduccionFinal.put(nonterminal, productions);
         }
+       /*   
+      if (ProduccionInversa.entrySet().stream().anyMatch(entry -> entry.getKey() == nonterminal && entry.getValue().contains(production))) {
+    throw new CYKAlgorithmException();
+}
+       else {
+            productions.add(production);
+            ProduccionInversa.put(production, new ArrayList());
+        }
           
-      
-        //Problema actual: no se llega a añadir la produccion por que 
+       */
        
             
         
@@ -219,40 +228,80 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
     
 
 public boolean isDerived(String word) throws CYKAlgorithmException {
-  
+    // Validaciones iniciales
+    if (word.isEmpty()) {
+        throw new CYKAlgorithmException();
+    }
+
+    for (char c : word.toCharArray()) {
+        if (!terminals.contains(c)) {
+            throw new CYKAlgorithmException();
+        }
+    }
+
+    if (terminals.isEmpty()) {
+        throw new CYKAlgorithmException();
+    }
+
+    if (nonTerminals.isEmpty()) {
+        throw new CYKAlgorithmException();
+    }
+
+    if (axioma == '\0') {
+        throw new CYKAlgorithmException();
+    }
+
+    // Algoritmo CYK
     int n = word.length();
-    ArrayList<String>[][] table = new ArrayList[n][n];
+    List<List<Set<Character>>> table = new ArrayList<>(n);
 
-    // Inicializar la tabla
+    // Inicializar tabla
     for (int i = 0; i < n; i++) {
+        table.add(new ArrayList<>(n));
         for (int j = 0; j < n; j++) {
-            table[i][j] = new ArrayList<>();
+            table.get(i).add(new HashSet<>());
         }
     }
 
-    // Llenar la diagonal principal de la tabla con los símbolos no terminales correspondientes a las letras de la palabra
+    // Llenar la tabla con las producciones unitarias
     for (int i = 0; i < n; i++) {
-        char symbol = word.charAt(i);
-        ArrayList<String> productions = this.ProduccionFinal.get(symbol);
-        if (productions != null) {
-            table[i][i].addAll(productions);
+        char terminal = word.charAt(i);
+        for (int j = 0; j < nonTerminals.size(); j++) {
+            char nonTerminal = nonTerminals.get(j);
+            ArrayList<String> productions = ProduccionFinal.get(nonTerminal);
+
+            if (productions != null) {
+                for (String production : productions) {
+                    if (production.length() == 1 && production.charAt(0) == terminal) {
+                        table.get(i).get(0).add(nonTerminal);
+                    }
+                }
+            }
         }
     }
 
-    // Calcular las derivaciones para las subcadenas de longitud mayor a 1
-    for (int j = 1; j < n; j++) {
-        for (int i = j - 1; i >= 0; i--) {
-            for (int k = i; k < j; k++) {
-                ArrayList<String> leftProductions = table[i][k];
-                ArrayList<String> rightProductions = table[k + 1][j];
-                ArrayList<String> combinedProductions = table[i][j];
+    // Llenar la tabla con las producciones generales
+    for (int length = 2; length <= n; length++) {
+        for (int start = 0; start <= n - length; start++) {
+            for (int k = 1; k <= length - 1; k++) {
+                int end = start + length - 1;
+                for (int i = 0; i < nonTerminals.size(); i++) {
+                    char nonTerminal = nonTerminals.get(i);
+                    ArrayList<String> productions = ProduccionFinal.get(nonTerminal);
 
-                for (String left : leftProductions) {
-                    for (String right : rightProductions) {
-                        String combined = left + right;
-                        ArrayList<String> nonTerminalProductions = this.ProduccionFinal.get(combined);
-                        if (nonTerminalProductions != null) {
-                            combinedProductions.addAll(nonTerminalProductions);
+                    if (productions != null) {
+                        for (String production : productions) {
+                            if (production.length() == 2) {
+                                char A = production.charAt(0);
+                                char B = production.charAt(1);
+
+                                Set<Character> setA = table.get(start).get(k - 1);
+                                Set<Character> setB = table.get(start + k).get(length - k - 1);
+
+                                if (setA.contains(A) && setB.contains(B)) {
+                                    table.get(start).get(length - 1).add(nonTerminal);
+                                }
+                            }
                         }
                     }
                 }
@@ -260,14 +309,19 @@ public boolean isDerived(String word) throws CYKAlgorithmException {
         }
     }
 
-    // Verificar si el símbolo inicial está presente en la última celda de la tabla
-    ArrayList<String> startProductions = table[0][n - 1];
-    if (startProductions.contains(String.valueOf(axioma))) {
-        return true;
-    } else {
-        return false;
-    }
+    // Comprobar si el axioma está en la última celda de la tabla
+    Set<Character> axiomaSet = table.get(0).get(n - 1);
+    return axiomaSet.contains(axioma);
 }
+
+
+
+
+
+
+
+
+
 
 
 
