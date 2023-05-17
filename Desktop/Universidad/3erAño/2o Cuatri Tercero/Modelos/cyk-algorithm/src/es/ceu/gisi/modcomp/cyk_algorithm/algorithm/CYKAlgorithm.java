@@ -184,7 +184,6 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
         
        
        
-        //CONDICION EN COMENTARIO
         //Lanza una excepción si ya existe una producción asociada al mismo elemento no terminal y con el mismo valor.
        if (ProduccionFinal.entrySet().stream()
         .anyMatch(entry -> entry.getKey() == nonterminal && entry.getValue().contains(production))) {
@@ -347,10 +346,108 @@ public boolean isDerived(String word) throws CYKAlgorithmException {
      * conjunto de terminales definido para la gramática introducida, si la
      * gramática es vacía o si el autómata carece de axioma.
      */
-    public String algorithmStateToString(String word) throws CYKAlgorithmException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    
+public String algorithmStateToString(String word) throws CYKAlgorithmException {
+    // Validaciones iniciales
+    if (word.isEmpty()) {
+        throw new CYKAlgorithmException();
     }
 
+    for (char c : word.toCharArray()) {
+        if (!terminals.contains(c)) {
+            throw new CYKAlgorithmException();
+        }
+    }
+
+    if (terminals.isEmpty()) {
+        throw new CYKAlgorithmException();
+    }
+
+    if (nonTerminals.isEmpty()) {
+        throw new CYKAlgorithmException();
+    }
+
+    if (axioma == '\0') {
+        throw new CYKAlgorithmException();
+    }
+
+    // Algoritmo CYK
+    int n = word.length();
+    List<List<Set<Character>>> table = new ArrayList<>(n);
+
+    // Inicializar tabla
+    for (int i = 0; i < n; i++) {
+        table.add(new ArrayList<>(n));
+        for (int j = 0; j < n; j++) {
+            table.get(i).add(new HashSet<>());
+        }
+    }
+
+    // Llenar la tabla con las producciones unitarias
+    for (int i = 0; i < n; i++) {
+        char terminal = word.charAt(i);
+        for (int j = 0; j < nonTerminals.size(); j++) {
+            char nonTerminal = nonTerminals.get(j);
+            ArrayList<String> productions = ProduccionFinal.get(nonTerminal);
+
+            if (productions != null) {
+                for (String production : productions) {
+                    if (production.length() == 1 && production.charAt(0) == terminal) {
+                        table.get(i).get(0).add(nonTerminal);
+                    }
+                }
+            }
+        }
+    }
+
+    // Llenar la tabla con las producciones generales
+    for (int length = 2; length <= n; length++) {
+        for (int start = 0; start <= n - length; start++) {
+            for (int k = 1; k <= length - 1; k++) {
+                int end = start + length - 1;
+                for (int i = 0; i < nonTerminals.size(); i++) {
+                    char nonTerminal = nonTerminals.get(i);
+                    ArrayList<String> productions = ProduccionFinal.get(nonTerminal);
+
+                    if (productions != null) {
+                        for (String production : productions) {
+                            if (production.length() == 2) {
+                                char A = production.charAt(0);
+                                char B = production.charAt(1);
+
+                                Set<Character> setA = table.get(start).get(k - 1);
+                                Set<Character> setB = table.get(start + k).get(length - k - 1);
+
+                                if (setA.contains(A) && setB.contains(B)) {
+                                    table.get(start).get(length - 1).add(nonTerminal);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Construir el String de salida
+    StringBuilder sb = new StringBuilder();
+    sb.append("  ");
+    for (int i = 1; i <= n; i++) {
+        sb.append(String.format("%5d", i));
+    }
+    sb.append("\n");
+    for (int j = 0; j < n; j++) {
+        sb.append(String.format("%2d", j + 1));
+        for (int i = 0; i < n - j; i++) {
+            Set<Character> set = table.get(i).get(j);
+        
+            sb.append(String.format("%7s", set.toString()));
+        }
+        sb.append("\n");
+    }
+    return sb.toString();
+}
+                    
     @Override
     /**
      * Elimina todos los elementos que se han introducido hasta el momento en la
