@@ -12,7 +12,6 @@ import java.util.Set;
 
 
 
-//Comentario de prueba
 /**
  * Esta clase contiene la implementación de la interfaz CYKAlgorithmInterface
  * que establece los métodos necesarios para el correcto funcionamiento del
@@ -24,7 +23,6 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
     private final ArrayList<Character> nonTerminals = new ArrayList<>();
     private final LinkedList<Character> terminals = new LinkedList<>();
     private final HashMap<Character, ArrayList<String>> ProduccionFinal = new HashMap<>();
-   // private final HashMap<String, ArrayList<Character>> ProduccionInversa = new HashMap<>();
 
     
    
@@ -193,19 +191,7 @@ public class CYKAlgorithm implements CYKAlgorithmInterface {
             productions.add(production);
             ProduccionFinal.put(nonterminal, productions);
         }
-       /*   
-      if (ProduccionInversa.entrySet().stream().anyMatch(entry -> entry.getKey() == nonterminal && entry.getValue().contains(production))) {
-    throw new CYKAlgorithmException();
-}
-       else {
-            productions.add(production);
-            ProduccionInversa.put(production, new ArrayList());
-        }
-          
-       */
-       
-            
-        
+     
       
 }         
     
@@ -310,25 +296,11 @@ public boolean isDerived(String word) throws CYKAlgorithmException {
 
     // Comprobar si el axioma está en la última celda de la tabla
     Set<Character> axiomaSet = table.get(0).get(n - 1);
+    algorithmStateToString(word);
     return axiomaSet.contains(axioma);
+    
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-        
-        
-       
-    
 
     @Override
     /**
@@ -346,7 +318,7 @@ public boolean isDerived(String word) throws CYKAlgorithmException {
      * conjunto de terminales definido para la gramática introducida, si la
      * gramática es vacía o si el autómata carece de axioma.
      */
-    
+
 public String algorithmStateToString(String word) throws CYKAlgorithmException {
     // Validaciones iniciales
     if (word.isEmpty()) {
@@ -429,11 +401,12 @@ public String algorithmStateToString(String word) throws CYKAlgorithmException {
         }
     }
 
+
     // Construir el String de salida
     StringBuilder sb = new StringBuilder();
-    sb.append("  ");
+    sb.append(" ");
     for (int i = 1; i <= n; i++) {
-        sb.append(String.format("%5d", i));
+        sb.append(String.format("%7d", i));
     }
     sb.append("\n");
     for (int j = 0; j < n; j++) {
@@ -445,8 +418,11 @@ public String algorithmStateToString(String word) throws CYKAlgorithmException {
         }
         sb.append("\n");
     }
+    
+    System.out.println(sb.toString());
     return sb.toString();
-}
+    }
+
                     
     @Override
     /**
