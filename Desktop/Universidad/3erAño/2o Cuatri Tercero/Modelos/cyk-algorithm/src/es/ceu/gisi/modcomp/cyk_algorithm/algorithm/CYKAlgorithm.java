@@ -269,7 +269,6 @@ public boolean isDerived(String word) throws CYKAlgorithmException {
     for (int length = 2; length <= n; length++) {
         for (int start = 0; start <= n - length; start++) {
             for (int k = 1; k <= length - 1; k++) {
-                int end = start + length - 1;
                 for (int i = 0; i < nonTerminals.size(); i++) {
                     char nonTerminal = nonTerminals.get(i);
                     ArrayList<String> productions = ProduccionFinal.get(nonTerminal);
@@ -376,7 +375,6 @@ public String algorithmStateToString(String word) throws CYKAlgorithmException {
     for (int length = 2; length <= n; length++) {
         for (int start = 0; start <= n - length; start++) {
             for (int k = 1; k <= length - 1; k++) {
-                int end = start + length - 1;
                 for (int i = 0; i < nonTerminals.size(); i++) {
                     char nonTerminal = nonTerminals.get(i);
                     ArrayList<String> productions = ProduccionFinal.get(nonTerminal);
