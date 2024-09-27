@@ -11,6 +11,7 @@ var pool = mariadb.createPool({
   pool.getConnection().then((conn) => { // 1. Pedimos una conexión a la base de datos
     console.log('conexión establecida');
     setUp(conn);
+
   })
 
   // setup
@@ -23,6 +24,9 @@ var pool = mariadb.createPool({
         + ", surname VARCHAR(50) NOT NULL, username VARCHAR(50) NOT NULL UNIQUE, password VARCHAR(20) NOT NULL "
         + ", email VARCHAR(50) NOT NULL UNIQUE)"
      )
+    conn.query("CREATE TABLE IF NOT EXISTS ads (id_ad INT PRIMARY KEY NOT NULL AUTO_INCREMENT, description VARCHAR(300) NOT NULL"
+        + ", price DOUBLE NOT NULL, state BOOLEAN NOT NULL, university VARCHAR(20), photo VARCHAR(20) NOT NULL)"
+    )
   }
 
 
