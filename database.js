@@ -1,17 +1,22 @@
 const mysql = require("mariadb");
 
-var pool = mariadb.createPool({
+var pool1 = mariadb.createPool({
     host: "localhost",
     user: "root", 
     password: "root",
     database: "cs"
   });
  
+  var pool2 = mariadb.createPool({
+    host: "localhost",
+    user: "root", 
+    password: "root",
+    database: "cs"
+  });
 
-  pool.getConnection().then((conn) => { // 1. Pedimos una conexión a la base de datos
+  pool1.getConnection().then((conn) => { // 1. Pedimos una conexión a la base de datos
     console.log('conexión establecida');
     setUp(conn);
-
   })
 
   // setup
@@ -30,4 +35,18 @@ var pool = mariadb.createPool({
   }
 
 
-module.exports = {pool};
+// // insertar usuarios
+// function insertUser(name, surname, username, password, email) {
+//     pool1.getConnection().then((conn) => {
+//         let sql = `INSERT INTO user (name, surname, username, password, email) 
+//         VALUES ("${name}",
+//                 "${surname}",
+//                 "${username}".
+//                 "${password},   
+//                 "${email}"))`;
+//     })
+// }
+
+
+
+module.exports = {pool1, pool2};
