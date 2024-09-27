@@ -4,7 +4,6 @@
   "description": "Una app web para compra y venta de artículos entre universitarios",
   "scripts": {
     "dev": "nodemon app.js"
-
   },
   "author": "Myriam Figueroa, Ramiro Marcos, David Pérez, Tommaso Bazzanela, Ángel Castillo y Elena Cores",
   "license": "ISC",
@@ -12,6 +11,7 @@
     "ejs": "~2.6.1",
     "express": "^4.21.0",
     "http-errors": "~1.6.3",
+    "mariadb": "^3.3.2",
     "path": "^0.12.7"
   },
   "directories": {
