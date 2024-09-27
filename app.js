@@ -22,8 +22,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Rutas
-app.use('/', indexRouter);
+app.use('/index', indexRouter);
 app.use('/users', usersRouter);
+
 
 // Manejo de errores 404 y reenvío al manejador de errores
 // Si no se encuentra la ruta, se pasa un error 404
