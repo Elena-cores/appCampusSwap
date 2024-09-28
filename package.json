@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Una app web para compra y venta de artículos entre universitarios",
   "scripts": {
+    "start": "node app.js",
     "dev": "nodemon app.js"
   },
   "author": "Myriam Figueroa, Ramiro Marcos, David Pérez, Tommaso Bazzanela, Ángel Castillo y Elena Cores",
