@@ -28,3 +28,9 @@ Para instalar las dependencias usar el comando:
 >npm install
 ~~~
 
+Para ejecutar la aplicación usar el comando:
+~~~
+>npm start
+~~~
+
+
