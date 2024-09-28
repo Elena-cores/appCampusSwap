@@ -7,7 +7,7 @@ Myriam Figueroa, Ramiro Marcos, David Pérez, Tommaso Bazzanela, Ángel Castillo
 Esta aplicación web está diseñada para estudiantes universitarios que buscan comprar, vender o intercambiar productos dentro de la comunidad universitaria. Los usuarios pueden registrarse, publicar anuncios de productos en venta, explorar artículos disponibles, y utilizar un sistema de mensajería interna para negociar las transacciones. Incluye funciones de filtrado por categorías y universidades, gestión de perfil, valoraciones entre compradores y vendedores, y notificaciones en tiempo real. 
 
 ## Requisitos para su ejecución
-Es necesario tener instaladas las herramientas de `Node.js`, una shell para ejecutar el entorno, y por último, un navegador para acceder a la aplicación (se recomienda Chrome).
+Es necesario tener instaladas las herramientas de `Node.js`, la base de datos `MariaDB`, una shell para ejecutar el entorno, y un navegador para acceder a la aplicación (se recomienda Chrome).
 
 ## Preparación del entorno 
 ### Instalación de Node.js
@@ -21,3 +21,15 @@ Y debería haber obtenido una versión igual o superior a la siguiente salida po
 ~~~
 v20.16.0
 ~~~
+
+## Información de ejecución
+Para instalar las dependencias usar el comando:
+~~~
+>npm install
+~~~
+
+Para ejecutar la aplicación usar el comando:
+~~~
+>npm start
+~~~
+
