@@ -57,18 +57,18 @@ server.on('error', (error) => {
   const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
 
   // Manejar errores específicos
-switch (error.code) {
-  case 'EACCES':
-    console.error(`${bind} requiere privilegios elevados`);
-    process.exit(1);
-    break;
-  case 'EADDRINUSE':
-    console.error(`${bind} ya está en uso`);
-    process.exit(1);
-    break;
-  default:
-    throw error;
-  }
+  switch (error.code) {
+    case 'EACCES':
+      console.error(`${bind} requiere privilegios elevados`);
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(`${bind} ya está en uso`);
+      process.exit(1);
+      break;
+    default:
+      throw error;
+    }
 });
 
 module.exports = app;
