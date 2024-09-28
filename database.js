@@ -18,12 +18,16 @@ var pool1 = mariadb.createPool({
     console.log('conexión establecida');
     setUp(conn);
     console.log("La base de datos está creada");
-    conn.end(); // liberar la conexión si se ha establecido
   }).catch((err) => {
     console.log(err);
     console.log("Conexión no establecida");
     conn.end();
+  }).finally(() => {
+    if (conn) {
+        conn.end(); // Cerrar la conexión si se ha establecido
+    }
   });
+
 
   // setup
 
@@ -44,25 +48,53 @@ var pool1 = mariadb.createPool({
 
 
 // // insertar usuarios
-// function insertUser(name, surname, username, password, email) {
+// function insertUser(name, surname, username, password, email) {  //variables se extraerán de formulario ejs 
 //     pool2.getConnection().then((conn) => {
 //         let sql = `INSERT INTO user (name, surname, username, password, email) 
-//         VALUES ("${name}",
+//         VALUES ("${name}", 
 //                 "${surname}",
 //                 "${username}".
 //                 "${password},   
-//                 "${email}"))`;
-//         conn.query(sql).catch(err => { 
+//                 "${email}")`;
+
+//         conn.query(sql).then(() => {
+//             console.log("Usuario insertado con éxito");
+//         }).catch(err => { 
 //             console.log(err);
 //             console.log(err.message);
-//           });
-//         conn.end();
+//         }).finally(() => {
+//             conn.end(); // Cerrar la conexión
+//         });
 //     }).catch((err) => {
-//       mensajeError = "No se puedo conectar";  
+//         console.log("No se pudo conectar");  
+//         console.log(err);
+//     });
+// }
+
+// // Insertar publicaciones/ads
+// function insertAd(description, price, state, university, photo) {
+//   pool2.getConnection().then((conn) => {
+//       let sql = `INSERT INTO ads (description, price, state, university, photo) 
+//       VALUES ("${description}", 
+//               "${price}",
+//               "${state}",
+//               "${university}",
+//               "${photo}")`;
+      
+//       conn.query(sql).then(() => {
+//           console.log("Publicación insertada con éxito");
+//       }).catch(err => { 
+//           console.log(err);
+//           console.log(err.message);
+//       }).finally(() => {
+//           conn.end();
+//       });
+//     }).catch((err) => {
+//       console.log("No se pudo conectar");  
 //       console.log(err);
 //     });
 // }
 
 
+module.exports = {pool1, pool2, setUp};
 
-module.exports = {pool1, pool2};
