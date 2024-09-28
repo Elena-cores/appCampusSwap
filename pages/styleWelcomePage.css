@@ -1,0 +1,80 @@
+html{
+	background: linear-gradient(#0095DB, #005075);
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.RecuadroPrincipal{
+	background-color: white;
+	width: 430px;
+	height: 600px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	text-align: center;
+	border-radius: 20px;
+	padding: 10px;
+}
+
+.logo-img{
+	width: 220px;
+	height: 150px;
+	margin-bottom: 30px;
+}
+
+.Registro{
+	background-color: #00C2CB;
+	color: white;
+	padding: 10px 80px;
+	border: none;
+	border-radius: 15px;
+	font-size: 18px;
+	text-align: center;
+	justify-content: center;
+	margin-bottom: 20px;
+	font-family: "Bebas Neue", sans-serif;
+}
+
+.IniciarSesion{
+	background-color: #00C2CB;
+	color: white;
+	padding: 10px 66px;
+	border: none;
+	border-radius: 15px;
+	font-size: 18px;
+	text-align: center;
+	justify-content: center;
+	margin-bottom: 30px;
+	font-family: "Bebas Neue", sans-serif;
+}
+
+.RecuadroPrincipalRegistro{
+	background-color: white;
+	width: 430px;
+	height: 600px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	position: relative;
+	text-align: center;
+	border-radius: 20px;
+	padding: 10px;
+}
+
+
+.titulo{
+	font-size: 18px;
+	font-family: "Bebas Neue", sans-serif;
+}
+
+.logo-img-registro{
+	width: 140px;
+	height: 100px;
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
