@@ -1,0 +1,59 @@
+
+.botones {
+    display: flex;
+    justify-content: space-between; 
+    margin-top: 30px;
+    padding: 0 20px;
+}
+
+.borrar-producto-boton, .nuevo-anuncio-boton, .seguir-comprando-boton {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 15px; 
+    
+}
+
+.icon {
+    width: 40px; 
+    height: 40px;
+}
+
+.borrar-producto-boton span, .nuevo-anuncio-boton span {
+    font-size: 16px; 
+}
+
+.seguir-comprando-boton {
+    float: right;
+    margin: 20px;
+}
+
+
+.product-item {
+    display: flex;
+    align-items: center;
+    background: #ffffff; 
+    padding: 20px; 
+    border-radius: 15px; 
+}
+
+
+
+.venta-vendidos-boton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.seccion-productos h2 {
+    margin-bottom: 15px; 
+}
+
+.pestañas-productos {
+    margin-bottom: 20px;
+}
