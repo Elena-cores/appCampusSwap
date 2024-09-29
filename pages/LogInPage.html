@@ -12,21 +12,21 @@
 		<img src="LogoCampusSwap.png" alt="LogoIso" class="logo-img-login">
 		<h1 class="tituloLogIn"> ¡Te damos la bienvenida! </h1>
 
-		<form action="/login" method="post">
+		<form action="/login" method="POST">
 			<div class="container">
 				
 				<div class="input-login">
-					<input type="text" placeholder="Dirección de e-mail">
+					<input required type="email" placeholder="Dirección de e-mail">
 				</div>
 
 				<div class="input-login">
-					<input type="text" placeholder="Contraseña">
+					<input required type="password" placeholder="Contraseña">
 				</div>
 
 				<a href="#" class="olvidado"> ¿Has olvidado tu contraseña? </a>
 
 				<div class="botonAcceder">
-					<button id="logInbutton" type="button"> Accede a campus swap </button>
+					<button id="logInbutton" type="submit"> Accede a campus swap </button>
 				</div>
 			</div>
 		</form>

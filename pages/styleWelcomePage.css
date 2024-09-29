@@ -32,7 +32,7 @@ html{
 	padding: 10px 80px;
 	border: none;
 	border-radius: 15px;
-	font-size: 20px;
+	font-size: 19px;
 	text-align: center;
 	justify-content: center;
 	margin-bottom: 20px;
@@ -45,7 +45,7 @@ html{
 	padding: 10px 66px;
 	border: none;
 	border-radius: 15px;
-	font-size: 20px;
+	font-size: 19px;
 	text-align: center;
 	justify-content: center;
 	margin-bottom: 30px;
@@ -69,6 +69,7 @@ html{
 .titulo{
 	font-size: 19px;
 	font-family: "Bebas Neue", sans-serif;
+	margin-bottom: 8px;
 }
 
 .logo-img-registro{

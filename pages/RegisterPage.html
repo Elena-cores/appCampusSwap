@@ -12,31 +12,30 @@
 		<img src="LogoCampusSwap.png" alt="LogoIso" class="logo-img-registro">
 		<h1 class="titulo"> Únete a campus swap </h1>
 
-		<form action="/register" method="post">
+		<form action="/register" method="POST">
 			<div class="container">
-				
 				<div class="input-register">
-					<input type="text" placeholder="Nombre">
+					<input required type="text" placeholder="Nombre">
 				</div>
 
 				<div class="input-register">
-					<input type="text" placeholder="Apellidos">
+					<input required type="text" placeholder="Apellidos">
 				</div>
 
 				<div class="input-register">
-					<input type="text" placeholder="Nombre de usuario">
+					<input required type="text" placeholder="Nombre de usuario">
 				</div>
 
 				<div class="input-register">
-					<input type="text" placeholder="Dirección de e-mail">
+					<input required type="email" placeholder="Dirección de e-mail">
 				</div>
 
 				<div class="input-register">
-					<input type="text" placeholder="Contraseña">
+					<input required type="password" placeholder="Contraseña">
 				</div>
 
 				<div class="botonCrearCuenta">
-					<button id="registerbutton" type="button"> Crear Cuenta </button>
+					<button id="registerbutton" type="submit"> Crear Cuenta </button>
 				</div>
 			</div>
 		</form>
