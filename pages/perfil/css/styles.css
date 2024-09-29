@@ -90,3 +90,12 @@ header {
   border: 1px solid #ccc;
   border-radius: 20px;
 }
+
+.logo-campus-swap {
+  width: 150px;  /* Ajusta el tamaño según prefieras */
+  height: auto;
+    position: relative;
+    left: -75px;  /* Desplaza la imagen hacia la izquierda */
+    margin-left: auto;  /* Asegura que se mantenga a la derecha de la barra de búsqueda */
+    margin-top: -35px;  /* Desplaza la imagen hacia arriba */
+}
