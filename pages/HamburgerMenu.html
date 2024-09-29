@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <link rel="stylesheet" href="hamburger.css">
+</head>
+<body>
+    <script>
+        function myFunction(x) {
+            x.classList.toggle("change");
+            const menuSection = document.getElementById('dropdown-content');
+            menuSection.classList.toggle('active');
+        }
+    </script>
+
+    <div class="hamburger-menu" onclick="myFunction(this)">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </div>
+
+    <div id="dropdown-content" class="dropdown-content">
+        <p><a href="">LIBROS</a></p>
+        <p><a href="">ARTÍCULOS DE<br>HOGAR</a></p>
+        <p>UNIVERSIDADES</p>
+        <ul>
+            <li><a href="">CEU</a></li>
+            <li><a href="">UCM</a></li>
+            <li><a href="">UPM</a></li>
+        </ul>
+    </div>
+</body>
+</html>
