@@ -32,7 +32,7 @@ html{
 	padding: 10px 80px;
 	border: none;
 	border-radius: 15px;
-	font-size: 18px;
+	font-size: 20px;
 	text-align: center;
 	justify-content: center;
 	margin-bottom: 20px;
@@ -45,7 +45,7 @@ html{
 	padding: 10px 66px;
 	border: none;
 	border-radius: 15px;
-	font-size: 18px;
+	font-size: 20px;
 	text-align: center;
 	justify-content: center;
 	margin-bottom: 30px;
@@ -66,15 +66,140 @@ html{
 	padding: 10px;
 }
 
-
 .titulo{
-	font-size: 18px;
+	font-size: 19px;
 	font-family: "Bebas Neue", sans-serif;
 }
 
 .logo-img-registro{
-	width: 140px;
-	height: 100px;
-	margin-top: 20px;
+	width: 150px;
+	height: 110px;
+	margin-top: 40px;
 	margin-bottom: 5px;
+}
+
+.container{
+	width: 100%;
+	max-width: 450px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10px;
+}
+
+.input-register{
+	width: 100%;
+	max-width: 400px;
+	margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+}
+
+.input-register input{
+	width: 100%;
+	padding: 10px;
+	border: 2px solid black;
+	border-radius: 30px;
+	font-size: 18px;
+	text-align: left;
+	font-family: "Bebas Neue", sans-serif;
+}
+
+.botonCrearCuenta{
+	width: 100%;
+	max-width: 400px;
+	display: flex;
+	justify-content: center;
+	margin-top: 15px;
+}
+
+#registerbutton{
+	background-color: #00C2CB;
+	color: white;
+	border: none;
+	border-radius: 15px;
+	padding: 10px 80px;
+	font-size: 18px;
+	text-align: center;
+	font-family: "Bebas Neue", sans-serif;
+}
+
+#registerbutton:hover{
+	background-color: #009aa3;
+}
+
+.RecuadroPrincipalLogIn{
+	background-color: white;
+	width: 430px;
+	height: 600px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	position: relative;
+	text-align: center;
+	border-radius: 20px;
+	padding: 10px;
+}
+
+.logo-img-login{
+	width: 180px;
+	height: 130px;
+	margin-top: 70px;
+	margin-bottom: 15px;
+}
+
+.input-login{
+	width: 100%;
+	max-width: 400px;
+	margin-bottom: 20px;
+	display: flex;
+	align-items: center;
+}
+
+.input-login input{
+	width: 100%;
+	padding: 10px;
+	border: 2px solid black;
+	border-radius: 30px;
+	font-size: 18px;
+	text-align: left;
+	font-family: "Bebas Neue", sans-serif;
+}
+
+.olvidado{
+	font-size: 18px;
+	font-family: "Bebas Neue", sans-serif;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.tituloLogIn{
+	font-size: 19px;
+	font-family: "Bebas Neue", sans-serif;
+	margin-bottom: 15px;
+}
+
+.botonAcceder{
+	width: 100%;
+	max-width: 400px;
+	display: flex;
+	justify-content: center;
+	margin-top: 15px;
+}
+
+#logInbutton{
+	background-color: #02cad5;
+	color: white;
+	border: none;
+	border-radius: 15px;
+	padding: 10px 70px;
+	font-size: 18px;
+	text-align: center;
+	font-family: "Bebas Neue", sans-serif;
+}
+
+#logInbutton:hover{
+	background-color: #009aa3;
 }
