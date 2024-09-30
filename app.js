@@ -5,6 +5,8 @@ var http = require('http');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var loginRouter = require('./routes/login');
+var registerRouter = require('./routes/register');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -23,6 +25,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Rutas
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/login', loginRouter);
+app.use('/register', registerRouter);
 
 
 // Manejo de errores 404 y reenvío al manejador de errores
