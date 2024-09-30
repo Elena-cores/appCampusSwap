@@ -2,7 +2,6 @@ var express = require('express');   // importar framework Express
 var createError = require('http-errors');   // módulo para manejar errores HTTP
 var path = require('path');     //modulo para manejar rutas de archivos
 var http = require('http');
-//var cookieParser = require('cookie-parser');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -33,7 +32,7 @@ app.use(function(req, res, next) {
 });
 
 // Manejador de errores
-app.use(function(err, req, res) {
+app.use(function(err, req, res, next) {
   // Definir locales, solo proporcionar errores en desarrollo
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
