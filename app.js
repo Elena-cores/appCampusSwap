@@ -33,7 +33,7 @@ app.use(function(req, res, next) {
 });
 
 // Manejador de errores
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   // Definir locales, solo proporcionar errores en desarrollo
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -54,9 +54,9 @@ server.listen(port, () => {
 
 server.on('error', (error) => {
   if (error.syscall !== 'listen') throw error;
-  const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
+  const bind = `Port ${port}`;
 
-  // Manejar errores específicos
+  // Manejar errores específicos de puerto
   switch (error.code) {
     case 'EACCES':
       console.error(`${bind} requiere privilegios elevados`);
