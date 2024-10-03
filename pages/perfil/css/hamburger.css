@@ -1,6 +1,7 @@
 .hamburger-menu {
     display: inline-block;
     cursor: pointer;
+    margin-left: 50px;
 }
   
 .bar1, .bar2, .bar3 {
@@ -44,4 +45,53 @@
 
 .active {
     display: block;
+}
+
+.logo-campus-swap {
+    width: 175px;  
+    height: auto;
+    position: relative;
+    left: 15px;  
+    margin-left: auto;  
+    margin-top: 15px;  
+  }
+  
+
+  .barra-busqueda {
+    width: 70%;
+    padding: 10px;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-left: 80px;
+    
+    
+  }
+
+  .boton-buscar {
+    padding: 15px 50px;
+    border: none;
+    background: #007bff;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 50px;
+}
+
+.logo-favoritos,
+.logo-buzon,
+.logo-perfil {
+    width: 90px;  
+    height: auto;
+    border-radius: 60%;
+  
+}
+
+
+
+.iconos-derecha {
+    position: absolute;
+    right: 125px; 
+    top: 55px; 
+    display: flex;
+    gap: 30px
 }

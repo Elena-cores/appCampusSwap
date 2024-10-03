@@ -89,13 +89,14 @@ header {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 20px;
+  margin-top: 40px;
 }
 
 .logo-campus-swap {
-  width: 150px;  
+  width: 175px;  
   height: auto;
-    position: relative;
-    left: -75px;  
-    margin-left: auto;  
-    margin-top: -35px;  
+  position: relative;
+  left: -75px;  
+  margin-left: auto;  
+  margin-top: -50px;  
 }
