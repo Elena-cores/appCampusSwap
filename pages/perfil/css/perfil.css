@@ -32,13 +32,7 @@
 }
 
 
-.product-item {
-    display: flex;
-    align-items: center;
-    background: #ffffff; 
-    padding: 20px; 
-    border-radius: 15px; 
-}
+
 
 
 
@@ -57,4 +51,31 @@
 
 .pestañas-productos {
     margin-bottom: 20px;
+}
+
+
+.product-list {
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+}
+
+.product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f7f4f4;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.product img {
+    width: 60px;
+    height: auto;
+    margin-right: 15px;
+}
+
+.product-info {
+    flex-grow: 1;
 }
