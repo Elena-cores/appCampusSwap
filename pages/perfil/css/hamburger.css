@@ -38,7 +38,7 @@
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
     margin-left: 50px;
-    margin-top: 30px;
+    margin-top: 40px;
 }
 .dropdown-content a{
     color: black;
@@ -133,4 +133,9 @@
     font-weight: bold;
     color: #333;
     margin-top: 5px;
+}
+
+.move-right {
+    transform: translateX(230px);
+    transition: transform 0.4s ease;
 }
