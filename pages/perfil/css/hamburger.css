@@ -2,6 +2,7 @@
     display: inline-block;
     cursor: pointer;
     margin-left: 50px;
+    margin-top: -50px;
 }
   
 .bar1, .bar2, .bar3 {
@@ -36,6 +37,8 @@
     color: black;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
+    margin-left: 50px;
+    margin-top: 30px;
 }
 .dropdown-content a{
     color: black;
@@ -61,7 +64,6 @@
     width: 70%;
     padding: 10px;
     border-radius: 20px;
-    margin-top: 20px;
     margin-left: 80px;
     
     
@@ -86,12 +88,49 @@
   
 }
 
-
-
 .iconos-derecha {
     position: absolute;
     right: 125px; 
     top: 55px; 
     display: flex;
     gap: 30px
+}
+
+.publicaciones-pack {
+    display: flex;
+    margin-top: 20px;
+    margin-left: 50px;
+    gap: 50px;
+}
+
+.publicaciones {
+    border: 1px solid #00bcd4; 
+    border-radius: 8px;
+    padding: 10px;
+    width: 200px; 
+    margin: 10px;
+    text-align: center;
+    background-color: #fff;
+    margin-top: 20px;
+    
+}
+
+.imagen-producto {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.contenido-publicaciones {
+    margin-top: 10px;
+}
+
+.descripcion-producto {
+    color: #333;
+}
+
+.precio-producto {
+    font-weight: bold;
+    color: #333;
+    margin-top: 5px;
 }
