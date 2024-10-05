@@ -1,40 +1,37 @@
-const mariadb = require("mariadb");
+const mysql = require("mariadb");
 
-var pool1 = mariadb.createPool({
+const pool1 = mysql.createPool({
     host: "localhost",
     user: "root", 
-    password: "root",
-    database: "cs"
-  });
- 
-  var pool2 = mariadb.createPool({
-    host: "localhost",
-    user: "root", 
-    password: "root",
-    database: "cs"
+    password: "root"
   });
 
-  pool1.getConnection().then((conn) => { // 1. Pedimos una conexión a la base de datos
+  var pool2 = mysql.createPool({
+    host: "localhost",
+    user: "root", 
+    password: "root"
+  });
+
+
+
+  pool1.getConnection().then(async (conn) => { // 1. Pedimos una conexión a la base de datos
     console.log('conexión establecida');
     setUp(conn);
+    conn.end(); 
     console.log("La base de datos está creada");
-  }).catch((err) => {
-    console.log(err);
-    console.log("Conexión no establecida");
-    conn.end();
-  }).finally(() => {
-    if (conn) {
-        conn.end(); // Cerrar la conexión si se ha establecido
-    }
+    // Cerrar la conexión si se ha establecido
+    }).catch((err) => {
+      console.log(err);
+      console.log('conexión no establecida');
+      conn.end(); 
+      
   });
 
-
   // setup
-
   function setUp(conn){
-    conn.query("CREATE DATABASE IF NOT EXISTS cs CHARACTER SET='utf8' COLLATE='utf8_bin'");
-    conn.query("USE cs");
-    console.log("bd cs OK");
+    conn.query("CREATE DATABASE IF NOT EXISTS campus CHARACTER SET='utf8' COLLATE='utf8_bin'");
+    conn.query("USE campus");
+    console.log("bd campus OK");
     conn.query("CREATE TABLE IF NOT EXISTS user (id_user INT PRIMARY KEY NOT NULL AUTO_INCREMENT, name VARCHAR(50) NOT NULL "
         + ", surname VARCHAR(50) NOT NULL, username VARCHAR(50) NOT NULL UNIQUE, password VARCHAR(20) NOT NULL "
         + ", email VARCHAR(50) NOT NULL UNIQUE)"
@@ -46,54 +43,6 @@ var pool1 = mariadb.createPool({
     console.log("Tabla ads OK");
   }
 
-
-// // insertar usuarios
-// function insertUser(name, surname, username, password, email) {  //variables se extraerán de formulario ejs 
-//     pool2.getConnection().then((conn) => {
-//         let sql = `INSERT INTO user (name, surname, username, password, email) 
-//         VALUES ("${name}", 
-//                 "${surname}",
-//                 "${username}".
-//                 "${password},   
-//                 "${email}")`;
-
-//         conn.query(sql).then(() => {
-//             console.log("Usuario insertado con éxito");
-//         }).catch(err => { 
-//             console.log(err);
-//             console.log(err.message);
-//         }).finally(() => {
-//             conn.end(); // Cerrar la conexión
-//         });
-//     }).catch((err) => {
-//         console.log("No se pudo conectar");  
-//         console.log(err);
-//     });
-// }
-
-// // Insertar publicaciones/ads
-// function insertAd(description, price, state, university, photo) {
-//   pool2.getConnection().then((conn) => {
-//       let sql = `INSERT INTO ads (description, price, state, university, photo) 
-//       VALUES ("${description}", 
-//               "${price}",
-//               "${state}",
-//               "${university}",
-//               "${photo}")`;
-      
-//       conn.query(sql).then(() => {
-//           console.log("Publicación insertada con éxito");
-//       }).catch(err => { 
-//           console.log(err);
-//           console.log(err.message);
-//       }).finally(() => {
-//           conn.end();
-//       });
-//     }).catch((err) => {
-//       console.log("No se pudo conectar");  
-//       console.log(err);
-//     });
-// }
 
 
 module.exports = {pool1, pool2, setUp};

@@ -36,7 +36,7 @@ html{
 	text-align: center;
 	justify-content: center;
 	margin-bottom: 20px;
-	font-family: "Bebas Neue", sans-serif;
+	font-family: "Arial", sans-serif;
 }
 
 .IniciarSesion{
@@ -49,7 +49,7 @@ html{
 	text-align: center;
 	justify-content: center;
 	margin-bottom: 30px;
-	font-family: "Bebas Neue", sans-serif;
+	font-family: "Arial", sans-serif;
 }
 
 .RecuadroPrincipalRegistro{
@@ -68,7 +68,7 @@ html{
 
 .titulo{
 	font-size: 19px;
-	font-family: "Bebas Neue", sans-serif;
+	font-family: "Arial", sans-serif;
 	margin-bottom: 8px;
 }
 
@@ -104,7 +104,7 @@ html{
 	border-radius: 30px;
 	font-size: 18px;
 	text-align: left;
-	font-family: "Bebas Neue", sans-serif;
+	font-family: "Arial", sans-serif;
 }
 
 .botonCrearCuenta{
@@ -123,7 +123,7 @@ html{
 	padding: 10px 80px;
 	font-size: 18px;
 	text-align: center;
-	font-family: "Bebas Neue", sans-serif;
+	font-family: "Arial", sans-serif;
 }
 
 #registerbutton:hover{
@@ -166,19 +166,19 @@ html{
 	border-radius: 30px;
 	font-size: 18px;
 	text-align: left;
-	font-family: "Bebas Neue", sans-serif;
+	font-family: "Arial", sans-serif;
 }
 
 .olvidado{
 	font-size: 18px;
-	font-family: "Bebas Neue", sans-serif;
+	font-family: "Arial", sans-serif;
 	margin-top: 15px;
 	margin-bottom: 15px;
 }
 
 .tituloLogIn{
 	font-size: 19px;
-	font-family: "Bebas Neue", sans-serif;
+	font-family: "Arial", sans-serif;
 	margin-bottom: 15px;
 }
 
@@ -198,7 +198,7 @@ html{
 	padding: 10px 70px;
 	font-size: 18px;
 	text-align: center;
-	font-family: "Bebas Neue", sans-serif;
+	font-family: "Arial", sans-serif;
 }
 
 #logInbutton:hover{

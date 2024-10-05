@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Test</title>
+        <link rel="stylesheet" href="../css/hamburger.css">
+    </head>
+    <body>
+        <header>
+            <a href="../html/HamburgerMenu.html" class="seguir-comprando-boton">
+                <img src="../images/Campus.png" alt="Seguir Comprando" class="logo-campus-swap">
+            </a>
+            <div class="iconos-derecha">
+                <a href="../html/favoritos.html" class="seguir-comprando-boton">
+                    <img src="../images/favoritos-icon.webp" alt="favoritos-icono" class="logo-favoritos">
+                </a>
+                <a href="../html/buzon.html" class="seguir-comprando-boton">
+                    <img src="../images/mensajes-icono.webp" alt="buzon-icono" class="logo-buzon">
+                </a>
+                <a href="../html/perfil.html" class="seguir-comprando-boton">
+                    <img src="../images/perfil.jpg" alt="perfil-icono" class="logo-perfil">
+                </a>
+            </div>
+        </header>
+        
+        <script>
+            function myFunction(x) {
+                x.classList.toggle("change");
+                const menuSection = document.getElementById('dropdown-content');
+                menuSection.classList.toggle('active');
+
+                const publicacionesPack = document.querySelector('.publicaciones-pack');
+                publicacionesPack.classList.toggle('move-right');
+            }
+        </script>
+
+        <div class="hamburger-menu" onclick="myFunction(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+
+        <div id="dropdown-content" class="dropdown-content">
+            <p><a href="">LIBROS</a></p>
+            <p><a href="">ARTÍCULOS DE<br>HOGAR</a></p>
+            <p>UNIVERSIDADES</p>
+            <ul>
+                <li><a href="">CEU</a></li>
+                <li><a href="">UCM</a></li>
+                <li><a href="">UPM</a></li>
+            </ul>
+            <p><a href="../html/perfil.html">MI CUENTA</a></p>
+        </div>
+
+        <input type="text" placeholder="Buscar productos..." class="barra-busqueda">
+        <button class="boton-buscar">Buscar</button>
+
+        <div class="publicaciones-pack">
+           
+            <div class="publicaciones">
+                <img src="../images/libro-EJEMPLO.jpg" alt="Libro" class="imagen-producto">
+                <div class="contenido-publicaciones">
+                    <p class="descripcion-producto">Libro Rocco. Impresión litográfica</p>
+                    <p class="precio-producto">15 euros</p>
+                </div>
+            </div>
+        
+            <div class="publicaciones">
+                <img src="../images/calculadora-ejemplo.jpg" alt="Calculadora" class="imagen-producto">
+                <div class="contenido-publicaciones">
+                    <p class="descripcion-producto">Calculadora</p>
+                    <p class="precio-producto">20 euros</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
