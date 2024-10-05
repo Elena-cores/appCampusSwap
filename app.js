@@ -8,6 +8,11 @@ var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
 var listadoRouter = require('./routes/listado');
+var perfilRouter = require('./routes/perfil');
+var favoritosRouter = require('./routes/favoritos');
+var buzonRouter = require('./routes/buzon');
+var valoracionesRouter = require('./routes/valoraciones');
+
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -29,6 +34,11 @@ app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/listado', listadoRouter);
+app.use('/perfil', perfilRouter);
+app.use('/favoritos', favoritosRouter);
+app.use('/buzon', buzonRouter);
+app.use('/valoraciones', valoracionesRouter);
+
 
 
 // Manejo de errores 404 y reenvío al manejador de errores
