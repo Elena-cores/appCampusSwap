@@ -15,24 +15,26 @@
 		<form action="/register" method="POST">
 			<div class="container">
 				<div class="input-register">
-					<input required type="text" placeholder="Nombre">
+					<input required type="text" placeholder="Nombre" name="name">
 				</div>
 
 				<div class="input-register">
-					<input required type="text" placeholder="Apellidos">
+					<input required type="text" placeholder="Apellidos" name="surname">
 				</div>
 
 				<div class="input-register">
-					<input required type="text" placeholder="Nombre de usuario">
+					<input required type="text" placeholder="Nombre de usuario" name="username">
 				</div>
 
 				<div class="input-register">
-					<input required type="email" placeholder="Dirección de e-mail">
+					<input required type="password" placeholder="Contraseña" name="password">
+				</div>
+				
+				<div class="input-register">
+					<input required type="email" placeholder="Dirección de e-mail" name="email">
 				</div>
 
-				<div class="input-register">
-					<input required type="password" placeholder="Contraseña">
-				</div>
+				
 
 				<div class="botonCrearCuenta">
 					<button id="registerbutton" type="submit"> Crear Cuenta </button>

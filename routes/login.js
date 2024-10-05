@@ -4,7 +4,7 @@ var database = require('../database');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    res.render('loginPage', { title: 'Inicio de sesión' });
+    res.render('login', { title: 'Inicio de sesión' });
 });
 
 router.post('/', function(req, res, next) {

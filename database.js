@@ -45,5 +45,32 @@ const pool1 = mysql.createPool({
 
 
 
-module.exports = {pool1, pool2, setUp};
+// insertar usuarios
+function insertUser(name, surname, username, password, email) {  //variables se extraerán de formulario ejs 
+    pool2.getConnection().then((conn) => {
+      conn.query("USE campus");
+        let sql = `INSERT INTO user (name, surname, username, password, email) 
+        VALUES ('${name}', 
+                '${surname}',
+                '${username}',
+                '${password}',   
+                '${email}')`;
+
+        conn.query(sql).then(() => {
+            console.log("Usuario insertado con éxito");
+        }).catch(err => { 
+            console.log(err);
+            console.log(err.message);
+        }).finally(() => {
+            conn.end(); // Cerrar la conexión
+        });
+    }).catch((err) => {
+        console.log("No se pudo conectar");  
+        console.log(err);
+    });
+}
+
+
+
+module.exports = {pool1, pool2, setUp, insertUser};
 
