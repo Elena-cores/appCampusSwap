@@ -7,6 +7,7 @@ const database = rewire('../database.js');
 
 // Extraer las funciones a testear
 const pool1 = database.__get__('pool1');
+const setUp = database.__get__('setUp');
 
 describe('Pruebas de Base de Datos', function () {
     it('Debe conectarse correctamente a la base de datos', async function () {
@@ -18,6 +19,29 @@ describe('Pruebas de Base de Datos', function () {
             assert.fail(`Error de conexión a la base de datos: ${err.message}`);
         } finally {
             if (conn) conn.end(); // Cierra la conexión al final
+        }
+    });
+
+     // Test 2: Verificar que se crean correctamente la base de datos y las tablas
+     it('Debe crear la base de datos y las tablas correctamente', async function () {
+        let conn;
+        try {
+            conn = await pool1.getConnection();
+            await setUp(conn); // Llama a la función setUp para crear la base de datos y las tablas
+
+            // Verificamos que la base de datos y las tablas fueron creadas
+            const dbExist = await conn.query("SHOW DATABASES LIKE 'campus'");
+            assert(dbExist.length > 0, 'La base de datos campus debería existir');
+
+            const tableExist = await conn.query("SHOW TABLES LIKE 'usr'");
+            assert(tableExist.length > 0, 'La tabla user debería existir');
+
+            const tableExistAds = await conn.query("SHOW TABLES LIKE 'nonexistent'");
+            assert(tableExistAds.length > 0, 'La tabla ads debería existir');
+        } catch (err) {
+            assert.fail(`Error al crear la base de datos o tablas: ${err.message}`);
+        } finally {
+            if (conn) conn.end();
         }
     });
 });
