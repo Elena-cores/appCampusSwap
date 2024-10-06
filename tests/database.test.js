@@ -33,10 +33,10 @@ describe('Pruebas de Base de Datos', function () {
             const dbExist = await conn.query("SHOW DATABASES LIKE 'campus'");
             assert(dbExist.length > 0, 'La base de datos campus debería existir');
 
-            const tableExist = await conn.query("SHOW TABLES LIKE 'usr'");
+            const tableExist = await conn.query("SHOW TABLES LIKE 'user'");
             assert(tableExist.length > 0, 'La tabla user debería existir');
 
-            const tableExistAds = await conn.query("SHOW TABLES LIKE 'nonexistent'");
+            const tableExistAds = await conn.query("SHOW TABLES LIKE 'ads'");
             assert(tableExistAds.length > 0, 'La tabla ads debería existir');
         } catch (err) {
             assert.fail(`Error al crear la base de datos o tablas: ${err.message}`);
