@@ -7,7 +7,9 @@ const database = rewire('../database.js');
 
 // Extraer las funciones a testear
 const pool1 = database.__get__('pool1');
+const pool2 = database.__get__('pool2');
 const setUp = database.__get__('setUp');
+const insertUser = database.__get__('insertUser');
 
 describe('Pruebas de Base de Datos', function () {
     it('Debe conectarse correctamente a la base de datos', async function () {
@@ -40,6 +42,31 @@ describe('Pruebas de Base de Datos', function () {
             assert(tableExistAds.length > 0, 'La tabla ads debería existir');
         } catch (err) {
             assert.fail(`Error al crear la base de datos o tablas: ${err.message}`);
+        } finally {
+            if (conn) conn.end();
+        }
+    });
+
+    // Test 3: Verificar la inserción de un usuario
+    it('Debe insertar correctamente un usuario', async function () {
+        const name = "david";
+        const surname = "smith";
+        const username = "dsmith";
+        const password = "david1";
+        const email = "ds@gmail.com";
+
+        let conn;
+        try {
+            // Ahora se llama a insertUser para insertar el usuario
+            await insertUser(name, surname, username, password, email); // Inserta el usuario
+            conn = await pool2.getConnection();
+            await conn.query("USE campus");
+
+            const result = await conn.query(`SELECT * FROM user WHERE email = "${email}";`);
+            assert(result.length > 0, 'El usuario debería haber sido insertado en la base de datos');
+            assert(result[0].username === username, 'El nombre de usuario debería coincidir');
+        } catch (err) {
+            assert.fail(`Error al insertar el usuario: ${err.message}`);
         } finally {
             if (conn) conn.end();
         }
