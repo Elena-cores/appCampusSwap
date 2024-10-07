@@ -12,6 +12,7 @@ var perfilRouter = require('./routes/perfil');
 var favoritosRouter = require('./routes/favoritos');
 var buzonRouter = require('./routes/buzon');
 var valoracionesRouter = require('./routes/valoraciones');
+var olvidadoRouter = require('./routes/olvidado');
 
 
 var app = express();
@@ -38,6 +39,7 @@ app.use('/perfil', perfilRouter);
 app.use('/favoritos', favoritosRouter);
 app.use('/buzon', buzonRouter);
 app.use('/valoraciones', valoracionesRouter);
+app.use('/olvidado', olvidadoRouter);
 
 
 
