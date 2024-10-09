@@ -13,6 +13,7 @@ var favoritosRouter = require('./routes/favoritos');
 var buzonRouter = require('./routes/buzon');
 var valoracionesRouter = require('./routes/valoraciones');
 var olvidadoRouter = require('./routes/olvidado');
+var modificarRouter = require('./routes/modificar');
 
 
 var app = express();
@@ -40,7 +41,7 @@ app.use('/favoritos', favoritosRouter);
 app.use('/buzon', buzonRouter);
 app.use('/valoraciones', valoracionesRouter);
 app.use('/olvidado', olvidadoRouter);
-
+app.use('/modificar', modificarRouter);
 
 
 // Manejo de errores 404 y reenvío al manejador de errores
