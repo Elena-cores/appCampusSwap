@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ModificarContraseña</title>
+	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/stylesheets/styleWelcomePage.css">
+</head>
+<body>
+	<div class="RecuadroPrincipalLogIn">
+		<img src="/images/LogoCampusSwap.png" alt="LogoIso" class="logo-img-login">
+		<h1 class="tituloLogIn"> Cambiar contraseña </h1>
+
+		<form action="/login" method="POST">
+			<div class="container">
+
+				<div class="input-login">
+					<input required type="password" name="password" placeholder="Nueva contraseña">
+				</div>
+
+                <div class="input-login">
+					<input required type="password" name="password" placeholder="Repite la contraseña nueva">
+				</div>
+
+
+				<div class="botonAcceder">
+					<button id="logInbutton" type="submit"> Modificar contraseña </button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
