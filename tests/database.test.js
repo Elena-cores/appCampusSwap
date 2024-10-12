@@ -71,4 +71,29 @@ describe('Pruebas de Base de Datos', function () {
             if (conn) conn.end();
         }
     });
+
+    it('Debe registrar correctamente las nuevas publicaciones'), async function() {
+        const description = "Libro"
+        const price = 10;
+        const state = true;
+        const university = "CEU";
+        const photo = "foto.jpg";
+        
+        let conn;
+        try {
+            await insertAds(description, price, state, university, photo);
+            conn = await pool2.getConnection();
+            await conn.query("USE campus");
+
+            const result = await conn.query(`SELECT * FROM ads WHERE description = "${description}";`);
+            assert(result.length > 0, 'La publicación debería haber sido insertada en la base de datos');
+            assert(result[0].price === price, 'El precio debería coincidir');
+        } catch (err) {
+            assert.fail(`Error al insertar la publicación: ${err.message}`);
+        } finally {
+            if (conn) conn.end();
+        }
+
+    }
+
 });
