@@ -71,6 +71,31 @@ function insertUser(name, surname, username, password, email) {  //variables se 
 }
 
 
+function insertAds(description, price, state, university, photo) {
+  pool2.getConnection().then((conn) => {
+      conn.query("USE campus");
+      let sql = `INSERT INTO ads (description, price, state, university, photo) 
+                 VALUES ('${description}', 
+                         ${price}, 
+                         ${state}, 
+                         '${university}', 
+                         '${photo}')`;
 
-module.exports = {pool1, pool2, setUp, insertUser};
+      conn.query(sql).then(() => {
+          console.log("Anuncio registrado con éxito");
+      }).catch(err => {
+          console.error("Error al insertar anuncio:", err.message);
+      }).finally(() => {
+          conn.end();
+      });
+  }).catch((err) => {
+      console.error("No se pudo conectar a la base de datos:", err.message);
+  });
+}
+
+
+
+
+
+module.exports = {pool1, pool2, setUp, insertUser, insertAds};
 

@@ -93,7 +93,6 @@ describe('Pruebas de Base de Datos', function () {
         } finally {
             if (conn) conn.end();
         }
-
     }
 
 });
