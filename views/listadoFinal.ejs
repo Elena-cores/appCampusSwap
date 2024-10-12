@@ -1,0 +1,71 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Swap</title>
+    <link rel="stylesheet" href="/stylesheets/listadoFinal.css">
+</head>
+<body>
+    <!-- Sección de encabezado -->
+    <header>
+        <div class="logo">
+            <img src="../images/logoFinal.png" alt="Logo Campus Swap" />
+        </div>
+        <div class="header-title">Campus Swap</div>
+        <div class="profile">
+            <img src="../images/profile.jpg" alt="Ícono de perfil" class="profile-icon" onclick="toggleDropdown()" />
+            <div id="profileDropdown" class="dropdown-content">
+                <a href="#">Configuración de cuenta</a>
+                <a href="#">Mensajería</a>
+                <a href="#">Favoritos</a>
+                <a href="#">Cerrar sesión</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección de contenido principal -->
+    <div class="container">
+        <!-- Sección principal -->
+        <main>
+            <div class="seccion-busqueda">
+                <input type="text" placeholder="Buscar..." class="barra-busqueda">
+                <button class="boton-buscar">Buscar</button>
+            </div>
+            
+            <!-- Fila de botones de filtro y vender -->
+            <div class="seccion-filtros-venta">
+                <button class="boton-venta">Vender</button>
+                <div class="filtrado-botones">
+                    <button>Estado</button>
+                    <button>Precio</button>
+                </div>
+            </div>
+
+            <!-- Rejilla de productos -->
+            <div class="rejilla-articulos">
+                <div class="tarjeta-articulo">
+                    <img src="../images/item1.jpg" alt="Artículos básicos de cocina">
+                    <p>Artículos básicos de cocina (2 cuchillos, tijeras, 3 tappers) y 10 perchas</p>
+                    <span>15€</span>
+                    <button class="boton-favorito">♥</button>
+                </div>
+                <!-- Repite más tarjetas de productos aquí -->
+            </div>
+        </main>
+
+        <!-- Sección de Twitter -->
+        <aside class="feed-twitter">
+            <h3>Publicaciones de @USPCEU</h3>
+            <ul>
+                <li>Drenajes ACO en la Universidad CEU San Pablo</li>
+                <li>Chamartín acoge la feria del empleo Induforum...</li>
+                <li>La Complutense, la universidad más solicitada...</li>
+            </ul>
+            <button class="boton-twitter-ver">Ver en X</button>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
