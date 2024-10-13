@@ -1,69 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Test</title>
-        <link rel="stylesheet" href="/stylesheets/listado.css">
-    </head>
-    <body>
-        <header>
-            <a href="/listado" class="seguir-comprando-boton">
-                <img src="../images/Campus.png" alt="Seguir Comprando" class="logo-campus-swap">
-            </a>
-            <div class="iconos-derecha">
-                <a href="/favoritos" class="seguir-comprando-boton">
-                    <img src="../images/favoritos-icon.webp" alt="favoritos-icono" class="logo-favoritos">
-                </a>
-                <a href="/buzon" class="seguir-comprando-boton">
-                    <img src="../images/mensajes-icono.webp" alt="buzon-icono" class="logo-buzon">
-                </a>
-                <a href="/perfil" class="seguir-comprando-boton">
-                    <img src="../images/perfil.jpg" alt="perfil-icono" class="logo-perfil">
-                </a>
-            </div>
-        </header>
-        
-        <script src="/javascript/scriptList.js"></script>
-
-        <div class="hamburger-menu" onclick="myFunction(this)">
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-            <div class="bar3"></div>
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Swap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/listado.css">
+</head>
+<body>
+    <header>
+        <!-- Encabezado de la página -->
+        <div class="logo">
+            <img src="/images/logoFinal.png" alt="Logo Campus Swap" />
         </div>
+        <div class="header-title">Campus Swap</div>
+        <div class="profile">
+            <img src="/images/profile.png" alt="Ícono de perfil" class="profile-icon" onclick="toggleDropdown()" />
+            <div id="profileDropdown" class="dropdown-content">
+                <a href="/perfil">Configuración de cuenta</a>
+                <a href="/buzon">Mensajería</a>
+                <a href="/favoritos">Favoritos</a>
+                <a href="/logout">Cerrar sesión</a>
+            </div>
+        </div>
+    </header>
 
-        <div id="dropdown-content" class="dropdown-content">
-            <p><a href="">LIBROS</a></p>
-            <p><a href="">ARTÍCULOS DE<br>HOGAR</a></p>
-            <p>UNIVERSIDADES</p>
+    <div class="container">
+        <!-- Contenido principal -->
+        <main>
+            <div class="seccion-busqueda">
+                <div class="seccion-menu-wrapper">
+                    <div class="hamburger-menu" onclick="myFunction(this)">
+                        <div class="bar1"></div>
+                        <div class="bar2"></div>
+                        <div class="bar3"></div>
+                    </div>
+                    <input type="text" placeholder="Buscar..." class="barra-busqueda">
+                </div>
+                <button class="boton-buscar">Buscar</button>
+            </div>
+
+            <div id="dropdown-content-menu" class="dropdown-content-menu">
+                <p><a href="">LIBROS</a></p>
+                <p><a href="">ARTÍCULOS DE<br>HOGAR</a></p>
+                <p>UNIVERSIDADES</p>
+                <ul>
+                    <li><a href="">CEU</a></li>
+                    <li><a href="">UCM</a></li>
+                    <li><a href="">UPM</a></li>
+                </ul>
+                <p><a href="/perfil">MI CUENTA</a></p>
+            </div>
+            
+            <!-- Fila de botones de filtro y vender -->
+            <div class="seccion-filtros-venta">
+                <a href="/nuevaPublicacion">
+                  <button class="boton-venta">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                    </svg>
+                    Vender 
+                  </button>
+                </a>
+                <div class="filtrado-botones">
+                    <button>Estado</button>
+                    <button>Precio</button>
+                </div>
+            </div>
+
+            <!-- Tarjeta de productos -->
+            <div class="rejilla-articulos">
+                <!-- Aquí iteramos sobre los anuncios y generamos las tarjetas dinámicamente -->
+                    <% ads.forEach(function(ad) { %>
+                        <div class="tarjeta-articulo">
+                            <img src="<%= ad.photo %>" alt="<%= ad.description %>">
+                            <p><%= ad.description %></p>
+                            <span><%= ad.price %>€</span>
+                            <button class="boton-favorito">♥</button>
+                        </div>
+                    <% }) %>
+                </div>
+            </main>
+
+        <!-- Sección de Twitter -->
+        <aside class="feed-twitter">
+            <h3>Publicaciones de @USPCEU</h3>
             <ul>
-                <li><a href="">CEU</a></li>
-                <li><a href="">UCM</a></li>
-                <li><a href="">UPM</a></li>
+                <li>Drenajes ACO en la Universidad CEU San Pablo</li>
+                <p> 7 de octubre, 2024 Novedades Industria Agua </p>
+                <img src="/images/drenaje.jpg" alt="Drenaje"/>
+                <li>Chamartín acoge la feria del empleo Induforum...</li>
+                <p> 16 de abril, 2024 </p>
+                <img src="/images/Chamartin.png" alt="Drenaje"/>
+                <li>La Complutense, la universidad más solicitada...</li>
+                <p> 24 de octubre, 2024 </p>
+                <img src="/images/Complutense.jpeg" alt="Drenaje"/>
             </ul>
-            <p><a href="/perfil">MI CUENTA</a></p>
-        </div>
+            <button class="boton-twitter-ver">Ver en X</button>
+        </aside>
+    </div>
 
-        <input type="text" placeholder="Buscar productos..." class="barra-busqueda">
-        <button class="boton-buscar">Buscar</button>
-
-        <div class="publicaciones-pack">
-           
-            <div class="publicaciones">
-                <img src="../images/libro-EJEMPLO.jpg" alt="Libro" class="imagen-producto">
-                <div class="contenido-publicaciones">
-                    <p class="descripcion-producto">Libro Rocco. Impresión litográfica</p>
-                    <p class="precio-producto">15 euros</p>
-                </div>
-            </div>
-        
-            <div class="publicaciones">
-                <img src="../images/calculadora-ejemplo.jpg" alt="Calculadora" class="imagen-producto">
-                <div class="contenido-publicaciones">
-                    <p class="descripcion-producto">Calculadora</p>
-                    <p class="precio-producto">20 euros</p>
-                </div>
-            </div>
-        </div>
-    </body>
+    <script src="/javascript/scriptList.js"></script>
+</body>
 </html>
