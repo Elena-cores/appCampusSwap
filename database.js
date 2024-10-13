@@ -23,7 +23,7 @@ const pool1 = mysql.createPool({
     }).catch((err) => {
       console.log(err);
       console.log('conexión no establecida');
-      conn.end(); 
+      //conn.end(); 
       
   });
 

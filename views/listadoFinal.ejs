@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campus Swap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/listadoFinal.css">
 </head>
 <body>
@@ -14,7 +15,7 @@
         </div>
         <div class="header-title">Campus Swap</div>
         <div class="profile">
-            <img src="/images/profile.jpg" alt="Ícono de perfil" class="profile-icon" onclick="toggleDropdown()" />
+            <img src="/images/profile.png" alt="Ícono de perfil" class="profile-icon" onclick="toggleDropdown()" />
             <div id="profileDropdown" class="dropdown-content">
                 <a href="#">Configuración de cuenta</a>
                 <a href="#">Mensajería</a>
@@ -29,13 +30,36 @@
         <!-- Sección principal -->
         <main>
             <div class="seccion-busqueda">
-                <input type="text" placeholder="Buscar..." class="barra-busqueda">
+                <div class="seccion-menu-wrapper">
+                    <div class="hamburger-menu" onclick="myFunction(this)">
+                        <div class="bar1"></div>
+                        <div class="bar2"></div>
+                        <div class="bar3"></div>
+                    </div>
+                    <input type="text" placeholder="Buscar..." class="barra-busqueda">
+                </div>
                 <button class="boton-buscar">Buscar</button>
+            </div>
+    
+            <div id="dropdown-content-menu" class="dropdown-content-menu">
+                <p><a href="">LIBROS</a></p>
+                <p><a href="">ARTÍCULOS DE<br>HOGAR</a></p>
+                <p>UNIVERSIDADES</p>
+                <ul>
+                    <li><a href="">CEU</a></li>
+                    <li><a href="">UCM</a></li>
+                    <li><a href="">UPM</a></li>
+                </ul>
+                <p><a href="/perfil">MI CUENTA</a></p>
             </div>
             
             <!-- Fila de botones de filtro y vender -->
             <div class="seccion-filtros-venta">
-                <button class="boton-venta">Vender</button>
+                <button class="boton-venta">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                     </svg> Vender </button>
                 <div class="filtrado-botones">
                     <button>Estado</button>
                     <button>Precio</button>
@@ -51,6 +75,12 @@
                     <button class="boton-favorito">♥</button>
                 </div>
                 <!-- Repite más tarjetas de productos aquí -->
+                <div class="tarjeta-articulo">
+                    <img src="/images/utensilios.png" alt="Artículos básicos de cocina">
+                    <p>Artículos básicos de cocina (2 cuchillos, tijeras, 3 tappers) y 10 perchas</p>
+                    <span>15€</span>
+                    <button class="boton-favorito">♥</button>
+                </div>
             </div>
         </main>
 

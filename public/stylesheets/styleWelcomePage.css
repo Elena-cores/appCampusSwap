@@ -21,9 +21,9 @@ html{
 }
 
 .logo-img{
-	width: 220px;
-	height: 200px;
-	margin-bottom: 30px;
+	width: 240px;
+	height: 230px;
+	margin-bottom: 20px;
 }
 
 .Registro{
@@ -36,20 +36,20 @@ html{
 	text-align: center;
 	justify-content: center;
 	margin-bottom: 20px;
-	font-family: "Arial", sans-serif;
+	font-family: "Lora", sans-serif;
 }
 
 .IniciarSesion{
 	background-color: #00C2CB;
 	color: white;
-	padding: 10px 66px;
+	padding: 10px 59px;
 	border: none;
 	border-radius: 15px;
 	font-size: 19px;
 	text-align: center;
 	justify-content: center;
-	margin-bottom: 30px;
-	font-family: "Arial", sans-serif;
+	margin-bottom: 70px;
+	font-family: "Lora", sans-serif;
 }
 
 .RecuadroPrincipalRegistro{
@@ -68,15 +68,13 @@ html{
 
 .titulo{
 	font-size: 19px;
-	font-family: "Arial", sans-serif;
-	margin-bottom: 8px;
+	font-family: "Lora", sans-serif;
+	margin-bottom: 10px;
 }
 
 .logo-img-registro{
-	width: 150px;
-	height: 140px;
-	margin-top: 40px;
-	margin-bottom: 5px;
+	width: 160px;
+	height: 150px;
 }
 
 .container{
@@ -102,9 +100,9 @@ html{
 	padding: 10px;
 	border: 2px solid black;
 	border-radius: 30px;
-	font-size: 18px;
+	font-size: 15px;
 	text-align: left;
-	font-family: "Arial", sans-serif;
+	font-family: "Lora", sans-serif;
 }
 
 .botonCrearCuenta{
@@ -123,7 +121,7 @@ html{
 	padding: 10px 80px;
 	font-size: 18px;
 	text-align: center;
-	font-family: "Arial", sans-serif;
+	font-family: "Lora", sans-serif;
 }
 
 #registerbutton:hover{
@@ -145,10 +143,9 @@ html{
 }
 
 .logo-img-login{
-	width: 180px;
-	height: 160px;
-	margin-top: 70px;
-	margin-bottom: 15px;
+	width: 190px;
+	height: 180px;
+	margin-top: 30px;
 }
 
 .input-login{
@@ -164,21 +161,21 @@ html{
 	padding: 10px;
 	border: 2px solid black;
 	border-radius: 30px;
-	font-size: 18px;
+	font-size: 15px;
 	text-align: left;
-	font-family: "Arial", sans-serif;
+	font-family: "Lora", sans-serif;
 }
 
 .olvidado{
-	font-size: 18px;
-	font-family: "Arial", sans-serif;
+	font-size: 16px;
+	font-family: "Lora", sans-serif;
 	margin-top: 15px;
 	margin-bottom: 15px;
 }
 
 .tituloLogIn{
-	font-size: 19px;
-	font-family: "Arial", sans-serif;
+	font-size: 18px;
+	font-family: "Lora", sans-serif;
 	margin-bottom: 15px;
 }
 
@@ -196,9 +193,9 @@ html{
 	border: none;
 	border-radius: 15px;
 	padding: 10px 70px;
-	font-size: 18px;
+	font-size: 17px;
 	text-align: center;
-	font-family: "Arial", sans-serif;
+	font-family: "Lora", sans-serif;
 }
 
 #logInbutton:hover{
