@@ -177,6 +177,7 @@ main {
     display: flex;
     flex-direction: column; 
     align-items: center; 
+    font-family: "Lora", sans-serif;
 }
 
 .feed-twitter h3 {
@@ -190,6 +191,20 @@ main {
 
 .feed-twitter ul li {
     margin-bottom: 10px;
+}
+
+.feed-twitter img {
+    width: 100%;
+    height: 100px;
+    max-width: 350px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.feed-twitter p {
+    font-size: 10px;
+    font-family: "Lora", sans-serif;
+    margin-bottom: 10px; 
 }
 
 .boton-twitter-ver {

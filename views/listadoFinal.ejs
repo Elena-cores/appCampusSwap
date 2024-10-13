@@ -68,7 +68,7 @@
             <!-- Tarjeta de productos -->
             <div class="rejilla-articulos">
                 <!-- Aquí iteramos sobre los anuncios y generamos las tarjetas dinámicamente -->
-                     <% ads.forEach(function(ad) { %>
+                    <% ads.forEach(function(ad) { %>
                         <div class="tarjeta-articulo">
                             <img src="<%= ad.photo %>" alt="<%= ad.description %>">
                             <p><%= ad.description %></p>
@@ -84,8 +84,14 @@
             <h3>Publicaciones de @USPCEU</h3>
             <ul>
                 <li>Drenajes ACO en la Universidad CEU San Pablo</li>
+                <p> 7 de octubre, 2024 Novedades Industria Agua </p>
+                <img src="/images/drenaje.jpg" alt="Drenaje"/>
                 <li>Chamartín acoge la feria del empleo Induforum...</li>
+                <p> 16 de abril, 2024 </p>
+                <img src="/images/Chamartin.png" alt="Drenaje"/>
                 <li>La Complutense, la universidad más solicitada...</li>
+                <p> 24 de octubre, 2024 </p>
+                <img src="/images/Complutense.jpeg" alt="Drenaje"/>
             </ul>
             <button class="boton-twitter-ver">Ver en X</button>
         </aside>
