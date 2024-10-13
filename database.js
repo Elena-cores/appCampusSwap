@@ -1,31 +1,33 @@
 const mysql = require("mariadb");
 
 const pool1 = mysql.createPool({
-    host: "localhost",
-    user: "root", 
-    password: "root"
-  });
+  host: "localhost",
+  user: "root", 
+  password: "root",
+  connectionLimit: 20,  // Aumenta el límite de conexiones
+  acquireTimeout: 30000 // Aumenta el tiempo de espera para obtener una conexión (en milisegundos)
+});
 
-  var pool2 = mysql.createPool({
-    host: "localhost",
-    user: "root", 
-    password: "root"
-  });
+const pool2 = mysql.createPool({
+  host: "localhost",
+  user: "root", 
+  password: "root",
+  connectionLimit: 20,
+  acquireTimeout: 30000
+});
 
 
 
-  pool1.getConnection().then(async (conn) => { // 1. Pedimos una conexión a la base de datos
-    console.log('conexión establecida');
-    setUp(conn);
-    conn.end(); 
-    console.log("La base de datos está creada");
-    // Cerrar la conexión si se ha establecido
-    }).catch((err) => {
-      console.log(err);
-      console.log('conexión no establecida');
-      conn.end(); 
-      
-  });
+pool1.getConnection().then(async (conn) => { 
+  console.log('conexión establecida');
+  setUp(conn);
+  conn.end(); 
+  console.log("La base de datos está creada");
+}).catch((err) => {
+    console.log(err);
+    console.log('conexión no establecida');
+    
+});
 
   // setup
   function setUp(conn){
@@ -46,29 +48,24 @@ const pool1 = mysql.createPool({
 
 
 // insertar usuarios
-function insertUser(name, surname, username, password, email) {  //variables se extraerán de formulario ejs 
-    pool2.getConnection().then((conn) => {
+function insertUser(name, surname, username, password, email) {
+  pool2.getConnection().then((conn) => {
       conn.query("USE campus");
-        let sql = `INSERT INTO user (name, surname, username, password, email) 
-        VALUES ('${name}', 
-                '${surname}',
-                '${username}',
-                '${password}',   
-                '${email}')`;
+      let sql = `INSERT INTO user (name, surname, username, password, email) 
+                 VALUES ('${name}', '${surname}', '${username}', '${password}', '${email}')`;
 
-        conn.query(sql).then(() => {
-            console.log("Usuario insertado con éxito");
-        }).catch(err => { 
-            console.log(err);
-            console.log(err.message);
-        }).finally(() => {
-            conn.end(); // Cerrar la conexión
-        });
-    }).catch((err) => {
-        console.log("No se pudo conectar");  
-        console.log(err);
-    });
+      return conn.query(sql).then(() => {
+          console.log("Usuario insertado con éxito");
+      }).catch(err => {
+          console.error("Error al insertar usuario:", err.message);
+      }).finally(() => {
+          conn.end(); // Cerrar la conexión siempre que esté abierta
+      });
+  }).catch((err) => {
+      console.error("No se pudo conectar a la base de datos:", err.message);
+  });
 }
+
 
 
 function insertAds(description, price, state, university, photo) {
