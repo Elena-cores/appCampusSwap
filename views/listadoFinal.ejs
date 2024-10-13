@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="/stylesheets/listadoFinal.css">
 </head>
 <body>
-    <!-- Sección de encabezado -->
     <header>
+        <!-- Encabezado de la página -->
         <div class="logo">
             <img src="/images/logoFinal.png" alt="Logo Campus Swap" />
         </div>
@@ -16,23 +16,22 @@
         <div class="profile">
             <img src="/images/profile.jpg" alt="Ícono de perfil" class="profile-icon" onclick="toggleDropdown()" />
             <div id="profileDropdown" class="dropdown-content">
-                <a href="#">Configuración de cuenta</a>
-                <a href="#">Mensajería</a>
-                <a href="#">Favoritos</a>
-                <a href="#">Cerrar sesión</a>
+                <a href="/perfil">Configuración de cuenta</a>
+                <a href="/buzon">Mensajería</a>
+                <a href="/favoritos">Favoritos</a>
+                <a href="/logout">Cerrar sesión</a>
             </div>
         </div>
     </header>
 
-    <!-- Sección de contenido principal -->
     <div class="container">
-        <!-- Sección principal -->
+        <!-- Contenido principal -->
         <main>
             <div class="seccion-busqueda">
                 <input type="text" placeholder="Buscar..." class="barra-busqueda">
                 <button class="boton-buscar">Buscar</button>
             </div>
-            
+
             <!-- Fila de botones de filtro y vender -->
             <div class="seccion-filtros-venta">
                 <button class="boton-venta">Vender</button>
@@ -42,15 +41,17 @@
                 </div>
             </div>
 
-            <!-- Rejilla de productos -->
+            <!-- Tarjeta de productos -->
             <div class="rejilla-articulos">
-                <div class="tarjeta-articulo">
-                    <img src="/images/item1.jpg" alt="Artículos básicos de cocina">
-                    <p>Artículos básicos de cocina (2 cuchillos, tijeras, 3 tappers) y 10 perchas</p>
-                    <span>15€</span>
-                    <button class="boton-favorito">♥</button>
-                </div>
-                <!-- Repite más tarjetas de productos aquí -->
+                <!-- Aquí iteramos sobre los anuncios y generamos las tarjetas dinámicamente -->
+                <% ads.forEach(function(ad) { %>
+                    <div class="tarjeta-articulo">
+                        <img src="<%= ad.photo %>" alt="<%= ad.description %>">
+                        <p><%= ad.description %></p>
+                        <span><%= ad.price %>€</span>
+                        <button class="boton-favorito">♥</button>
+                    </div>
+                <% }) %>
             </div>
         </main>
 

@@ -16,7 +16,7 @@ router.post("/", function(req, res, next) {
 
     async function insertAd() {
         await database.insertAds(description, price, state, university, photo);
-        res.redirect("/perfil");
+        res.redirect("/listadoFinal");
     }
 
     insertAd().catch(error => {

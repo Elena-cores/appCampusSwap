@@ -20,7 +20,7 @@ router.post('/', function(req, res, next) {
         if(consulta.length > 0) {
             console.log("bienvenido usuario!");
             conn.end();
-            res.redirect("/listado");
+            res.redirect("/listadoFinal");
         }
         else {
             conn.end();
