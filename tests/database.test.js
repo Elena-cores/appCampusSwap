@@ -10,6 +10,7 @@ const pool1 = database.__get__('pool1');
 const pool2 = database.__get__('pool2');
 const setUp = database.__get__('setUp');
 const insertUser = database.__get__('insertUser');
+const insertAds = database.__get__('insertAds');
 
 describe('Pruebas de Base de Datos', function () {
     it('Debe conectarse correctamente a la base de datos', async function () {
@@ -56,13 +57,14 @@ describe('Pruebas de Base de Datos', function () {
         const email = "ds@gmail.com";
 
         let conn;
+        let result;
         try {
             // Ahora se llama a insertUser para insertar el usuario
             await insertUser(name, surname, username, password, email); // Inserta el usuario
             conn = await pool2.getConnection();
             await conn.query("USE campus");
-
-            const result = await conn.query(`SELECT * FROM user WHERE email = "${email}";`);
+            console.log(result);
+            result = await conn.query(`SELECT * FROM user WHERE email = "${email}";`);
             assert(result.length > 0, 'El usuario debería haber sido insertado en la base de datos');
             assert(result[0].username === username, 'El nombre de usuario debería coincidir');
         } catch (err) {
@@ -72,10 +74,11 @@ describe('Pruebas de Base de Datos', function () {
         }
     });
 
-    it('Debe registrar correctamente las nuevas publicaciones'), async function() {
-        const description = "Libro"
+    // Test 4: Verificar la inserción de nuevas publicaciones
+    it('Debe registrar correctamente las nuevas publicaciones', async function() {
+        const description = "Libro";
         const price = 10;
-        const state = true;
+        const state = 0;
         const university = "CEU";
         const photo = "foto.jpg";
         
@@ -84,7 +87,7 @@ describe('Pruebas de Base de Datos', function () {
             await insertAds(description, price, state, university, photo);
             conn = await pool2.getConnection();
             await conn.query("USE campus");
-
+    
             const result = await conn.query(`SELECT * FROM ads WHERE description = "${description}";`);
             assert(result.length > 0, 'La publicación debería haber sido insertada en la base de datos');
             assert(result[0].price === price, 'El precio debería coincidir');
@@ -93,6 +96,5 @@ describe('Pruebas de Base de Datos', function () {
         } finally {
             if (conn) conn.end();
         }
-    }
-
+    });
 });

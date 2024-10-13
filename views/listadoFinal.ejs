@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="/stylesheets/listadoFinal.css">
 </head>
 <body>
-    <!-- Sección de encabezado -->
     <header>
+        <!-- Encabezado de la página -->
         <div class="logo">
             <img src="/images/logoFinal.png" alt="Logo Campus Swap" />
         </div>
@@ -17,17 +17,16 @@
         <div class="profile">
             <img src="/images/profile.png" alt="Ícono de perfil" class="profile-icon" onclick="toggleDropdown()" />
             <div id="profileDropdown" class="dropdown-content">
-                <a href="#">Configuración de cuenta</a>
-                <a href="#">Mensajería</a>
-                <a href="#">Favoritos</a>
-                <a href="#">Cerrar sesión</a>
+                <a href="/perfil">Configuración de cuenta</a>
+                <a href="/buzon">Mensajería</a>
+                <a href="/favoritos">Favoritos</a>
+                <a href="/logout">Cerrar sesión</a>
             </div>
         </div>
     </header>
 
-    <!-- Sección de contenido principal -->
     <div class="container">
-        <!-- Sección principal -->
+        <!-- Contenido principal -->
         <main>
             <div class="seccion-busqueda">
                 <div class="seccion-menu-wrapper">
@@ -40,7 +39,7 @@
                 </div>
                 <button class="boton-buscar">Buscar</button>
             </div>
-    
+
             <div id="dropdown-content-menu" class="dropdown-content-menu">
                 <p><a href="">LIBROS</a></p>
                 <p><a href="">ARTÍCULOS DE<br>HOGAR</a></p>
@@ -66,23 +65,19 @@
                 </div>
             </div>
 
-            <!-- Rejilla de productos -->
+            <!-- Tarjeta de productos -->
             <div class="rejilla-articulos">
-                <div class="tarjeta-articulo">
-                    <img src="/images/item1.jpg" alt="Artículos básicos de cocina">
-                    <p>Artículos básicos de cocina (2 cuchillos, tijeras, 3 tappers) y 10 perchas</p>
-                    <span>15€</span>
-                    <button class="boton-favorito">♥</button>
+                <!-- Aquí iteramos sobre los anuncios y generamos las tarjetas dinámicamente -->
+                     <% ads.forEach(function(ad) { %>
+                        <div class="tarjeta-articulo">
+                            <img src="<%= ad.photo %>" alt="<%= ad.description %>">
+                            <p><%= ad.description %></p>
+                            <span><%= ad.price %>€</span>
+                            <button class="boton-favorito">♥</button>
+                        </div>
+                    <% }) %>
                 </div>
-                <!-- Repite más tarjetas de productos aquí -->
-                <div class="tarjeta-articulo">
-                    <img src="/images/utensilios.png" alt="Artículos básicos de cocina">
-                    <p>Artículos básicos de cocina (2 cuchillos, tijeras, 3 tappers) y 10 perchas</p>
-                    <span>15€</span>
-                    <button class="boton-favorito">♥</button>
-                </div>
-            </div>
-        </main>
+            </main>
 
         <!-- Sección de Twitter -->
         <aside class="feed-twitter">
