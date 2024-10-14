@@ -20,7 +20,7 @@
                 <a href="/perfil">Configuración de cuenta</a>
                 <a href="/buzon">Mensajería</a>
                 <a href="/favoritos">Favoritos</a>
-                <a href="/logout">Cerrar sesión</a>
+                <a href="/">Cerrar sesión</a>
             </div>
         </div>
     </header>
@@ -74,7 +74,7 @@
                 <!-- Aquí iteramos sobre los anuncios y generamos las tarjetas dinámicamente -->
                     <% ads.forEach(function(ad) { %>
                         <div class="tarjeta-articulo">
-                            <img src="<%= ad.photo %>" alt="<%= ad.description %>">
+                            <img src="<%= ad.photo %>" alt="ninguna foto por ahora">
                             <p><%= ad.description %></p>
                             <span><%= ad.price %>€</span>
                             <button class="boton-favorito">♥</button>
