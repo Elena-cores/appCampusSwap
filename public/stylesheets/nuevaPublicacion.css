@@ -101,3 +101,24 @@ select:focus {
         font-size: 14px;
     }
 }
+/* Estilo del botón "Volver a perfil" */
+.volver-boton {
+    position: absolute; /* Fijo en la parte superior izquierda */
+    top: 20px;
+    left: 20px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.volver-boton:hover {
+    background-color: #0056b3; /* Cambio de color al pasar el ratón */
+}
+
+h1 {
+    margin-top: 80px; /* Ajustar para que el título no quede detrás del botón */
+}

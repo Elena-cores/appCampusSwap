@@ -3,39 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/stylesheets/nuevaPublicacion.css">
-    <title>Registrar Producto - Campus Swap</title>
+    <link rel="stylesheet" href="/stylesheets/nuevaPublicacion.css"> <!-- Enlace a tu CSS -->
+    <title>Registrar Producto</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Registrar Producto</h1>
+    <!-- Botón para volver a la página de perfil -->
+    <a href="/perfil" class="volver-boton">← Volver a perfil</a>
 
-        <form action="/nuevaPublicacion" method="POST">
-            <label for="description">Descripción:</label>
-            <input type="text" id="description" name="description" required>
-          
-            <label for="price">Precio:</label>
-            <input type="number" id="price" name="price" step="0.01" required>
-          
-            <label for="state">Estado:</label>
-            <select id="state" name="state" required>
-              <option value="1">Disponible</option>
-              <option value="0">Reservado</option>
-            </select>
-          
-            <label for="university">Universidad:</label>
-            <select id="university" name="university" required>
-                <option value="Ninguna">Ninguna</option>
-                <option value="CEU">CEU</option>
-                <option value="UCM">UCM</option>
-                <option value="UPM">UPM</option>
-            </select>
-          
-            <label for="photo">Foto (URL):</label>
-            <input type="text" id="photo" name="photo" required>
-          
-            <button type="submit">Crear Publicación</button>
-        </form>
-    </div>
+    <h1>Registrar Producto</h1>
+
+    <form action="/nuevaPublicacion" method="POST">
+        <label for="description">Descripción:</label>
+        <input type="text" id="description" name="description" required>
+      
+        <label for="price">Precio:</label>
+        <input type="number" id="price" name="price" step="0.01" required>
+      
+        <label for="state">Estado:</label>
+        <select id="state" name="state">
+          <option value="1">Disponible</option>
+          <option value="0">Reservado</option>
+        </select>
+      
+        <label for="university">Universidad:</label>
+        <select id="university" name="university" required>
+            <option value="Ninguna">Ninguna</option>
+            <option value="CEU">CEU</option>
+            <option value="UCM">UCM</option>
+            <option value="UPM">UPM</option>
+        </select>
+      
+        <label for="photo">Foto:</label>
+        <input type="text" id="photo" name="photo" required>
+      
+        <button type="submit">Crear Publicación</button>
+    </form>
 </body>
 </html>
