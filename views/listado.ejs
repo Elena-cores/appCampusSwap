@@ -74,7 +74,7 @@
                 <!-- Aquí iteramos sobre los anuncios y generamos las tarjetas dinámicamente -->
                     <% ads.forEach(function(ad) { %>
                         <div class="tarjeta-articulo">
-                            <img src="<%= ad.photo %>" alt="<%= ad.description %>">
+                            <img src="<%= ad.photo %>" alt="<%= ad.university %>">
                             <p><%= ad.description %></p>
                             <span><%= ad.price %>€</span>
                             <button class="boton-favorito">♥</button>
@@ -85,19 +85,14 @@
 
         <!-- Sección de Twitter -->
         <aside class="feed-twitter">
-            <h3>Publicaciones de @USPCEU</h3>
-            <ul>
-                <li>Drenajes ACO en la Universidad CEU San Pablo</li>
-                <p> 7 de octubre, 2024 Novedades Industria Agua </p>
-                <img src="/images/drenaje.jpg" alt="Drenaje"/>
-                <li>Chamartín acoge la feria del empleo Induforum...</li>
-                <p> 16 de abril, 2024 </p>
-                <img src="/images/Chamartin.png" alt="Drenaje"/>
-                <li>La Complutense, la universidad más solicitada...</li>
-                <p> 24 de octubre, 2024 </p>
-                <img src="/images/Complutense.jpeg" alt="Drenaje"/>
-            </ul>
-            <button class="boton-twitter-ver">Ver en X</button>
+            <h3>Publicaciones de interés</h3>
+            <aside class="feed-twitter">
+                <!-- Widget de Twitter -->
+                <a class="twitter-timeline" data-width="300" data-height="600" href="https://twitter.com/USPCEU?ref_src=twsrc%5Etfw">Tweets by USPCEU</a>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            
+                <!-- Botón que lleva a la página de X -->
+                <button class="boton-twitter-ver" onclick="window.location.href='https://x.com/USPCEU'">Ver en X</button>
         </aside>
     </div>
 
