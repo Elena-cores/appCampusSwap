@@ -74,7 +74,7 @@
                 <!-- Aquí iteramos sobre los anuncios y generamos las tarjetas dinámicamente -->
                     <% ads.forEach(function(ad) { %>
                         <div class="tarjeta-articulo">
-                            <img src="<%= ad.photo %>" alt="ninguna foto por ahora">
+                            <img src="<%= ad.photo %>" alt="<%= ad.description %>">
                             <p><%= ad.description %></p>
                             <span><%= ad.price %>€</span>
                             <button class="boton-favorito">♥</button>
