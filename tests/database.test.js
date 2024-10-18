@@ -1,6 +1,6 @@
 const mariadb = require('mariadb');
 const rewire = require('rewire');
-const assert = require('assert'); // para las aserciones básicas
+const assert = require('assert'); // Para las aserciones básicas
 
 // Rewire para acceder a funciones internas del archivo 'database.js'
 const database = rewire('../database.js');
@@ -12,7 +12,8 @@ const setUp = database.__get__('setUp');
 const insertUser = database.__get__('insertUser');
 const insertAds = database.__get__('insertAds');
 
-describe('Pruebas de Base de Datos', function () {
+// Pruebas de conexión a la base de datos
+describe('Pruebas de Conexión', function () {
     it('Debe conectarse correctamente a la base de datos', async function () {
         let conn;
         try {
@@ -24,31 +25,59 @@ describe('Pruebas de Base de Datos', function () {
             if (conn) conn.end(); // Cierra la conexión al final
         }
     });
+});
 
-     // Test 2: Verificar que se crean correctamente la base de datos y las tablas
-     it('Debe crear la base de datos y las tablas correctamente', async function () {
+// Pruebas de creación de base de datos y tablas
+describe('Pruebas de Creación de Base de Datos y Tablas', function () {
+    it('Debe crear correctamente la base de datos', async function () {
         let conn;
         try {
             conn = await pool1.getConnection();
-            await setUp(conn); // Llama a la función setUp para crear la base de datos y las tablas
+            await setUp(conn);
 
-            // Verificamos que la base de datos y las tablas fueron creadas
             const dbExist = await conn.query("SHOW DATABASES LIKE 'campus'");
             assert(dbExist.length > 0, 'La base de datos campus debería existir');
-
-            const tableExist = await conn.query("SHOW TABLES LIKE 'user'");
-            assert(tableExist.length > 0, 'La tabla user debería existir');
-
-            const tableExistAds = await conn.query("SHOW TABLES LIKE 'ads'");
-            assert(tableExistAds.length > 0, 'La tabla ads debería existir');
         } catch (err) {
-            assert.fail(`Error al crear la base de datos o tablas: ${err.message}`);
+            assert.fail(`Error al crear la base de datos: ${err.message}`);
         } finally {
             if (conn) conn.end();
         }
     });
 
-    // Test 3: Verificar la inserción de un usuario
+    it('Debe crear correctamente la tabla "user"', async function () {
+        let conn;
+        try {
+            conn = await pool1.getConnection();
+            await setUp(conn);
+
+            const tableExist = await conn.query("SHOW TABLES LIKE 'user'");
+            assert(tableExist.length > 0, 'La tabla user debería existir');
+        } catch (err) {
+            assert.fail(`Error al crear la tabla "user": ${err.message}`);
+        } finally {
+            if (conn) conn.end();
+        }
+    });
+
+    it('Debe crear correctamente la tabla "ads"', async function () {
+        let conn;
+        try {
+            conn = await pool1.getConnection();
+            await setUp(conn);
+
+            const tableExistAds = await conn.query("SHOW TABLES LIKE 'ads'");
+            assert(tableExistAds.length > 0, 'La tabla ads debería existir');
+        } catch (err) {
+            assert.fail(`Error al crear la tabla "ads": ${err.message}`);
+        } finally {
+            if (conn) conn.end();
+        }
+    });
+});
+
+// Pruebas de inserción de datos
+describe('Pruebas de Inserción de Datos', function () {
+    // Test 1: Verificar la inserción de un usuario
     it('Debe insertar correctamente un usuario', async function () {
         const name = "david";
         const surname = "smith";
@@ -59,11 +88,10 @@ describe('Pruebas de Base de Datos', function () {
         let conn;
         let result;
         try {
-            // Ahora se llama a insertUser para insertar el usuario
             await insertUser(name, surname, username, password, email); // Inserta el usuario
             conn = await pool2.getConnection();
-            await conn.query("USE campus");
-            console.log(result);
+            await setUp(conn);
+
             result = await conn.query(`SELECT * FROM user WHERE email = "${email}";`);
             assert(result.length > 0, 'El usuario debería haber sido insertado en la base de datos');
             assert(result[0].username === username, 'El nombre de usuario debería coincidir');
@@ -74,19 +102,18 @@ describe('Pruebas de Base de Datos', function () {
         }
     });
 
-    // Test 4: Verificar la inserción de nuevas publicaciones
-    it('Debe registrar correctamente las nuevas publicaciones', async function() {
+    // Test 2: Verificar la inserción de nuevas publicaciones
+    it('Debe registrar correctamente las nuevas publicaciones', async function () {
         const description = "Libro";
         const price = 10;
         const state = 0;
         const university = "CEU";
-        const photo = "foto.jpg";
         
         let conn;
         try {
-            await insertAds(description, price, state, university, photo);
+            await insertAds(description, price, state, university);
             conn = await pool2.getConnection();
-            await conn.query("USE campus");
+            await setUp(conn);
     
             const result = await conn.query(`SELECT * FROM ads WHERE description = "${description}";`);
             assert(result.length > 0, 'La publicación debería haber sido insertada en la base de datos');
