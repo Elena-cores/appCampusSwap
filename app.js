@@ -2,6 +2,7 @@ var express = require('express');   // importar framework Express
 var createError = require('http-errors');   // módulo para manejar errores HTTP
 var path = require('path');     //modulo para manejar rutas de archivos
 var http = require('http');
+var session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -26,6 +27,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // Middleware
+app.use(session({
+  secret: 'tu_secreto_aqui', // Cambia esto por un secreto más seguro
+  resave: false,
+  saveUninitialized: true
+}));
+
 app.use(express.json());    
 app.use(express.urlencoded({ extended: false }));
 //app.use(cookieParser());
@@ -45,6 +52,11 @@ app.use('/olvidado', olvidadoRouter);
 app.use('/modificar', modificarRouter);
 app.use('/nuevaPublicacion', nuevaPublicacionRouter);
 
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true
+}));
 
 // Manejo de errores 404 y reenvío al manejador de errores
 // Si no se encuentra la ruta, se pasa un error 404
@@ -61,6 +73,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 
 // Crear el servidor HTTP
