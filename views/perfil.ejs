@@ -11,8 +11,7 @@
     <div class="sidebar">
         <div class="perfil">
             <img src="../images/perfil.jpg" alt="Foto de perfil" class="profile-img">
-            <!--usuarios-->
-            <h2>Usuario</h2>
+            <h2><%= username %></h2>
             <p>★★★★</p>
             <p>Año</p>
         </div>
@@ -29,8 +28,6 @@
         </div>
     </div>
 
-
-
     <div class="main-content">
         <header>
             <input type="text" placeholder="Buscar productos..." class="barra-busqueda">
@@ -46,7 +43,6 @@
                 <button class="venta-vendidos-boton">Vendidos</button>
             </div>
             <div class="product-list">
-                <!-- Anuncios del usuario -->
                 <% if (userAds && userAds.length > 0) { %>
                     <% userAds.forEach(function(ad) { %>
                         <div class="product-item">
@@ -60,6 +56,9 @@
                                         <br>Estado: <%= ad.state ? 'Disponible' : 'Reservado' %>
                                     </p>
                                 </div>
+                                <button class="delete-button" onclick="deleteProduct(<%= ad.id_ad %>)">
+                                    <img src="../images/eliminar.png" alt="Eliminar" class="delete-icon">
+                                </button>
                             </div>
                         </div>
                     <% }); %>
@@ -81,20 +80,29 @@
             
                 <!-- ... Otros ejemplos maqueta ... -->
             </div>
-          
 
-
-
-                
-
-
+            <script>
+                function deleteProduct(adId) {
+                    if (confirm('¿Estás seguro de que quieres eliminar este producto?')) {
+                        fetch(`/perfil/delete/${adId}`, { method: 'DELETE' })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    alert('Producto eliminado con éxito');
+                                    location.reload(); // Recargar la página para reflejar los cambios
+                                } else {
+                                    alert('Error al eliminar el producto');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('Error al eliminar el producto');
+                            });
+                    }
+                }
+                </script>
 
             <div class="botones">
-                
-                <button class="borrar-producto-boton">
-                    <img src="../images/eliminar.png" alt="Borrar Producto" class="icon">
-                    <span>Descartar</span>
-                </button>
 
                 <a href="/nuevaPublicacion" class="nuevo-anuncio-boton">
                     <img src="../images/añadir.png" alt="Nuevo Anuncio" class="icon">

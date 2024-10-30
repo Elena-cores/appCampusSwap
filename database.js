@@ -107,4 +107,19 @@ function getAdsByUser(id_user) {
   });
 }
 
-module.exports = {pool1, pool2, setUp, insertUser, insertAds, getAdsByUser};
+function deleteAd(adId, userId) {
+  return pool2.getConnection().then((conn) => {
+      conn.query("USE campus");
+      return conn.query('DELETE FROM ads WHERE id_ad = ? AND id_user = ?', [adId, userId])
+      .then((result) => {
+          conn.end();
+          return result.affectedRows > 0;
+      });
+  }).catch((err) => {
+      console.error("Error al eliminar anuncio:", err.message);
+      return false;
+  });
+}
+
+
+module.exports = {pool1, pool2, setUp, insertUser, insertAds, getAdsByUser, deleteAd};
