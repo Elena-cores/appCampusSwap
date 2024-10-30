@@ -16,7 +16,7 @@ var valoracionesRouter = require('./routes/valoraciones');
 var olvidadoRouter = require('./routes/olvidado');
 var modificarRouter = require('./routes/modificar');
 var nuevaPublicacionRouter = require('./routes/nuevaPublicacion');
-
+var isAuthenticated = require('./middleware/authMiddleware');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -43,14 +43,16 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
-app.use('/listado', listadoRouter);
-app.use('/perfil', perfilRouter);
-app.use('/favoritos', favoritosRouter);
-app.use('/buzon', buzonRouter);
-app.use('/valoraciones', valoracionesRouter);
-app.use('/olvidado', olvidadoRouter);
 app.use('/modificar', modificarRouter);
-app.use('/nuevaPublicacion', nuevaPublicacionRouter);
+app.use('/olvidado', olvidadoRouter);
+
+app.use('/listado', isAuthenticated, listadoRouter);
+app.use('/perfil', isAuthenticated, perfilRouter);
+app.use('/favoritos', isAuthenticated, favoritosRouter);
+app.use('/buzon', isAuthenticated, buzonRouter);
+app.use('/valoraciones', isAuthenticated, valoracionesRouter);
+app.use('/nuevaPublicacion', isAuthenticated, nuevaPublicacionRouter);
+
 
 app.use(session({
   secret: 'secret',
