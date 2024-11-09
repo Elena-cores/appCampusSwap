@@ -33,12 +33,12 @@ router.post('/', function(req, res, next) {
             res.redirect("/listado");
         } else {
             console.log("No se encontró el usuario");
-            conn.end();
             res.redirect("/login");
+            conn.end();
         }
     }).catch((err) => {
         console.log(err);
-        console.log("No se ha podido realizar el SELECT");
+        console.log("Error al intentar iniciar sesión:", err.message);
     });
     } else {
         res.redirect("/login")

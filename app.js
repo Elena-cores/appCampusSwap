@@ -5,7 +5,7 @@ var http = require('http');
 var session = require('express-session');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var logoutRouter = require('./routes/logout');
 var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
 var listadoRouter = require('./routes/listado');
@@ -40,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Rutas
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/logout', logoutRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/modificar', modificarRouter);
