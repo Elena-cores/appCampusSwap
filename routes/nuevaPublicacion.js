@@ -3,7 +3,8 @@ var router = express.Router();
 var database = require('../database');
 
 router.get('/', function(req, res, next) {
-    res.render('nuevaPublicacion', { title: 'Nueva Publicación' });
+    const from = req.query.from || 'perfil'; // obtener parametro 'from' de la url
+    res.render('nuevaPublicacion', { title: 'Nueva Publicación', from: from });
 });
 
 router.post("/", function(req, res, next) {
@@ -13,15 +14,6 @@ router.post("/", function(req, res, next) {
     let university = req.body.university;
     let photo = req.body.photo;
     let userId = req.session.userId;
-
-    // Añadir logs para verificar los valores
-    console.log("Datos de la nueva publicación:");
-    console.log("- Descripción:", description);
-    console.log("- Precio:", price);
-    console.log("- Estado:", state);
-    console.log("- Universidad:", university);
-    console.log("- Foto:", photo);
-    console.log("- ID de usuario:", userId);
 
     // Verificar si userId existe
     if (!userId) {
