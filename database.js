@@ -121,5 +121,23 @@ function deleteAd(adId, userId) {
   });
 }
 
+function updateUser(password, email) {
+    pool2.getConnection().then((conn) => {
+        conn.query("USE campus");
+        let sql = `UPDATE user SET password = '${password}' WHERE email = '${email}'`;
+  
+        return conn.query(sql).then(() => {
+            console.log("Contraseña actualizada");
+        }).catch(err => {
+            console.error("Error", err.message);
+            return false;
+        }).finally(() => {
+            conn.end();
+        });
+    }).catch((err) => {
+        console.error("No se pudo conectar a la base de datos:", err.message);
+        return false;
+    });
+  }
 
-module.exports = {pool1, pool2, setUp, insertUser, insertAds, getAdsByUser, deleteAd};
+module.exports = {pool1, pool2, setUp, insertUser, insertAds, getAdsByUser, deleteAd, updateUser};

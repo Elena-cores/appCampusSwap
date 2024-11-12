@@ -32,12 +32,24 @@
                 to_email: userEmail,
                 act_password: actPassword
             };
-
   
             emailjs.send('service_1ncw4qr', 'template_e4j14qe', templateParams) //SERVICE ID y TEMPLATE ID
                 .then(function(response) {
                     console.log('Correo electrónico enviado!', response.status, response.text);
                     alert('Correo electrónico enviado!');
+                    fetch('/olvidado', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: userEmail, password: actPassword })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                        window.location.href = "/login";
+                        } else {
+                        console.error("Error:", data.error);
+                        }
+                    })
                 }, function(error) {
                     console.error('Error en el\'envio del\'correo:', error);
                     alert('Error en el\'envio del\'correo');
@@ -59,7 +71,7 @@
                 </div>
 
                 <div class="botonAcceder">
-                    <button id="logInbutton" type="submit"> Enviar enlace </button>
+                    <button id="logInbutton" type="submit"> Enviar contraseña provisional</button>
                 </div>
 
             </form>
