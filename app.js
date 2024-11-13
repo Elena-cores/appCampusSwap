@@ -43,7 +43,6 @@ app.use('/', indexRouter);
 app.use('/logout', logoutRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
-app.use('/modificar', modificarRouter);
 app.use('/olvidado', olvidadoRouter);
 
 app.use('/listado', isAuthenticated, listadoRouter);
@@ -52,7 +51,7 @@ app.use('/favoritos', isAuthenticated, favoritosRouter);
 app.use('/buzon', isAuthenticated, buzonRouter);
 app.use('/valoraciones', isAuthenticated, valoracionesRouter);
 app.use('/nuevaPublicacion', isAuthenticated, nuevaPublicacionRouter);
-
+app.use('/modificar', isAuthenticated, modificarRouter);
 
 app.use(session({
   secret: 'secret',

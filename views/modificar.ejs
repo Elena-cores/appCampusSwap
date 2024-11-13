@@ -12,23 +12,66 @@
 		<img src="/images/LogoCampusSwap.png" alt="LogoIso" class="logo-img-login">
 		<h1 class="tituloLogIn"> Cambiar contraseña </h1>
 
-		<form action="/login" method="POST">
+		<form id="changePasswordForm" onsubmit="return handleChangePassword(event)">
 			<div class="container">
 
+
 				<div class="input-login">
-					<input required type="password" name="password" placeholder="Nueva contraseña">
+					<input required type="password" id="currentPassword" placeholder="contraseña actual" required>
+				</div>
+				
+				<div class="input-login">
+					<input required type="password" id="newPassword" placeholder="Nueva contraseña" required>
 				</div>
 
                 <div class="input-login">
-					<input required type="password" name="password" placeholder="Repite la contraseña nueva">
+					<input required type="password" id="confirmPassword" placeholder="Repite la contraseña nueva" required>
+					<span id="error" style="color: red; display: none;">Las contraseñas deben coincidir</span>
 				</div>
-
+				
 
 				<div class="botonAcceder">
 					<button id="logInbutton" type="submit"> Modificar contraseña </button>
 				</div>
 			</div>
 		</form>
+		<script>
+			function handleChangePassword(event) {
+				event.preventDefault();
+
+				const currentPassword = document.getElementById("currentPassword").value;
+				const newPassword = document.getElementById("newPassword").value;
+				const confirmPassword = document.getElementById("confirmPassword").value;
+				const error = document.getElementById("error");
+		
+				// Verificar que las contraseñas coincidan
+				if (newPassword !== confirmPassword) {
+					error.style.display = "block";
+					return;
+				} else {
+					error.style.display = "none";
+				}
+		
+				// Llamada a la API para cambiar la contraseña
+				fetch('/modificar', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ password: currentPassword, password: newPassword })
+				})
+				.then(response => response.json())
+				.then(data => {
+					window.location.href = "/index"
+					if (data.success) {
+						alert("Contraseña cambiada con éxito.");
+						document.getElementById("changePasswordForm").reset();
+					} else {
+						alert(data.message);
+					}
+				})
+				.catch(error => console.error("Error:", error));
+			}
+		</script>
 	</div>
+
 </body>
 </html>
