@@ -15,3 +15,24 @@ function myFunction(x) {
     const botonVender = document.querySelector('.boton-venta');
     botonVender.classList.toggle('move-right');
 }
+
+function filterProducts(){
+    const filter = document.getElementById("barra-busqueda").value.toLowerCase();
+    const cards = document.querySelectorAll(".tarjeta-articulo");
+
+    cards.forEach(card  =>{
+        const description = card.querySelector("p").textContent.toLowerCase();
+        const university = card.querySelector("img").alt.toLowerCase();
+
+        const matchDes = description.startsWith(filter);
+        const matchUni = university.startsWith(filter);
+
+        if(matchDes || matchUni){
+            card.style.display = "block";
+        } else{
+            card.style.display = "none";
+        }
+    });
+}
+
+document.getElementById("barra-busqueda").addEventListener("input", filterProducts);
