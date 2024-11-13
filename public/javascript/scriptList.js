@@ -24,7 +24,7 @@ function filterProducts(){
         const description = card.querySelector("p").textContent.toLowerCase();
         const university = card.querySelector("img").alt.toLowerCase();
 
-        const matchDes = description.startsWith(filter);
+        const matchDes = description.includes(filter);
         const matchUni = university.startsWith(filter);
 
         if(matchDes || matchUni){
