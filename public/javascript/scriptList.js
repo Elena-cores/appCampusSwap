@@ -18,7 +18,7 @@ function myFunction(x) {
 
 function filterProducts(){
     const filter = document.getElementById("barra-busqueda").value.toLowerCase();
-    const cards = document.querySelectorAll(".tarjeta-articulo");
+    const cards = document.querySelectorAll(".tarjeta-articulo"); 
 
     cards.forEach(card  =>{
         const description = card.querySelector("p").textContent.toLowerCase();
@@ -36,3 +36,27 @@ function filterProducts(){
 }
 
 document.getElementById("barra-busqueda").addEventListener("input", filterProducts);
+
+//filtrado por uni desde hamburger menu
+document.querySelectorAll('.filter-university').forEach(link => {
+    link.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevenir la navegación por defecto del enlace
+        const selectedUniversity = this.getAttribute('data-university').toLowerCase();
+        filterByUniversity(selectedUniversity);
+    });
+});
+
+function filterByUniversity(university) {
+    const cards = document.querySelectorAll(".tarjeta-articulo");
+
+    cards.forEach(card => {
+        const cardUniversity = card.querySelector("img").alt.toLowerCase();
+
+        if (cardUniversity.includes(university)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+
