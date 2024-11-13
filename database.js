@@ -121,7 +121,7 @@ function deleteAd(adId, userId) {
   });
 }
 
-function updateUser(password, email) {
+/*function updateUser(password, email) {
     pool2.getConnection().then((conn) => {
         conn.query("USE campus");
         let sql = `UPDATE user SET password = '${password}' WHERE email = '${email}'`;
@@ -138,6 +138,19 @@ function updateUser(password, email) {
         console.error("No se pudo conectar a la base de datos:", err.message);
         return false;
     });
-  }
+  }*/
+
+    async function updateUser(password, email) {
+        try {
+          const conn = await pool2.getConnection();
+          await conn.query("USE campus");
+          const result = await conn.query(`UPDATE user SET password = ? WHERE email = ?`, [password, email]);
+          conn.release(); 
+          return result;
+        } catch (error) {
+          console.error("Error updating password:", error);
+          throw error; 
+        }
+    }
 
 module.exports = {pool1, pool2, setUp, insertUser, insertAds, getAdsByUser, deleteAd, updateUser};
