@@ -123,17 +123,18 @@ function deleteAd(adId, userId) {
   });
 }
 
+
 async function updateUser(password, email) {
     try {
         const conn = await pool2.getConnection();
         await conn.query("USE campus");
-        const result = await conn.query(`UPDATE user SET password = ? WHERE email = ?`, [password, email]);
-        conn.release(); 
+        const result = await conn.query("UPDATE user SET password = ? WHERE email = ?", [password, email]);
+        conn.release();
         return result;
     } catch (error) {
         console.error("Error updating password:", error);
-        throw error; 
+        throw error;
     }
 }
 
-module.exports = {pool1, pool2, setUp, insertUser, insertAds, getAdsByUser, deleteAd, updateUser};
+module.exports = { pool1, pool2, setUp, insertUser, insertAds, getAdsByUser, deleteAd, updateUser };
