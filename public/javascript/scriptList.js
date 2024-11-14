@@ -21,13 +21,15 @@ function filterProducts(){
     const cards = document.querySelectorAll(".tarjeta-articulo"); 
 
     cards.forEach(card  =>{
+        const title = card.querySelector('.titulo-articulo').textContent.toLowerCase(); 
         const description = card.querySelector("p").textContent.toLowerCase();
         const university = card.querySelector("img").alt.toLowerCase();
 
+        const matchTitle = title.includes(filter);
         const matchDes = description.includes(filter);
         const matchUni = university.startsWith(filter);
 
-        if(matchDes || matchUni){
+        if(matchTitle || matchDes || matchUni){
             card.style.display = "block";
         } else{
             card.style.display = "none";
