@@ -65,12 +65,14 @@ function filterByUniversity(university) {
 document.querySelectorAll('.tarjeta-articulo').forEach(card => {
     card.addEventListener('click', function() {
         const imgSrc = card.querySelector('img').src;
-        const description = card.querySelector('p').textContent;
+        const title = card.querySelector('.titulo-articulo').textContent; // conseguir title
+        const description = card.querySelector('.descripcion-articulo').textContent; //conseguir descripción del producto
         const price = card.querySelector('span').textContent;
         const university = card.querySelector('img').alt;
 
         // Asignar los valores al pop-up
         document.getElementById('popup-img').src = imgSrc;
+        document.getElementById('popup-title').textContent = title;
         document.getElementById('popup-description').textContent = description;
         document.getElementById('popup-price').textContent = `Precio: ${price}`;
         document.getElementById('popup-university').textContent = `Universidad: ${university}`;
@@ -86,3 +88,6 @@ function closePopup() {
     document.getElementById('popup-overlay').style.display = 'none';
     document.getElementById('popup').style.display = 'none';
 }
+
+// event listener para para cerrar el pop-up al hacer clic fuera -> overlay
+document.getElementById('popup-overlay').addEventListener('click', closePopup);
