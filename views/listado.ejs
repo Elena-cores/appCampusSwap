@@ -78,6 +78,7 @@
                             <img src="<%= ad.photo %>" alt="<%= ad.university %>">
                             <h3 class="titulo-articulo"><%= ad.title %></h3> 
                             <p class="descripcion-articulo" style="display: none;"><%= ad.description %></p> <!-- Descripción oculta -->
+                            <p class="estado-articulo" style="display: none;"><%= ad.state ? 'Disponible' : 'Reservado' %></p>
                             <span><%= ad.price %>€</span> <!-- Precio -->
                             <button class="boton-favorito">♥</button>
                         </div>
@@ -94,6 +95,7 @@
                 <p id="popup-description"></p>
                 <p id="popup-price"></p>
                 <p id="popup-university"></p>
+                <p id="popup-state"></p> 
             </div>
 
         <!-- Sección de Twitter -->

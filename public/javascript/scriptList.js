@@ -61,7 +61,7 @@ function filterByUniversity(university) {
 }
 
 
-// Pop-up de tarjeta de artículo
+// Pop-up de tarjeta de artículo en listado
 document.querySelectorAll('.tarjeta-articulo').forEach(card => {
     card.addEventListener('click', function() {
         const imgSrc = card.querySelector('img').src;
@@ -69,13 +69,15 @@ document.querySelectorAll('.tarjeta-articulo').forEach(card => {
         const description = card.querySelector('.descripcion-articulo').textContent; //conseguir descripción del producto
         const price = card.querySelector('span').textContent;
         const university = card.querySelector('img').alt;
+        const state = card.querySelector('.estado-articulo').textContent;
 
-        // Asignar los valores al pop-up
+        // Asignar valores al pop-up
         document.getElementById('popup-img').src = imgSrc;
         document.getElementById('popup-title').textContent = title;
         document.getElementById('popup-description').textContent = description;
         document.getElementById('popup-price').textContent = `Precio: ${price}`;
         document.getElementById('popup-university').textContent = `Universidad: ${university}`;
+        document.getElementById('popup-state').textContent = `Estado: ${state}`; 
 
         // Mostrar el pop-up y la capa de fondo
         document.getElementById('popup-overlay').style.display = 'block';
@@ -83,7 +85,7 @@ document.querySelectorAll('.tarjeta-articulo').forEach(card => {
     });
 });
 
-// Función para cerrar el pop-up
+// función para cerrar el pop-up
 function closePopup() {
     document.getElementById('popup-overlay').style.display = 'none';
     document.getElementById('popup').style.display = 'none';
