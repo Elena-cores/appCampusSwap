@@ -60,3 +60,29 @@ function filterByUniversity(university) {
     });
 }
 
+
+// Pop-up de tarjeta de artículo
+document.querySelectorAll('.tarjeta-articulo').forEach(card => {
+    card.addEventListener('click', function() {
+        const imgSrc = card.querySelector('img').src;
+        const description = card.querySelector('p').textContent;
+        const price = card.querySelector('span').textContent;
+        const university = card.querySelector('img').alt;
+
+        // Asignar los valores al pop-up
+        document.getElementById('popup-img').src = imgSrc;
+        document.getElementById('popup-description').textContent = description;
+        document.getElementById('popup-price').textContent = `Precio: ${price}`;
+        document.getElementById('popup-university').textContent = `Universidad: ${university}`;
+
+        // Mostrar el pop-up y la capa de fondo
+        document.getElementById('popup-overlay').style.display = 'block';
+        document.getElementById('popup').style.display = 'block';
+    });
+});
+
+// Función para cerrar el pop-up
+function closePopup() {
+    document.getElementById('popup-overlay').style.display = 'none';
+    document.getElementById('popup').style.display = 'none';
+}

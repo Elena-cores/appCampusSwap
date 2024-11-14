@@ -6,6 +6,7 @@
     <title>Campus Swap</title>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/listado.css">
+    <link rel="stylesheet" href="/stylesheets/popUp.css">
 </head>
 <body>
     <header>
@@ -82,6 +83,15 @@
                     <% }) %>
                 </div>
             </main>
+             <!-- Pop-up para mostrar los detalles del artículo -->
+            <div id="popup-overlay"></div>
+            <div id="popup">
+                <button class="close-btn" onclick="closePopup()">Cerrar</button>
+                <img id="popup-img" src="" alt="Imagen del artículo" style="width: 100%; height: auto;">
+                <h3 id="popup-description"></h3>
+                <p id="popup-price"></p>
+                <p id="popup-university"></p>
+            </div>
 
         <!-- Sección de Twitter -->
         <aside class="feed-twitter">
