@@ -3,37 +3,36 @@ var router = express.Router();
 var database = require('../database');
 var isAuthenticated = require('../middleware/authMiddleware');
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('modificar', { title: 'Modificar contraseña' });
+    res.render('modificar', { title: 'Modificar contraseña' });
 });
+
 router.post('/api/change-password', isAuthenticated, async (req, res) => {
-  const { currentPassword, newPassword } = req.body;
-  const userEmail = req.user.email; // Correo electrónico desde el token
+    const { email, currentPassword, newPassword } = req.body;
 
-  try {
-      // Buscar al usuario en la base de datos usando el correo electrónico
-      const user = await User.findOne({ email: userEmail });
-      if (!user) {
-          return res.status(404).json({ success: false, message: "Usuario no encontrado" });
-      }
+    try {
+        const conn = await database.pool2.getConnection();
+        await conn.query("USE campus");
+        const [user] = await conn.query("SELECT * FROM user WHERE email = ?", [email]);
 
-      // Verificar que la contraseña actual sea correcta
-      if (user.password !== currentPassword) {
-          return res.status(400).json({ success: false, message: "Contraseña actual incorrecta" });
-      }
+        if (!user) {
+            conn.release();
+            return res.status(404).json({ success: false, message: "Usuario no encontrado" });
+        }
 
-      
-      
+        if (user.password !== currentPassword) {
+            conn.release();
+            return res.status(400).json({ success: false, message: "Contraseña actual incorrecta" });
+        }
 
-      // Actualizar la contraseña en la base de datos
-      user.password = newPassword;
-      database.updateUser(newPassword, userEmail);
+        await conn.query("UPDATE user SET password = ? WHERE email = ?", [newPassword, email]);
+        conn.release();
 
-      res.json({ success: true, message: "Contraseña cambiada exitosamente" });
-  } catch (error) {
-      console.error("Error al cambiar la contraseña:", error);
-      res.status(500).json({ success: false, message: "Error en el servidor" });
-  }
+        res.json({ success: true, message: "Contraseña cambiada exitosamente" });
+    } catch (error) {
+        console.error("Error al cambiar la contraseña:", error);
+        res.status(500).json({ success: false, message: "Error en el servidor" });
+    }
 });
+
 module.exports = router;
