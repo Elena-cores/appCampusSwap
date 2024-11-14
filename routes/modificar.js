@@ -1,39 +1,73 @@
-var express = require('express');
-var router = express.Router();
-var database = require('../database');
-var isAuthenticated = require('../middleware/authMiddleware');
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ModificarContraseña</title>
+	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/stylesheets/styleWelcomePage.css">
+</head>
+<body>
+	<div class="RecuadroPrincipalLogIn">
+		<img src="/images/LogoCampusSwap.png" alt="LogoIso" class="logo-img-login">
+		<h1 class="tituloLogIn"> Cambiar contraseña </h1>
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('modificar', { title: 'Modificar contraseña' });
-});
-router.post('/api/change-password', isAuthenticated, async (req, res) => {
-  const { currentPassword, newPassword } = req.body;
-  const userEmail = req.user.email; // Correo electrónico desde el token
+		<form id="changePasswordForm" onsubmit="return handleChangePassword(event)">
+			<div class="container">
+				<div class="input-login">
+					<input required type="email" id="email" placeholder="Correo electrónico" required>
+				</div>
+				<div class="input-login">
+					<input required type="password" id="currentPassword" placeholder="Contraseña actual" required>
+				</div>
+				<div class="input-login">
+					<input required type="password" id="newPassword" placeholder="Nueva contraseña" required>
+				</div>
+				<div class="input-login">
+					<input required type="password" id="confirmPassword" placeholder="Repite la contraseña nueva" required>
+					<span id="error" style="color: red; display: none;">Las contraseñas deben coincidir</span>
+				</div>
+				<div class="botonAcceder">
+					<button id="logInbutton" type="submit">Modificar contraseña</button>
+				</div>
+			</div>
+		</form>
+		<script>
+			function handleChangePassword(event) {
+				event.preventDefault();
 
-  try {
-      // Buscar al usuario en la base de datos usando el correo electrónico
-      const user = await User.findOne({ email: userEmail });
-      if (!user) {
-          return res.status(404).json({ success: false, message: "Usuario no encontrado" });
-      }
+				const email = document.getElementById("email").value;
+				const currentPassword = document.getElementById("currentPassword").value;
+				const newPassword = document.getElementById("newPassword").value;
+				const confirmPassword = document.getElementById("confirmPassword").value;
+				const error = document.getElementById("error");
 
-      // Verificar que la contraseña actual sea correcta
-      if (user.password !== currentPassword) {
-          return res.status(400).json({ success: false, message: "Contraseña actual incorrecta" });
-      }
+				if (newPassword !== confirmPassword) {
+					error.style.display = "block";
+					return;
+				} else {
+					error.style.display = "none";
+				}
 
-      
-      
+				fetch('/modificar/api/change-password', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ email, currentPassword, newPassword })
+				})
+						.then(response => response.json())
+						.then(data => {
+							if (data.success) {
+								alert("Contraseña cambiada con éxito.");
+								document.getElementById("changePasswordForm").reset();
+								window.location.href = "/perfil";
+							} else {
+								alert(data.message);
+							}
+						})
+						.catch(error => console.error("Error:", error));
+			}
+		</script>
+	</div>
 
-      // Actualizar la contraseña en la base de datos
-      user.password = newPassword;
-      database.updateUser(newPassword, userEmail);
-
-      res.json({ success: true, message: "Contraseña cambiada exitosamente" });
-  } catch (error) {
-      console.error("Error al cambiar la contraseña:", error);
-      res.status(500).json({ success: false, message: "Error en el servidor" });
-  }
-});
-module.exports = router;
+</body>
+</html>
