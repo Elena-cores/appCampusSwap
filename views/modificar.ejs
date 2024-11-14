@@ -14,24 +14,21 @@
 
 		<form id="changePasswordForm" onsubmit="return handleChangePassword(event)">
 			<div class="container">
-
-
 				<div class="input-login">
-					<input required type="password" id="currentPassword" placeholder="contraseña actual" required>
+					<input required type="email" id="email" placeholder="Correo electrónico" required>
 				</div>
-				
+				<div class="input-login">
+					<input required type="password" id="currentPassword" placeholder="Contraseña actual" required>
+				</div>
 				<div class="input-login">
 					<input required type="password" id="newPassword" placeholder="Nueva contraseña" required>
 				</div>
-
-                <div class="input-login">
+				<div class="input-login">
 					<input required type="password" id="confirmPassword" placeholder="Repite la contraseña nueva" required>
 					<span id="error" style="color: red; display: none;">Las contraseñas deben coincidir</span>
 				</div>
-				
-
 				<div class="botonAcceder">
-					<button id="logInbutton" type="submit"> Modificar contraseña </button>
+					<button id="logInbutton" type="submit">Modificar contraseña</button>
 				</div>
 			</div>
 		</form>
@@ -39,36 +36,35 @@
 			function handleChangePassword(event) {
 				event.preventDefault();
 
+				const email = document.getElementById("email").value;
 				const currentPassword = document.getElementById("currentPassword").value;
 				const newPassword = document.getElementById("newPassword").value;
 				const confirmPassword = document.getElementById("confirmPassword").value;
 				const error = document.getElementById("error");
-		
-				// Verificar que las contraseñas coincidan
+
 				if (newPassword !== confirmPassword) {
 					error.style.display = "block";
 					return;
 				} else {
 					error.style.display = "none";
 				}
-		
-				// Llamada a la API para cambiar la contraseña
-				fetch('/modificar', {
+
+				fetch('/modificar/api/change-password', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ password: currentPassword, password: newPassword })
+					body: JSON.stringify({ email, currentPassword, newPassword })
 				})
-				.then(response => response.json())
-				.then(data => {
-					window.location.href = "/index"
-					if (data.success) {
-						alert("Contraseña cambiada con éxito.");
-						document.getElementById("changePasswordForm").reset();
-					} else {
-						alert(data.message);
-					}
-				})
-				.catch(error => console.error("Error:", error));
+						.then(response => response.json())
+						.then(data => {
+							if (data.success) {
+								alert("Contraseña cambiada con éxito.");
+								document.getElementById("changePasswordForm").reset();
+								window.location.href = "/perfil";
+							} else {
+								alert(data.message);
+							}
+						})
+						.catch(error => console.error("Error:", error));
 			}
 		</script>
 	</div>
