@@ -8,6 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post("/", function(req, res, next) {
+    let title = req.body.title;
     let description = req.body.description;
     let price = parseFloat(req.body.price); 
     let state = parseInt(req.body.state, 10); 
@@ -24,7 +25,7 @@ router.post("/", function(req, res, next) {
 
     async function insertAd() {
         try {
-            await database.insertAds(description, price, state, university, photo, userId);
+            await database.insertAds(title, description, price, state, university, photo, userId);
             res.redirect("/listado");
         } catch (error) {
             console.error("Error al registrar el anuncio:", error);

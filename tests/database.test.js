@@ -79,11 +79,11 @@ describe('Pruebas de Creación de Base de Datos y Tablas', function () {
 describe('Pruebas de Inserción de Datos', function () {
     // Test 1: Verificar la inserción de un usuario
     it('Debe insertar correctamente un usuario', async function () {
-        const name = "david";
-        const surname = "smith";
-        const username = "dsmith";
-        const password = "david1";
-        const email = "ds@gmail.com";
+        const name = "maria";
+        const surname = "paloma";
+        const username = "maria1";
+        const password = "maria12";
+        const email = "mp@gmail.com";
 
         let conn;
         let result;
@@ -104,14 +104,15 @@ describe('Pruebas de Inserción de Datos', function () {
 
     // Test 2: Verificar la inserción de nuevas publicaciones
     it('Debe registrar correctamente las nuevas publicaciones', async function () {
-        const description = "Libro";
+        const title = "libro IT"
+        const description = "Libro sobre tdd kent beck";
         const price = 10;
         const state = 0;
         const university = "CEU";
         
         let conn;
         try {
-            await insertAds(description, price, state, university);
+            await insertAds(title, description, price, state, university);
             conn = await pool2.getConnection();
             await setUp(conn);
     

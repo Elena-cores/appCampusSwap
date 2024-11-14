@@ -33,8 +33,8 @@ function setUp(conn){
       + ", surname VARCHAR(50) NOT NULL, username VARCHAR(50) NOT NULL UNIQUE, password VARCHAR(20) NOT NULL "
       + ", email VARCHAR(50) NOT NULL UNIQUE)"
    );
-  conn.query("CREATE TABLE IF NOT EXISTS ads (id_ad INT PRIMARY KEY NOT NULL AUTO_INCREMENT, description VARCHAR(300) NOT NULL"
-      + ", price DOUBLE NOT NULL, state BOOLEAN NOT NULL, university VARCHAR(20), photo VARCHAR(20) NOT NULL, id_user INT, "
+  conn.query("CREATE TABLE IF NOT EXISTS ads (id_ad INT PRIMARY KEY NOT NULL AUTO_INCREMENT, title VARCHAR (500) NOT NULL, description VARCHAR(300) NOT NULL"
+      + ", price DOUBLE NOT NULL, state BOOLEAN NOT NULL, university VARCHAR(20), photo VARCHAR(20), id_user INT, "
       + "FOREIGN KEY (id_user) REFERENCES user(id_user))"
   );
 }
@@ -56,11 +56,12 @@ function insertUser(name, surname, username, password, email) {
   });
 }
 
-function insertAds(description, price, state, university, photo, id_user) {
+function insertAds(title, description, price, state, university, photo, id_user) {
   pool2.getConnection().then((conn) => {
       conn.query("USE campus");
-      let sql = `INSERT INTO ads (description, price, state, university, photo, id_user) 
-                 VALUES ('${description}', 
+      let sql = `INSERT INTO ads (title, description, price, state, university, photo, id_user) 
+                 VALUES ('${title}',
+                        '${description}', 
                          ${price}, 
                          ${state}, 
                          '${university}', 
@@ -79,6 +80,7 @@ function insertAds(description, price, state, university, photo, id_user) {
           if(result.length > 0) {
               console.log('Detalles del anuncio insertado:');
               console.log(`- ID del anuncio: ${result[0].id_ad}`);
+              console.log(`- Título: ${result[0].title}`);
               console.log(`- Descripción: ${result[0].description}`);
               console.log(`- Precio: ${result[0].price}`);
               console.log(`- Usuario: ${result[0].username} (ID: ${result[0].id_user})`);
