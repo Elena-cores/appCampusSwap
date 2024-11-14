@@ -62,6 +62,32 @@ function filterByUniversity(university) {
     });
 }
 
+// filtrado por categoría (LIBROS o ARTICULOS DE HOGAR)
+document.querySelectorAll('.filter-category').forEach(link => {
+    link.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevenir la navegación por defecto del enlace
+        const category = this.getAttribute('data-category').toLowerCase();
+
+        // palabras clave por categoria
+        const keywords = {
+            libros: ["libro", "novela", "textbook", "cuaderno", "volumen", "ejemplar", "texto", "antología"],
+            hogar: ["casa", "hogar", "cocina", "cama", "monitor", "dormitorio", "utensilios", "mueble", "mesa", "silla", "vaso", "limpieza"]
+        };
+
+        const cards = document.querySelectorAll(".tarjeta-articulo");
+        cards.forEach(card => {
+            const title = card.querySelector('.titulo-articulo').textContent.toLowerCase();
+            const description = card.querySelector('.descripcion-articulo').textContent.toLowerCase();
+
+            // verificar si alguna palabra clave está presente en title o description
+            const matches = keywords[category].some(keyword => title.includes(keyword) || description.includes(keyword));
+
+            // show/hide tarjeta según si hay coincidencias o no..
+            card.style.display = matches ? "block" : "none";
+        });
+    });
+});
+
 
 // Pop-up de tarjeta de artículo en listado
 document.querySelectorAll('.tarjeta-articulo').forEach(card => {
