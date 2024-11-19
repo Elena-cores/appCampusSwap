@@ -16,6 +16,7 @@ function myFunction(x) {
     botonVender.classList.toggle('move-right');
 }
 
+// filtrado por barra de busqueda 
 function filterProducts(){
     const filter = document.getElementById("barra-busqueda").value.toLowerCase();
     const cards = document.querySelectorAll(".tarjeta-articulo"); 
