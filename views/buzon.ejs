@@ -1,65 +1,206 @@
 <!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/stylesheets/slidebar.css"> 
-    <link rel="stylesheet" href="/stylesheets/buzon.css"> 
-    <title>Buzón - Campus Swap</title>
+    <title>Buzón de Mensajes</title>
+    <link rel="stylesheet" href="/stylesheets/buzon.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-<div class="container">
-    <div class="sidebar">
-        <div class="perfil">
-            <img src="../images/perfil.jpg" alt="Foto de perfil" class="profile-img">
-            <h2>Usuario</h2>
-            <p>★★★★</p>
-            <p>Año</p>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="/perfil">Productos</a></li>
-                <li><a href="/buzon">Buzón</a></li>
-                <li><a href="/favoritos">Favoritos</a></li>
-                <li><a href="/valoraciones">Valoraciones</a></li>
-                <li><a href="/modificar">Cambiar contraseña</a></li>
-            </ul>
-        </nav>
-        <div class="settings">
-            <img src="../images/settings-icon.svg" alt="Configuración">
-        </div>
-    </div>
-
-    <div class="main-content">
-        <header>
-            <input type="text" placeholder="Buscar conversaciones..." class="barra-busqueda">
-            
-        </header>
-
-        <section class="seccion-mensajes">
-            <div class="lista-conversaciones">
-                <h2>Conversaciones</h2>
+    <div class="container">
+        <div class="sidebar">
+            <nav>
                 <ul>
-                    <li class="conversacion">
-                        <img src="../images/perfil.jpg" alt="Usuario 1">
-                        <p>Usuario 1 Ejemplo</p>
-                    </li>
+                    <li><a href="/perfil">Perfil</a></li>
+                    <li><a href="/listado">Listado</a></li>
+                    <li><a href="/favoritos">Favoritos</a></li>
+                    <li><a href="/buzon" class="activo">Buzón</a></li>
+                    <li><a href="/logout">Cerrar Sesión</a></li>
                 </ul>
-            </div>
+            </nav>
+        </div>
+        <div class="main-content">
+            <header>
+                <h1>Buzón de Mensajes</h1>
+            </header>
+            <main>
+                <section class="seccion-mensajes">
+                    <div class="lista-conversaciones">
+                        <div class="search-section">
+                            <h2><i class="fas fa-search"></i> Buscar Usuario</h2>
+                            <form id="searchUserForm" class="search-form">
+                                <div class="search-input-container">
+                                    <input type="text" name="username" placeholder="Buscar usuario..." required>
+                                    <button type="submit"><i class="fas fa-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="chats-section">
+                            <h2><i class="fas fa-comments"></i> Conversaciones</h2>
+                            <div id="conversationList" class="chat-list"></div>
+                        </div>
+                    </div>
 
-            <div class="ventana-conversacion">
-                <div class="encabezado-chat">
-                    <h2>Usuario 1</h2>
-                </div>
-                <div class="mensajes">
-                    <!--mensajes-->
-                </div>
-                <div class="message-input">
-                    <input type="text" placeholder="Escribe un mensaje...">
-                    <button>Enviar</button>
-                </div>
-            </div>
-        </section>
+                    <div class="ventana-conversacion">
+                        <div id="userResults" class="user-results"></div>
+
+                        <div class="chat-container">
+                            <div id="chatHeader" class="chat-header">
+                                <h2>Selecciona un chat para comenzar</h2>
+                            </div>
+                            
+                            <div id="messagesList" class="messages-list"></div>
+
+                            <form id="sendMessageForm" class="message-form" style="display:none;">
+                                <input type="hidden" name="receiverId" id="receiverId">
+                                <div class="message-input-container">
+                                    <textarea name="content" placeholder="Escribe tu mensaje..." required></textarea>
+                                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
     </div>
-</div>
+
+    <script>
+        let currentChatUserId = null;
+
+        // Función para formatear la fecha
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleString('es-ES', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Función para buscar usuarios
+        document.getElementById('searchUserForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = e.target.username.value;
+            const response = await fetch('/buzon/search', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username })
+            });
+            const data = await response.json();
+            if (data.success) {
+                const userResults = document.getElementById('userResults');
+                userResults.innerHTML = '';
+                data.users.forEach(user => {
+                    userResults.innerHTML += `
+                    <div class="user-result-item">
+                        <span>${user.username}</span>
+                        <button onclick="startChat(${user.id_user}, '${user.username}')">
+                            <i class="fas fa-comment"></i> Chatear
+                        </button>
+                    </div>`;
+                });
+            } else {
+                alert(data.message);
+            }
+        });
+
+        // Función para iniciar un chat
+        function startChat(userId, username) {
+            document.getElementById('receiverId').value = userId;
+            document.getElementById('sendMessageForm').style.display = 'block';
+            document.getElementById('chatHeader').innerHTML = `<h2>Chat con ${username}</h2>`;
+            loadChat(userId);
+        }
+
+        // Función para cargar un chat específico
+        async function loadChat(userId) {
+            currentChatUserId = userId;
+            const response = await fetch(`/buzon/messages/${userId}`);
+            const data = await response.json();
+            const messagesList = document.getElementById('messagesList');
+            messagesList.innerHTML = '';
+            
+            if (data.success) {
+                data.messages.forEach(message => {
+                    const messageClass = message.sender_id === currentChatUserId ? 'received' : 'sent';
+                    messagesList.innerHTML += `
+                        <div class="message ${messageClass}">
+                            <div class="message-content">${message.content}</div>
+                            <div class="message-timestamp">${formatDate(message.timestamp)}</div>
+                        </div>`;
+                });
+                messagesList.scrollTop = messagesList.scrollHeight;
+                document.getElementById('sendMessageForm').style.display = 'block';
+            }
+        }
+
+        // Función para enviar mensajes
+        document.getElementById('sendMessageForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const receiverId = e.target.receiverId.value;
+            const content = e.target.content.value;
+            
+            if (!content.trim()) return;
+
+            const response = await fetch('/buzon/send-message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ receiverId, content })
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+                e.target.content.value = '';
+                loadChat(receiverId);
+                loadConversations();
+            } else {
+                alert(data.message);
+            }
+        });
+
+        // Función para cargar las conversaciones
+        async function loadConversations() {
+            const response = await fetch('/buzon/conversations');
+            const data = await response.json();
+            const conversationList = document.getElementById('conversationList');
+            conversationList.innerHTML = '';
+
+            if (data.success && data.conversations.length > 0) {
+                data.conversations.forEach(conversation => {
+                    const lastMessageTime = formatDate(conversation.last_message_time);
+                    conversationList.innerHTML += `
+                        <div class="chat-item ${currentChatUserId === conversation.id_user ? 'active' : ''}" 
+                             onclick="startChat(${conversation.id_user}, '${conversation.username}')">
+                            <div class="chat-item-content">
+                                <i class="fas fa-user-circle"></i>
+                                <div class="chat-item-info">
+                                    <span class="chat-item-name">${conversation.username}</span>
+                                    <span class="chat-item-time">${lastMessageTime}</span>
+                                </div>
+                            </div>
+                        </div>`;
+                });
+            } else {
+                conversationList.innerHTML = '<div class="no-conversations">No hay conversaciones.</div>';
+            }
+        }
+
+        // Actualizar conversaciones cada 30 segundos
+        setInterval(() => {
+            if (currentChatUserId) {
+                loadChat(currentChatUserId);
+            }
+            loadConversations();
+        }, 30000);
+
+        // Cargar conversaciones al inicio
+        loadConversations();
+    </script>
 </body>
 </html>

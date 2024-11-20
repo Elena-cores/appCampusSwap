@@ -1,80 +1,304 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+header {
+    background-color: #ffffff;
+    color: #1a1a1a;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
 
 .seccion-mensajes {
     display: flex;
     gap: 20px;
-    height: calc(100% - 100px);
+    height: calc(100vh - 80px);
+    padding: 20px;
+    background: #f0f2f5;
 }
 
 .lista-conversaciones {
     width: 30%;
-    background: #fff;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.search-section {
     padding: 15px;
-    border-radius: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.search-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #1a1a1a;
+}
+
+.search-form {
+    width: 100%;
+}
+
+.search-input-container {
+    display: flex;
+    gap: 10px;
+}
+
+.search-input-container input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.search-input-container button {
+    padding: 8px 15px;
+    background: #0084ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.search-input-container button:hover {
+    background: #0073e6;
+}
+
+.chats-section {
+    padding: 15px;
+    flex: 1;
     overflow-y: auto;
 }
 
-.conversacion {
+.chat-list {
     display: flex;
-    align-items: center;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    
+    flex-direction: column;
+    gap: 10px;
 }
 
-.conversacion img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 10px;
+.chat-item {
+    padding: 12px;
+    border-radius: 8px;
+    background: #f8f9fa;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.chat-item:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+}
+
+.chat-item.active {
+    background: #e3f2fd;
+    border-left: 4px solid #0084ff;
+}
+
+.chat-item-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chat-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.chat-item-name {
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.chat-item-time {
+    font-size: 0.8rem;
+    color: #666;
 }
 
 .ventana-conversacion {
     width: 70%;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    background: #fff;
-    border-radius: 10px;
 }
 
-.encabezado-chat {
+.chat-header {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
     text-align: center;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+    background: #f8f9fa;
 }
 
-.mensajes {
+.messages-list {
     flex: 1;
+    padding: 20px;
     overflow-y: auto;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-
-
-.message-input {
     display: flex;
-    padding: 10px;
-    
+    flex-direction: column;
+    gap: 10px;
 }
 
-.message-input input {
+.message {
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin: 5px 0;
+    position: relative;
+}
+
+.message-content {
+    margin-bottom: 5px;
+}
+
+.message-timestamp {
+    font-size: 0.7rem;
+    opacity: 0.7;
+}
+
+.message.sent {
+    background: #0084ff;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+}
+
+.message.sent .message-timestamp {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.message.received {
+    background: #e9ecef;
+    color: #1a1a1a;
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+}
+
+.message.received .message-timestamp {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.message-form {
+    padding: 15px;
+    border-top: 1px solid #e0e0e0;
+    background: #f8f9fa;
+}
+
+.message-input-container {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.message-input-container textarea {
     flex: 1;
-    padding: 10px;
-    border-radius: 10px;
-    margin-right: 10px;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    resize: none;
+    min-height: 40px;
+    max-height: 100px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    line-height: 1.4;
 }
 
-.message-input button {
-    padding: 10px 20px;
+.message-input-container button {
+    padding: 8px;
+    background: #0084ff;
+    color: white;
     border: none;
-    background: #007bff;
-    color: #fff;
-    border-radius: 10px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.message-input-container button:hover {
+    background: #0073e6;
+    transform: scale(1.1);
+}
 
+.user-results {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.user-result-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+}
+
+.user-result-item:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+}
+
+.user-result-item button {
+    padding: 8px 15px;
+    background: #0084ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.user-result-item button:hover {
+    background: #0073e6;
+    transform: scale(1.05);
+}
+
+.no-conversations {
+    text-align: center;
+    color: #666;
+    padding: 20px;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .seccion-mensajes {
+        flex-direction: column;
+    }
+    
+    .lista-conversaciones,
+    .ventana-conversacion {
+        width: 100%;
+    }
+    
+    .message {
+        max-width: 85%;
+    }
+}

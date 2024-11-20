@@ -37,6 +37,17 @@ function setUp(conn){
       + ", price DOUBLE NOT NULL, state BOOLEAN NOT NULL, university VARCHAR(20), photo VARCHAR(20), id_user INT, "
       + "FOREIGN KEY (id_user) REFERENCES user(id_user))"
   );
+  conn.query(`
+    CREATE TABLE IF NOT EXISTS messages (
+        id_message INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        sender_id INT NOT NULL,
+        receiver_id INT NOT NULL,
+        content TEXT NOT NULL,
+        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (sender_id) REFERENCES user(id_user),
+        FOREIGN KEY (receiver_id) REFERENCES user(id_user)
+    )`);
+
 }
 function insertUser(name, surname, username, password, email) {
   pool2.getConnection().then((conn) => {
