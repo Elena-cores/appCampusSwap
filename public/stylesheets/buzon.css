@@ -9,6 +9,16 @@ body {
     display: flex;
     height: 100vh;
     background-color: #f4f4f4;
+    position: relative;
+    width: 100%;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    height: 100vh;
+    position: relative;
 }
 
 .sidebar {
@@ -75,6 +85,10 @@ body {
     padding: 20px;
     height: 100vh;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 2000;
 }
 
 .sidebar nav {
@@ -128,6 +142,11 @@ header {
     text-align: center;
     border-bottom: 1px solid #e0e0e0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    left: 250px;
+    right: 0;
+    z-index: 1000;
 }
 
 header h1 {
@@ -138,21 +157,25 @@ header h1 {
 
 .seccion-mensajes {
     display: flex;
-    gap: 10px;
-    height: calc(100vh - 80px);
-    padding: 10px;
+    gap: 20px;
+    height: calc(100vh - 100px);
+    padding: 20px;
     background: #f0f2f5;
+    flex: 1;
+    margin-top: 65px;
+    position: fixed;
+    left: 270px;
+    right: 20px;
 }
 
 .lista-conversaciones {
-    width: 300px;
-    min-width: 300px;
+    width: 25%;
     background: #ffffff;
     border-radius: 15px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
-    margin-right: 10px;
+    padding: 10px;
 }
 
 .search-section {
@@ -201,6 +224,9 @@ header h1 {
     padding: 15px;
     flex: 1;
     overflow-y: auto;
+    background: #ffffff; 
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .chat-list {
@@ -215,6 +241,7 @@ header h1 {
     background: #f8f9fa;
     cursor: pointer;
     transition: all 0.3s ease;
+    margin-bottom: 10px; /* Espacio entre elementos */
 }
 
 .chat-item:hover {
@@ -251,13 +278,15 @@ header h1 {
 
 .ventana-conversacion {
     flex: 1;
+    width: 70%;
     background: #ffffff;
-    margin: 0 10px 0 0;
     border-radius: 15px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    height: 100%;
+    margin: 0;
 }
 
 .perfil {
@@ -275,7 +304,9 @@ header h1 {
 
 .settings {
     margin-top: auto;
-    text-align: center;
+    text-align: left;
+    padding-left: 10px;
+    margin-bottom: 100px;
 }
 
 .settings img {
@@ -296,6 +327,12 @@ header h1 {
     background: #f8f9fa;
 }
 
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 60px); /* Altura total menos el header */
+}
+
 .messages-list {
     flex: 1;
     padding: 20px;
@@ -303,6 +340,24 @@ header h1 {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    max-height: calc(100vh - 280px); /* Ajuste para mantener visible el formulario */
+}
+
+.messages-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.messages-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.messages-list::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 132, 255, 0.5);
+    border-radius: 3px;
+}
+
+.messages-list::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 132, 255, 0.8);
 }
 
 .message {
@@ -348,6 +403,13 @@ header h1 {
     padding: 15px;
     border-top: 1px solid #e0e0e0;
     background: #f8f9fa;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    min-height: 70px;
+    box-sizing: border-box;
+    margin-top: auto;
+    z-index: 10;
 }
 
 .message-input-container {
