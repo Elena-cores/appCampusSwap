@@ -1,4 +1,3 @@
-
 var express = require('express');
 var router = express.Router();
 var database = require('../database');
@@ -61,7 +60,7 @@ router.get('/conversations', async (req, res) => {
             SELECT DISTINCT 
                 u.id_user,
                 u.username,
-                m.timestamp as last_message_time
+                MAX(m.timestamp) as last_message_time
             FROM messages m
             JOIN user u ON (
                 CASE 
@@ -70,8 +69,8 @@ router.get('/conversations', async (req, res) => {
                 END
             )
             WHERE m.sender_id = ? OR m.receiver_id = ?
-            ORDER BY m.timestamp DESC`, [userId, userId, userId]);
-
+            GROUP BY u.id_user, u.username
+            ORDER BY last_message_time DESC`, [userId, userId, userId]);
         conn.release();
         res.json({ success: true, conversations });
     } catch (error) {
