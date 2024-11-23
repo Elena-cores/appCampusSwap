@@ -11,7 +11,7 @@ router.post("/", function(req, res, next) {
     let title = req.body.title;
     let description = req.body.description;
     let price = parseFloat(req.body.price); 
-    let state = parseInt(req.body.state, 10); 
+    let state = req.body.state; 
     let university = req.body.university;
     let photo = req.body.photo;
     let userId = req.session.userId;
