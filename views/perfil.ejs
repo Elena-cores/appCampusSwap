@@ -54,7 +54,7 @@
                                     <p>
                                         <%= ad.university %>
                                         <br>Precio: <%= ad.price %> euros
-                                        <br>Estado: <%= ad.state ? 'Disponible' : 'Reservado' %>
+                                        <br>Estado: <%= ad.state %>
                                     </p>
                                 </div>
                                 <button class="delete-button" onclick="deleteProduct(<%= ad.id_ad %>)">
@@ -67,19 +67,6 @@
                     <p>No tienes productos publicados aún.</p>
                 <% } %>
             
-                <!-- Puedes mantener los ejemplos maqueta si lo deseas -->
-                <div class="product-item">
-                    <div class="product">
-                        <img src="../images/libro-EJEMPLO.jpg" alt="Libro Rocco">
-                        <div class="product-info">
-                            <h3>Libro Rocco</h3>
-                            <p>Libros es la colección de libros sobre arte y cultura urbana.
-                            <br>Precio: 35 euros</p>
-                        </div>
-                    </div>
-                </div>
-            
-                <!-- ... Otros ejemplos maqueta ... -->
             </div>
 
             <script>
