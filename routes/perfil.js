@@ -19,6 +19,30 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/en-venta', function(req, res) {
+  let userId = req.session.userId;
+
+  database.getAdsByUser(userId).then(ads => {
+    let enVentaAds = ads.filter(ad => ad.state === 'Disponible' || ad.state === 'Reservado');
+    res.json(enVentaAds);
+  }).catch(error => {
+    console.error("Error al obtener anuncios en venta:", error);
+    res.status(500).send("Error al cargar anuncios en venta.");
+  });
+});
+
+router.get('/vendidos', function(req, res) {
+  let userId = req.session.userId;
+
+  database.getAdsByUser(userId).then(ads => {
+    let vendidosAds = ads.filter(ad => ad.state === 'Vendido');
+    res.json(vendidosAds);
+  }).catch(error => {
+    console.error("Error al obtener anuncios vendidos:", error);
+    res.status(500).send("Error al cargar anuncios vendidos.");
+  });
+});
+
 router.delete('/delete/:id', function(req, res) {
   let adId = req.params.id;
   let userId = req.session.userId;

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,36 +41,47 @@
         <section class="seccion-productos h2">
             <h2>Tus productos</h2>
             <div class="pestañas-productos">
-                <button class="venta-vendidos-boton">En venta</button>
-                <button class="venta-vendidos-boton">Vendidos</button>
+                <button class="venta-vendidos-boton" onclick="mostrarProductos('en-venta')">En venta</button>
+                <button class="venta-vendidos-boton" onclick="mostrarProductos('vendidos')">Vendidos</button>
             </div>
-            <div class="product-list">
-                <% if (userAds && userAds.length > 0) { %>
-                    <% userAds.forEach(function(ad) { %>
-                        <div class="product-item">
-                            <div class="product">
-                                <img src="<%= ad.photo %>" alt="">
-                                <div class="product-info">
-                                    <h3><%= ad.title %></h3>
-                                    <p>
-                                        <%= ad.university %>
-                                        <br>Precio: <%= ad.price %> euros
-                                        <br>Estado: <%= ad.state %>
-                                    </p>
-                                </div>
-                                <button class="delete-button" onclick="deleteProduct(<%= ad.id_ad %>)">
-                                    <img src="../images/eliminar.png" alt="Eliminar" class="delete-icon">
-                                </button>
-                            </div>
-                        </div>
-                    <% }); %>
-                <% } else { %>
-                    <p>No tienes productos publicados aún.</p>
-                <% } %>
-            
+            <div id="product-list" class="product-list">
+                <!-- Aquí se cargarán los productos dinámicamente -->
             </div>
 
             <script>
+                function mostrarProductos(tipo) {
+                    fetch(`/perfil/${tipo}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const productList = document.getElementById('product-list');
+                            productList.innerHTML = ''; // Limpiar productos actuales
+                            if (data.length > 0) {
+                                data.forEach(ad => {
+                                    productList.innerHTML += `
+                                        <div class="product-item">
+                                            <div class="product">
+                                                <img src="${ad.photo}" alt="">
+                                                <div class="product-info">
+                                                    <h3>${ad.title}</h3>
+                                                    <p>
+                                                        ${ad.university}
+                                                        <br>Precio: ${ad.price} euros
+                                                        <br>Estado: ${ad.state}
+                                                    </p>
+                                                </div>
+                                                <button class="delete-button" onclick="deleteProduct(${ad.id_ad})">
+                                                    <img src="../images/eliminar.png" alt="Eliminar" class="delete-icon">
+                                                </button>
+                                            </div>
+                                        </div>`;
+                                });
+                            } else {
+                                productList.innerHTML = '<p>No hay productos en esta categoría.</p>';
+                            }
+                        })
+                        .catch(error => console.error('Error al cargar productos:', error));
+                }
+
                 function deleteProduct(adId) {
                     if (confirm('¿Estás seguro de que quieres eliminar este producto?')) {
                         fetch(`/perfil/delete/${adId}`, { method: 'DELETE' })
@@ -88,10 +100,12 @@
                             });
                     }
                 }
-                </script>
+
+                // Mostrar inicialmente los productos "En venta"
+                document.addEventListener('DOMContentLoaded', () => mostrarProductos('en-venta'));
+            </script>
 
             <div class="botones">
-
                 <a href="/nuevaPublicacion?from=perfil" class="nuevo-anuncio-boton">
                     <img src="../images/añadir.png" alt="Nuevo Anuncio" class="icon">
                     <span>Añadir Producto</span>
