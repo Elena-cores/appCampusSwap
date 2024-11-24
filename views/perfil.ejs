@@ -54,7 +54,7 @@
                         .then(response => response.json())
                         .then(data => {
                             const productList = document.getElementById('product-list');
-                            productList.innerHTML = ''; // Limpiar productos actuales
+                            productList.innerHTML = ''; 
                             if (data.length > 0) {
                                 data.forEach(ad => {
                                     productList.innerHTML += `
@@ -69,9 +69,16 @@
                                                         <br>Estado: ${ad.state}
                                                     </p>
                                                 </div>
-                                                <button class="delete-button" onclick="deleteProduct(${ad.id_ad})">
-                                                    <img src="../images/eliminar.png" alt="Eliminar" class="delete-icon">
-                                                </button>
+                                                <div class="product-actions">
+                                                    ${
+                                                        ad.state !== 'Vendido'
+                                                        ? `<button class="mark-sold-button" onclick="updateVendido(${ad.id_ad})">Marcar como Vendido</button>`
+                                                        : ''
+                                                    }
+                                                    <button class="delete-button" onclick="deleteProduct(${ad.id_ad})">
+                                                        <img src="../images/eliminar.png" alt="Eliminar" class="delete-icon">
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>`;
                                 });
@@ -89,7 +96,7 @@
                             .then(data => {
                                 if (data.success) {
                                     alert('Producto eliminado con éxito');
-                                    location.reload(); // Recargar la página para reflejar los cambios
+                                    location.reload(); 
                                 } else {
                                     alert('Error al eliminar el producto');
                                 }
@@ -101,7 +108,26 @@
                     }
                 }
 
-                // Mostrar inicialmente los productos "En venta"
+                function updateVendido(adId) {
+                    if (confirm('¿Estás seguro de que quieres marcar este producto como vendido?')) {
+                        fetch(`/perfil/marcar-vendido/${adId}`, { method: 'POST' })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    alert('Producto marcado como vendido');
+                                    location.reload(); 
+                                } else {
+                                    alert(data.message || 'Error al marcar el producto como vendido');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('Error al marcar el producto como vendido');
+                            });
+                    }
+                }
+
+                
                 document.addEventListener('DOMContentLoaded', () => mostrarProductos('en-venta'));
             </script>
 

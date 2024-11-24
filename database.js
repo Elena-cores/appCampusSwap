@@ -148,4 +148,17 @@ async function updateUser(password, email) {
     }
 }
 
-module.exports = { pool1, pool2, setUp, insertUser, insertAds, getAdsByUser, deleteAd, updateUser };
+async function updateVendido(adId, userId) {
+    try {
+        const conn = await pool2.getConnection();
+        await conn.query("USE campus");
+        const result = await conn.query("UPDATE ads SET state = 'Vendido' WHERE id_ad = ? AND id_user = ?", [adId, userId]);
+        conn.release();
+        return result.affectedRows > 0; 
+    } catch (error) {
+        console.error("Error al marcar anuncio como vendido:", error);
+        throw error;
+    }
+}
+
+module.exports = { pool1, pool2, setUp, insertUser, insertAds, getAdsByUser, deleteAd, updateUser, updateVendido };

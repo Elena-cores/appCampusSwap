@@ -43,6 +43,22 @@ router.get('/vendidos', function(req, res) {
   });
 });
 
+router.post('/marcar-vendido/:id', function(req, res) {
+  let adId = req.params.id;
+  let userId = req.session.userId;
+
+  database.updateVendido(adId, userId).then(result => {
+    if (result) {
+      res.json({ success: true, message: 'El producto ha sido marcado como vendido.' });
+    } else {
+      res.status(403).json({ success: false, message: 'No autorizado para marcar este anuncio como vendido.' });
+    }
+  }).catch(error => {
+    console.error("Error al marcar el anuncio como vendido:", error);
+    res.status(500).json({ success: false, message: 'Error al marcar el anuncio como vendido.' });
+  });
+});
+
 router.delete('/delete/:id', function(req, res) {
   let adId = req.params.id;
   let userId = req.session.userId;
