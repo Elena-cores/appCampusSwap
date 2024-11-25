@@ -34,7 +34,7 @@ function setUp(conn){
       + ", email VARCHAR(50) NOT NULL UNIQUE)"
    );
   conn.query("CREATE TABLE IF NOT EXISTS ads (id_ad INT PRIMARY KEY NOT NULL AUTO_INCREMENT, title VARCHAR (500) NOT NULL, description VARCHAR(300) NOT NULL"
-      + ", price DOUBLE NOT NULL, state ENUM('Disponible', 'Reservado', 'Vendido'), university VARCHAR(20), photo VARCHAR(20), id_user INT, "
+      + ", price DOUBLE NOT NULL, state ENUM('Disponible', 'Reservado', 'Vendido'), university ENUM('Ninguna', 'CEU', 'UCM', 'UPM'), photo VARCHAR(20), id_user INT, "
       + "FOREIGN KEY (id_user) REFERENCES user(id_user))"
   );
   conn.query(`
