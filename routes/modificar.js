@@ -25,6 +25,11 @@ router.post('/api/change-password', isAuthenticated, async (req, res) => {
             return res.status(400).json({ success: false, message: "Contraseña actual incorrecta" });
         }
 
+        if (newPassword === currentPassword) {
+            conn.release();
+            return res.status(400).json({ success: false, message: "La nueva contraseña no puede ser igual a la contraseña actual" });
+        }
+
         await conn.query("UPDATE user SET password = ? WHERE email = ?", [newPassword, email]);
         conn.release();
 

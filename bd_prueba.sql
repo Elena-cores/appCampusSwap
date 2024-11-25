@@ -23,12 +23,6 @@
 LOCK TABLES `ads` WRITE;
 /*!40000 ALTER TABLE `ads` DISABLE KEYS */;
 INSERT INTO `ads` VALUES
-(1,'Libro de Matemáticas','Libro en buen estado, poco uso.',15,'Disponible','UCM','1.jpg',1),
-(2,'Teléfono Móvil','Smartphone de última generación.',300,'Vendido','UPM','2.jpg',2),
-(3,'Mesa de Estudio','Mesa amplia y resistente.',50,'Disponible','CEU','3.jpg',3),
-(4,'Cámara Fotográfica','Cámara réflex en perfecto estado.',250,'Reservado','Ninguna','4.jpg',4),
-(5,'Silla Ergonómica','Silla ideal para largas horas de estudio.',80,'Disponible','UCM','5.jpg',5),
-(6,'Guitarra Acústica','Guitarra para principiantes.',120,'Vendido','UPM','6.jpg',6),
 (7,'Libro de Matemáticas','Libro en buen estado, poco uso.',15,'Disponible','UCM','1.jpg',1),
 (8,'Teléfono Móvil','Smartphone de última generación.',300,'Vendido','UPM','2.jpg',2),
 (9,'Mesa de Estudio','Mesa amplia y resistente.',50,'Disponible','CEU','3.jpg',3),
