@@ -128,8 +128,62 @@ INSERT INTO `ads` VALUES
 (103,'Guitarra eléctrica','Guitarra eléctrica Fender Stratocaster.',350,'Disponible','UCM','97.jpg',22),
 (104,'Piano digital','Piano digital Yamaha P-45.',400,'Disponible','UPM','98.jpg',23),
 (105,'Libro de diseño','Fundamentos del diseño gráfico.',30,'Disponible','CEU','99.jpg',24),
-(106,'Cámara DSLR','Canon EOS 80D con lente 18-135mm.',600,'Disponible','UCM','100.jpg',25);
+(106,'Cámara DSLR','Canon EOS 80D con lente 18-135mm.',600,'Disponible','UCM','100.jpg',25),
+(107,'Smartphone Samsung Galaxy S20','Samsung Galaxy S20, 128GB, color negro, en perfecto estado.',500,'Vendido','UCM','107.jpg',1),
+(108,'Gaming Laptop ASUS ROG','Portátil gaming ASUS ROG, 16GB RAM, GTX 1660Ti, 512GB SSD.',1000,'Vendido','UPM','108.jpg',2),
+(109,'Auriculares Bose con Cancelación de Ruido','Auriculares Bose QC35 II, excelente estado.',250,'Vendido','CEU','109.jpg',3),
+(110,'Guitarra Eléctrica Fender','Guitarra Fender Stratocaster, color sunburst.',600,'Vendido','UCM','110.jpg',4),
+(111,'Cámara Réflex Canon','Canon EOS 800D con lente 18-55mm.',550,'Vendido','UPM','111.jpg',5),
+(112,'Bicicleta de Montaña Trek','Bicicleta Trek, talla M, poco uso.',400,'Vendido','CEU','112.jpg',1),
+(113,'Apple Watch Series 6','Smartwatch Apple Watch Series 6, 44mm, GPS.',350,'Vendido','UCM','113.jpg',2),
+(114,'iPad Air','iPad Air 4ª generación, 256GB, Wi-Fi.',600,'Vendido','UPM','114.jpg',3),
+(115,'Auriculares Inalámbricos Sony','Sony WF-1000XM3 con cancelación de ruido.',200,'Vendido','CEU','115.jpg',4),
+(116,'Kindle Paperwhite','Kindle Paperwhite 10ª generación, resistente al agua.',100,'Vendido','UCM','116.jpg',5),
+(117,'Monitor Dell 27 pulgadas','Monitor Dell UltraSharp U2719D, resolución QHD.',300,'Vendido','UCM','117.jpg',1),
+(118,'Teclado Mecánico Corsair','Teclado mecánico Corsair K70 RGB MK.2.',120,'Vendido','UCM','118.jpg',1),
+(119,'Libro de Álgebra Lineal','Libro de Álgebra Lineal y sus Aplicaciones, 5ta edición.',40,'Vendido','UCM','119.jpg',1),
+(120,'Libro de Cálculo Avanzado','Libro de Cálculo Avanzado, ideal para ingenierías.',50,'Vendido','UPM','120.jpg',8),
+(121,'Mouse Inalámbrico Logitech','Mouse Logitech MX Master 3, ergonómico.',80,'Vendido','CEU','121.jpg',9),
+(122,'Impresora Multifunción Epson','Impresora Epson EcoTank L3150, tanques de tinta recargables.',200,'Vendido','UCM','122.jpg',11);
 /*!40000 ALTER TABLE `ads` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `favorites`
+--
+
+LOCK TABLES `favorites` WRITE;
+/*!40000 ALTER TABLE `favorites` DISABLE KEYS */;
+INSERT INTO `favorites` VALUES
+(1,1,101,'2024-11-26 01:15:23'),
+(2,2,102,'2024-11-26 01:15:23'),
+(3,3,103,'2024-11-26 01:15:23'),
+(4,1,104,'2024-11-26 01:15:23'),
+(5,2,105,'2024-11-26 01:15:23'),
+(6,3,106,'2024-11-26 01:15:23'),
+(11,1,101,'2024-11-26 01:17:20'),
+(12,1,102,'2024-11-26 01:17:20'),
+(13,1,103,'2024-11-26 01:17:20'),
+(14,1,104,'2024-11-26 01:17:20'),
+(15,1,105,'2024-11-26 01:17:20'),
+(16,2,106,'2024-11-26 01:17:20'),
+(26,1,101,'2024-11-26 01:17:49'),
+(27,1,102,'2024-11-26 01:17:49'),
+(28,2,103,'2024-11-26 01:17:49'),
+(29,2,104,'2024-11-26 01:17:49'),
+(30,3,105,'2024-11-26 01:17:49'),
+(31,3,106,'2024-11-26 01:17:49'),
+(32,1,97,'2024-11-26 01:19:49'),
+(33,1,98,'2024-11-26 01:19:49'),
+(34,1,99,'2024-11-26 01:19:49'),
+(35,1,100,'2024-11-26 01:19:49'),
+(36,1,101,'2024-11-26 01:19:49'),
+(37,1,102,'2024-11-26 01:19:49'),
+(38,1,103,'2024-11-26 01:19:49'),
+(39,1,104,'2024-11-26 01:19:49'),
+(40,1,105,'2024-11-26 01:19:49'),
+(41,1,106,'2024-11-26 01:19:49');
+/*!40000 ALTER TABLE `favorites` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -317,42 +371,42 @@ INSERT INTO `messages` VALUES
 (176,9,10,'Perfecto. ¿Dónde y cuándo podemos encontrarnos?','2024-11-20 17:30:00'),
 (177,10,9,'¿Te viene bien hoy en la biblioteca de la UCM a las 6 pm?','2024-11-20 17:45:00'),
 (178,9,10,'Sí, nos vemos allí. ¡Gracias!','2024-11-20 18:00:00'),
-(179,1,3,'Hola, estoy interesado en tu \"Colchón individual\". ¿Está disponible?','2024-12-05 10:00:00'),
-(180,3,1,'Hola, sí, aún lo tengo.','2024-12-05 10:15:00'),
-(181,1,3,'¿Está en buen estado? ¿Qué dimensiones tiene?','2024-12-05 10:30:00'),
-(182,3,1,'Está en muy buen estado y mide 90x190 cm.','2024-12-05 10:45:00'),
-(183,1,3,'Excelente. ¿Podríamos acordar un precio de 75€?','2024-12-05 11:00:00'),
-(184,3,1,'De acuerdo.','2024-12-05 11:15:00'),
-(185,1,3,'Genial. ¿Dónde y cuándo podemos quedar?','2024-12-05 11:30:00'),
-(186,3,1,'¿Te viene bien mañana en la entrada principal de la UCM a las 2 pm?','2024-12-05 11:45:00'),
-(187,1,3,'Sí, nos vemos allí. ¡Gracias!','2024-12-05 12:00:00'),
-(188,2,5,'Hola, estoy interesado en tu \"Patines en línea\". ¿Sigue en venta?','2024-12-15 14:00:00'),
-(189,5,2,'Hola, sí, aún los tengo.','2024-12-15 14:15:00'),
-(190,2,5,'¿En qué estado están? ¿Qué talla son?','2024-12-15 14:30:00'),
-(191,5,2,'Están en buen estado y son talla 42.','2024-12-15 14:45:00'),
-(192,2,5,'Genial. ¿Podríamos acordar un precio de 45€?','2024-12-15 15:00:00'),
-(193,5,2,'Me parece bien.','2024-12-15 15:15:00'),
-(194,2,5,'Perfecto. ¿Dónde y cuándo podemos encontrarnos?','2024-12-15 15:30:00'),
-(195,5,2,'¿Te viene bien hoy en la cafetería de la UPM a las 5 pm?','2024-12-15 15:45:00'),
-(196,2,5,'Sí, nos vemos allí. ¡Gracias!','2024-12-15 16:00:00'),
-(197,6,4,'Hola, me interesa tu \"Tablet gráfica\". ¿Está disponible?','2024-12-25 09:00:00'),
-(198,4,6,'Hola, sí, aún la tengo.','2024-12-25 09:15:00'),
-(199,6,4,'¿Funciona correctamente? ¿Incluye el lápiz?','2024-12-25 09:30:00'),
-(200,4,6,'Sí, funciona perfectamente e incluye el lápiz original.','2024-12-25 09:45:00'),
-(201,6,4,'Excelente. ¿Podríamos acordar un precio de 65€?','2024-12-25 10:00:00'),
-(202,4,6,'Me parece bien.','2024-12-25 10:15:00'),
-(203,6,4,'Genial. ¿Dónde y cuándo podemos quedar?','2024-12-25 10:30:00'),
-(204,4,6,'¿Te viene bien hoy en la biblioteca de la UCM a las 3 pm?','2024-12-25 10:45:00'),
-(205,6,4,'Sí, nos vemos allí. ¡Gracias!','2024-12-25 11:00:00'),
-(206,8,7,'Hola, estoy interesado en tu \"Smart TV LG\". ¿Sigue en venta?','2024-12-30 16:00:00'),
-(207,7,8,'Hola, sí, aún la tengo.','2024-12-30 16:15:00'),
-(208,8,7,'¿Funciona correctamente? ¿Tiene garantía?','2024-12-30 16:30:00'),
-(209,7,8,'Sí, funciona perfectamente y le queda un año de garantía.','2024-12-30 16:45:00'),
-(210,8,7,'Excelente. ¿Podríamos acordar un precio de 290€?','2024-12-30 17:00:00'),
-(211,7,8,'De acuerdo.','2024-12-30 17:15:00'),
-(212,8,7,'Genial. ¿Dónde y cuándo podemos encontrarnos?','2024-12-30 17:30:00'),
-(213,7,8,'¿Te viene bien mañana en la entrada principal de la UPM a las 2 pm?','2024-12-30 17:45:00'),
-(214,8,7,'Sí, nos vemos allí. ¡Gracias!','2024-12-30 18:00:00'),
+(179,1,3,'Hola, estoy interesado en tu \"Colchón individual\". ¿Está disponible?','2024-11-05 10:00:00'),
+(180,3,1,'Hola, sí, aún lo tengo.','2024-11-05 10:15:00'),
+(181,1,3,'¿Está en buen estado? ¿Qué dimensiones tiene?','2024-11-05 10:30:00'),
+(182,3,1,'Está en muy buen estado y mide 90x190 cm.','2024-11-05 10:45:00'),
+(183,1,3,'Excelente. ¿Podríamos acordar un precio de 75€?','2024-11-05 11:00:00'),
+(184,3,1,'De acuerdo.','2024-11-05 11:15:00'),
+(185,1,3,'Genial. ¿Dónde y cuándo podemos quedar?','2024-11-05 11:30:00'),
+(186,3,1,'¿Te viene bien mañana en la entrada principal de la UCM a las 2 pm?','2024-11-05 11:45:00'),
+(187,1,3,'Sí, nos vemos allí. ¡Gracias!','2024-11-05 12:00:00'),
+(188,2,5,'Hola, estoy interesado en tu \"Patines en línea\". ¿Sigue en venta?','2024-11-15 14:00:00'),
+(189,5,2,'Hola, sí, aún los tengo.','2024-11-15 14:15:00'),
+(190,2,5,'¿En qué estado están? ¿Qué talla son?','2024-11-15 14:30:00'),
+(191,5,2,'Están en buen estado y son talla 42.','2024-11-15 14:45:00'),
+(192,2,5,'Genial. ¿Podríamos acordar un precio de 45€?','2024-11-15 15:00:00'),
+(193,5,2,'Me parece bien.','2024-11-15 15:15:00'),
+(194,2,5,'Perfecto. ¿Dónde y cuándo podemos encontrarnos?','2024-11-15 15:30:00'),
+(195,5,2,'¿Te viene bien hoy en la cafetería de la UPM a las 5 pm?','2024-11-15 15:45:00'),
+(196,2,5,'Sí, nos vemos allí. ¡Gracias!','2024-11-15 16:00:00'),
+(197,6,4,'Hola, me interesa tu \"Tablet gráfica\". ¿Está disponible?','2024-11-25 09:00:00'),
+(198,4,6,'Hola, sí, aún la tengo.','2024-11-25 09:15:00'),
+(199,6,4,'¿Funciona correctamente? ¿Incluye el lápiz?','2024-11-25 09:30:00'),
+(200,4,6,'Sí, funciona perfectamente e incluye el lápiz original.','2024-11-25 09:45:00'),
+(201,6,4,'Excelente. ¿Podríamos acordar un precio de 65€?','2024-11-25 10:00:00'),
+(202,4,6,'Me parece bien.','2024-11-25 10:15:00'),
+(203,6,4,'Genial. ¿Dónde y cuándo podemos quedar?','2024-11-25 10:30:00'),
+(204,4,6,'¿Te viene bien hoy en la biblioteca de la UCM a las 3 pm?','2024-11-25 10:45:00'),
+(205,6,4,'Sí, nos vemos allí. ¡Gracias!','2024-11-25 11:00:00'),
+(206,8,7,'Hola, estoy interesado en tu \"Smart TV LG\". ¿Sigue en venta?','2024-11-30 16:00:00'),
+(207,7,8,'Hola, sí, aún la tengo.','2024-11-30 16:15:00'),
+(208,8,7,'¿Funciona correctamente? ¿Tiene garantía?','2024-11-30 16:30:00'),
+(209,7,8,'Sí, funciona perfectamente y le queda un año de garantía.','2024-11-30 16:45:00'),
+(210,8,7,'Excelente. ¿Podríamos acordar un precio de 290€?','2024-11-30 17:00:00'),
+(211,7,8,'De acuerdo.','2024-11-30 17:15:00'),
+(212,8,7,'Genial. ¿Dónde y cuándo podemos encontrarnos?','2024-11-30 17:30:00'),
+(213,7,8,'¿Te viene bien mañana en la entrada principal de la UPM a las 2 pm?','2024-11-30 17:45:00'),
+(214,8,7,'Sí, nos vemos allí. ¡Gracias!','2024-11-30 18:00:00'),
 (215,1,2,'Hola, me interesa tu \"Bicicleta de montaña\". ¿Está disponible?','2024-01-05 09:00:00'),
 (216,2,1,'Hola, sí, aún la tengo.','2024-01-05 09:15:00'),
 (217,1,2,'¿Podríamos acordar un precio de 140€?','2024-01-05 09:30:00'),
@@ -528,6 +582,32 @@ INSERT INTO `user` VALUES
 (30,'Matthew','Robinson','matthew.robinson30','pass30','matthew.robinson30@gmail.com');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping data for table `valoraciones`
+--
+
+LOCK TABLES `valoraciones` WRITE;
+/*!40000 ALTER TABLE `valoraciones` DISABLE KEYS */;
+INSERT INTO `valoraciones` VALUES
+(1,2,1,107,5,'Excelente vendedor, el smartphone está como nuevo.','2024-11-01 09:00:00'),
+(2,3,2,108,4,'Buen portátil, aunque tenía un pequeño rasguño.','2024-11-02 10:00:00'),
+(3,4,3,109,5,'Auriculares en perfecto estado, sonido increíble.','2024-11-03 11:00:00'),
+(4,5,4,110,5,'La guitarra suena genial, muy satisfecho con la compra.','2024-11-04 12:00:00'),
+(5,1,5,111,4,'Buena cámara, aunque faltaba la tapa del lente.','2024-11-05 13:00:00'),
+(6,3,1,112,5,'La bicicleta está en perfectas condiciones, excelente vendedor.','2024-11-06 14:00:00'),
+(7,4,2,113,5,'El smartwatch es increíble, todo perfecto.','2024-11-07 15:00:00'),
+(8,5,3,114,5,'El iPad está como nuevo, vendedor muy atento.','2024-11-08 16:00:00'),
+(9,1,4,115,5,'Auriculares funcionan genial, vendedor recomendado.','2024-11-09 17:00:00'),
+(10,2,5,116,5,'El Kindle está perfecto, gran vendedor.','2024-11-10 18:00:00'),
+(11,6,1,117,5,'El monitor está en perfectas condiciones, vendedor muy amable.','2024-11-11 09:00:00'),
+(12,7,1,118,4,'Buen teclado, aunque faltaban algunos accesorios.','2024-11-12 10:00:00'),
+(13,10,1,119,5,'Libro en excelente estado, vendedor recomendado.','2024-11-13 11:00:00'),
+(14,1,8,120,5,'Excelente vendedor, el libro me será de mucha ayuda.','2024-11-14 12:00:00'),
+(15,1,9,121,5,'El mouse funciona perfecto, muy satisfecho.','2024-11-15 13:00:00'),
+(16,1,11,122,4,'La impresora funciona bien, aunque le faltaba el cable USB.','2024-11-16 14:00:00');
+/*!40000 ALTER TABLE `valoraciones` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -537,4 +617,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2024-11-25 22:48:52
+-- Dump completed on 2024-11-26  5:12:41

@@ -1,13 +1,16 @@
 <!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/stylesheets/slidebar.css"> 
-    <link rel="stylesheet" href="/stylesheets/favoritos.css"> 
     <title>Favoritos - Campus Swap</title>
+    <link rel="stylesheet" href="/stylesheets/slidebar.css">
+    <link rel="stylesheet" href="/stylesheets/listadoFavoritos.css">
+    <link rel="stylesheet" href="/stylesheets/popUp.css">
 </head>
 <body>
 <div class="container">
+
     <div class="sidebar">
         <div class="perfil">
             <img src="../images/perfil.jpg" alt="Foto de perfil" class="profile-img">
@@ -19,10 +22,9 @@
             <ul>
                 <li><a href="/perfil">Productos</a></li>
                 <li><a href="/buzon">Buzón</a></li>
-                <li><a href="/favoritos">Favoritos</a></li>
+                <li><a href="/favoritos" class="activo">Favoritos</a></li>
                 <li><a href="/valoraciones">Valoraciones</a></li>
                 <li><a href="/modificar">Cambiar contraseña</a></li>
-
             </ul>
         </nav>
         <div class="settings">
@@ -32,17 +34,38 @@
 
     <div class="main-content">
         <header>
-            <h2>Favoritos</h2>
+            <h1>Favoritos</h1>
         </header>
-       
 
-
-
-
-        
+   
+        <% if (ads.length > 0) { %>
+            <div class="rejilla-articulos">
+                <% ads.forEach(function(ad) { %>
+                    <div class="tarjeta-articulo" onclick="openPopup('<%= ad.photo %>', '<%= ad.title %>', '<%= ad.description %>', '<%= ad.price %>', '<%= ad.university %>', '<%= ad.state %>')">
+                        <img src="<%= ad.photo %>" alt="<%= ad.title %>">
+                        <h3><%= ad.title %></h3>
+                        <p><%= ad.price %> €</p>
+                        <button class="boton-favorito">❤️</button>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <p class="empty-message">No tienes anuncios en favoritos.</p>
+        <% } %>
     </div>
 </div>
 
+<div id="popup-overlay" onclick="closePopup()"></div>
+<div id="popup">
+    <button class="close-btn" onclick="closePopup()">Cerrar ✖</button>
+    <img id="popup-img" src="" alt="Imagen del artículo">
+    <h3 id="popup-title"></h3>
+    <p id="popup-description"></p>
+    <p id="popup-price"></p>
+    <p id="popup-university"></p>
+    <p id="popup-state"></p>
+</div>
 
+<script src="/javascript/scriptList.js"></script>
 </body>
 </html>

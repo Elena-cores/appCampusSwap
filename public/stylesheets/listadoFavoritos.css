@@ -1,0 +1,81 @@
+/* Estilos Generales */
+body {
+
+    background-color: #f4f4f4; /* Color del fondo */
+    height: 100%;
+}
+
+
+
+.sidebar {
+
+    position: fixed; /* La hace fija en la pantalla */
+    top: 0; /* Ancla la barra al tope */
+    left: 0; /* Ancla la barra al lado izquierdo */
+    z-index: 1000; /* Asegura que quede encima del resto del contenido */
+}
+
+.main-content {
+    margin-left: 20%; /* Deja espacio para la barra lateral fija */
+    width: 80%; /* Ajusta el contenido al espacio disponible */
+    padding: 20px;
+}
+
+header {
+    background-color: #004080;
+    color: white;
+    padding: 10px 20px;
+}
+
+
+/* Estilos para la cuadrícula de artículos */
+.rejilla-articulos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.tarjeta-articulo {
+    transition: all 0.3s ease;
+    background-color: #FBFBFB;
+    border: 1px solid #FBFBFB;
+    padding: 10px;
+    text-align: center;
+    border-radius: 8px;
+    margin-left: 5px;
+}
+
+.tarjeta-articulo:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); 
+    background-color: #3e6286b9; 
+  }
+
+.tarjeta-articulo img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.boton-favorito {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    font-size: 20px;
+    color: #ff6666;
+}
+
+
+
+
+#popup{
+    position: relative;
+    border-radius: 10px;
+}
+
+.close-btn{
+    width: 14%;
+    position: absolute;
+    margin-top: 8px;
+    margin-left: 520px;
+}

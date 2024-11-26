@@ -48,6 +48,33 @@ function setUp(conn){
         FOREIGN KEY (receiver_id) REFERENCES user(id_user)
     )`);
 
+
+    conn.query(`
+        CREATE TABLE IF NOT EXISTS favorites (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL,
+            ad_id INT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES user(id_user) ON DELETE CASCADE,
+            FOREIGN KEY (ad_id) REFERENCES ads(id_ad) ON DELETE CASCADE
+        )
+    `);
+
+    conn.query(`
+        CREATE TABLE IF NOT EXISTS valoraciones (
+            id_valoracion INT AUTO_INCREMENT PRIMARY KEY,
+            comprador_id INT NOT NULL,
+            vendedor_id INT NOT NULL,
+            ad_id INT NOT NULL,
+            valoracion TINYINT NOT NULL CHECK (valoracion BETWEEN 1 AND 5),
+            comentario TEXT,
+            FechaValoracion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (comprador_id) REFERENCES user(id_user) ON DELETE CASCADE,
+            FOREIGN KEY (vendedor_id) REFERENCES user(id_user) ON DELETE CASCADE,
+            FOREIGN KEY (ad_id) REFERENCES ads(id_ad)
+        )
+    `);
+
 }
 function insertUser(name, surname, username, password, email) {
   pool2.getConnection().then((conn) => {
