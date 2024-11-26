@@ -49,11 +49,6 @@
     margin: 20px;
 }
 
-
-
-
-
-
 .venta-vendidos-boton {
     background-color: #007bff;
     color: white;
@@ -68,7 +63,7 @@
 }
 
 .pestañas-productos {
-    margin-bottom: 20px;
+    margin-bottom: 1px;
 }
 
 
@@ -76,7 +71,7 @@
     width: 100%;
     padding: 20px;
     background-color: white;
-    height: 600px;  
+    height: 400px;  
     overflow-y: auto;  
     border: 1px solid #ddd;  
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);  
