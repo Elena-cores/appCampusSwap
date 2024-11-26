@@ -122,3 +122,10 @@ select:focus {
 h1 {
     margin-top: 80px; /* Ajustar para que el título no quede detrás del botón */
 }
+
+#description {
+    width: 96%; /* Para que tenga el mismo ancho que los otros campos */
+    resize: vertical; 
+    max-height: 150px; 
+    min-height: 100px;
+}

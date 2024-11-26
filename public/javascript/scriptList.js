@@ -71,7 +71,7 @@ document.querySelectorAll('.filter-category').forEach(link => {
 
         // palabras clave por categoria
         const keywords = {
-            libros: ["libro", "novela", "textbook", "cuaderno", "volumen", "ejemplar", "texto", "antología"],
+            libros: ["libro", "novela", "textbook", "cuaderno", "volumen", "ejemplar", "texto", "antología", "guía"],
             hogar: ["casa", "hogar", "cocina", "cama", "monitor", "dormitorio", "utensilios", "mueble", "mesa", "silla", "vaso", "limpieza"]
         };
 
