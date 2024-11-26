@@ -9,11 +9,11 @@ router.get('/', function(req, res) {
       return res.redirect('/login'); 
   }
 
-  res.render('valoraciones', { title: 'Valoraciones' });
+  res.render('valoraciones', { 
+    title: 'Valoraciones',
+    username: req.session.username // obtener username de la sesión
+  });
 });
-
-
-
 
 router.get('/comprado', async function(req, res) {
     let userId = req.session.userId; 
