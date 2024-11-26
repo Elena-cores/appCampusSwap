@@ -201,3 +201,24 @@ html{
 #logInbutton:hover{
 	background-color: #009aa3;
 }
+
+.botonVolver {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.back-button {
+    text-decoration: none;
+    color: white;
+    background-color: #00c4cc; 
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #009ea6; 
+}
