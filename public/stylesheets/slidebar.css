@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Lora', sans-serif;
 }
 
 body,
@@ -18,20 +18,20 @@ html {
 
 .sidebar {
   width: 20%;
-  background-color: #3399ff;
+  background: linear-gradient(180deg, #2aa6e0 0%, #0077b6 100%);
   color: #fff;
   display: flex;
   flex-direction: column;
   padding: 20px;
   height: 100vh;
-  
- 
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
 }
-
 
 .perfil {
   text-align: center;
   margin-bottom: 20px;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .profile-img {
@@ -39,9 +39,14 @@ html {
   height: 80px;
   border-radius: 50%;
   margin-bottom: 10px;
+  border: 3px solid #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
 }
 
-
+.profile-img:hover {
+  transform: scale(1.05);
+}
 
 nav ul {
   padding: 0;
@@ -49,21 +54,24 @@ nav ul {
 }
 
 nav li {
-  margin: 10px 0;
+  margin: 12px 0;
+  transition: all 0.3s ease;
 }
 
 nav a {
   color: #fff;
-  padding: 10px;
+  padding: 12px;
   text-decoration: none;
   display: block;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
 }
 
 nav a:hover, nav a.activo {
-  background-color: #495057;
-  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateX(5px);
 }
-
 
 .settings {
   margin-top: auto;
@@ -76,6 +84,11 @@ nav a:hover, nav a.activo {
   width: 60px;
   height: 60px;
   cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.settings img:hover {
+  transform: scale(1.1);
 }
 
 .main-content {
@@ -91,9 +104,16 @@ header {
 .barra-busqueda {
   width: 60%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 2px solid #2aa6e0;
   border-radius: 20px;
   margin-top: 40px;
+  transition: all 0.3s ease;
+}
+
+.barra-busqueda:focus {
+  outline: none;
+  border-color: #00C2CB;
+  box-shadow: 0 0 10px rgba(0, 194, 203, 0.2);
 }
 
 .logo-campus-swap {
@@ -103,4 +123,9 @@ header {
   left: -75px;  
   margin-left: auto;  
   margin-top: -50px;  
+  transition: transform 0.3s ease;
+}
+
+.logo-campus-swap:hover {
+  transform: scale(1.05);
 }

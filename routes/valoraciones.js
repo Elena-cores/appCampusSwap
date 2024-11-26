@@ -2,9 +2,21 @@ var express = require('express');
 var router = express.Router();
 const { pool2 } = require('../database');
 
-// Ruta para obtener valoraciones como comprador
+
+
+router.get('/', function(req, res) {
+  if (!req.session.userId) {
+      return res.redirect('/login'); 
+  }
+
+  res.render('valoraciones', { title: 'Valoraciones' });
+});
+
+
+
+
 router.get('/comprado', async function(req, res) {
-    let userId = req.session.userId; // Asegúrate de que el ID del usuario esté en la sesión
+    let userId = req.session.userId; 
     if (!userId) {
         return res.status(403).json({ error: 'No autenticado' });
     }
@@ -30,9 +42,8 @@ router.get('/comprado', async function(req, res) {
     }
 });
 
-// Ruta para obtener valoraciones como vendedor
 router.get('/vendido', async function(req, res) {
-    let userId = req.session.userId; // Asegúrate de que el ID del usuario esté en la sesión
+    let userId = req.session.userId; 
     if (!userId) {
         return res.status(403).json({ error: 'No autenticado' });
     }
@@ -58,13 +69,6 @@ router.get('/vendido', async function(req, res) {
     }
 });
 
-// Ruta principal para renderizar la página de valoraciones
-router.get('/', function(req, res) {
-    if (!req.session.userId) {
-        return res.redirect('/login'); // Redirige a login si el usuario no está autenticado
-    }
 
-    res.render('valoraciones', { title: 'Valoraciones' });
-});
 
 module.exports = router;

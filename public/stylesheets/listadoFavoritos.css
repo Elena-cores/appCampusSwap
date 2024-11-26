@@ -1,23 +1,21 @@
-/* Estilos Generales */
+
 body {
 
-    background-color: #f4f4f4; /* Color del fondo */
+    background-color: #f4f4f4; 
     height: 100%;
 }
 
-
-
 .sidebar {
 
-    position: fixed; /* La hace fija en la pantalla */
-    top: 0; /* Ancla la barra al tope */
-    left: 0; /* Ancla la barra al lado izquierdo */
-    z-index: 1000; /* Asegura que quede encima del resto del contenido */
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    z-index: 1000; 
 }
 
 .main-content {
-    margin-left: 20%; /* Deja espacio para la barra lateral fija */
-    width: 80%; /* Ajusta el contenido al espacio disponible */
+    margin-left: 20%; 
+    width: 80%;
     padding: 20px;
 }
 
@@ -28,7 +26,6 @@ header {
 }
 
 
-/* Estilos para la cuadrícula de artículos */
 .rejilla-articulos {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -64,8 +61,6 @@ header {
     font-size: 20px;
     color: #ff6666;
 }
-
-
 
 
 #popup{

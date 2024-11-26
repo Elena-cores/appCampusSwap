@@ -16,6 +16,7 @@ var valoracionesRouter = require('./routes/valoraciones');
 var olvidadoRouter = require('./routes/olvidado');
 var modificarRouter = require('./routes/modificar');
 var nuevaPublicacionRouter = require('./routes/nuevaPublicacion');
+var ajustesRouter = require('./routes/ajustes');
 var isAuthenticated = require('./middleware/authMiddleware');
 
 var app = express();
@@ -52,6 +53,7 @@ app.use('/buzon', isAuthenticated, buzonRouter);
 app.use('/valoraciones', isAuthenticated, valoracionesRouter);
 app.use('/nuevaPublicacion', isAuthenticated, nuevaPublicacionRouter);
 app.use('/modificar', isAuthenticated, modificarRouter);
+app.use('/ajustes', isAuthenticated, ajustesRouter);
 
 app.use(session({
   secret: 'secret',
