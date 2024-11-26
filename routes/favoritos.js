@@ -1,46 +1,104 @@
 var express = require('express');
 var router = express.Router();
 var database = require('../database');
+var express = require('express');
+var router = express.Router();
+var database = require('../favoritoDatabase');
 
+// Obtener los favoritos del usuario
 router.get('/', function(req, res, next) {
   let userId = req.session.userId;
 
-  if (!userId) {
-    return res.status(401).send("Usuario no autenticado");
-  }
-
-  database.pool2.getConnection().then(async (conn) => {
-    conn.query("USE campus");
-
-    // Obtener anuncios favoritos y nombre de usuario
-    const [ads, user] = await Promise.all([
-      conn.query(`
-        SELECT a.* 
-        FROM favorites f
-        JOIN ads a ON f.ad_id = a.id_ad
-        WHERE f.user_id = ?
-      `, [userId]),
-      conn.query(`
-        SELECT username 
-        FROM user 
-        WHERE id_user = ?
-      `, [userId])
-    ]);
-
-    conn.end();
-
-    if (user.length === 0) {
-      return res.status(404).send("Usuario no encontrado");
-    }
-
+  database.getFavoritesByUser(userId).then(ads => {
     res.render('favoritos', { 
-      title: 'Anuncios Favoritos', 
-      ads: ads, 
-      username: user[0].username 
+      title: 'Favoritos',
+      username: req.session.username,
+      favorites: ads
     });
-  }).catch((err) => {
-    console.error("Error al recuperar favoritos:", err.message);
-    res.status(500).send("Error al recuperar favoritos.");
+  }).catch(error => {
+    console.error("Error al obtener favoritos del usuario:", error);
+    res.status(500).send("Error al cargar los favoritos.");
+  });
+});
+
+// Agregar o quitar un favorito
+router.post('/toggle/:id', function(req, res) {
+  let adId = req.params.id;
+  let userId = req.session.userId;
+
+  // Primero, verifica si el anuncio ya está en favoritos
+  database.getFavoritesByUser(userId).then(favorites => {
+    let isFavorite = favorites.some(fav => fav.id_ad === parseInt(adId));
+    if (isFavorite) {
+      // Eliminar de favoritos
+      database.removeFavorite(userId, adId).then(() => {
+        res.json({ success: true, message: 'Anuncio eliminado de favoritos.' });
+      }).catch(error => {
+        console.error("Error al eliminar favorito:", error);
+        res.status(500).json({ success: false, message: 'Error al eliminar de favoritos.' });
+      });
+    } else {
+      // Agregar a favoritos
+      database.addFavorite(userId, adId).then(() => {
+        res.json({ success: true, message: 'Anuncio agregado a favoritos.' });
+      }).catch(error => {
+        console.error("Error al agregar favorito:", error);
+        res.status(500).json({ success: false, message: 'Error al agregar a favoritos.' });
+      });
+    }
+  }).catch(error => {
+    console.error("Error al verificar favoritos del usuario:", error);
+    res.status(500).json({ success: false, message: 'Error al verificar favoritos.' });
+  });
+});
+
+module.exports = router;
+
+
+// Obtener los favoritos del usuario
+router.get('/', function(req, res, next) {
+  let userId = req.session.userId;
+
+  database.getFavoritesByUser(userId).then(ads => {
+    res.render('favoritos', { 
+      title: 'Favoritos',
+      username: req.session.username,
+      favorites: ads
+    });
+  }).catch(error => {
+    console.error("Error al obtener favoritos del usuario:", error);
+    res.status(500).send("Error al cargar los favoritos.");
+  });
+});
+
+// Agregar o quitar un favorito
+router.post('/toggle/:id', function(req, res) {
+  let adId = req.params.id;
+  let userId = req.session.userId;
+
+  // Primero, verifica si el anuncio ya está en favoritos
+  database.getFavoritesByUser(userId).then(favorites => {
+    let isFavorite = favorites.some(fav => fav.id_ad === parseInt(adId));
+    if (isFavorite) {
+      // Eliminar de favoritos
+      database.removeFavorite(userId, adId).then(() => {
+        res.json({ success: true, message: 'Anuncio eliminado de favoritos.' });
+      }).catch(error => {
+        console.error("Error al eliminar favorito:", error);
+        res.status(500).json({ success: false, message: 'Error al eliminar de favoritos.' });
+      });
+    } else {
+      // Agregar a favoritos
+      database.addFavorite(userId, adId).then(() => {
+        res.json({ success: true, message: 'Anuncio agregado a favoritos.' });
+      }).catch(error => {
+        console.error("Error al agregar favorito:", error);
+        res.status(500).json({ success: false, message: 'Error al agregar a favoritos.' });
+      });
+    }
+  }).catch(error => {
+    console.error("Error al verificar favoritos del usuario:", error);
+    res.status(500).json({ success: false, message: 'Error al verificar favoritos.' });
   });
 });
 

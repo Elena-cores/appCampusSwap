@@ -11,7 +11,6 @@
 </head>
 <body>
 <div class="container">
-
     <div class="sidebar">
         <div class="perfil">
             <img src="../images/perfil.jpg" alt="Foto de perfil" class="profile-img">
@@ -41,14 +40,16 @@
         </header>
 
    
-        <% if (ads.length > 0) { %>
+        <% if (favorites.length > 0) { %>
             <div class="rejilla-articulos">
-                <% ads.forEach(function(ad) { %>
+                <% favorites.forEach(function(ad) { %>
                     <div class="tarjeta-articulo" onclick="openPopup('<%= ad.photo %>', '<%= ad.title %>', '<%= ad.description %>', '<%= ad.price %>', '<%= ad.university %>', '<%= ad.state %>')">
                         <img src="<%= ad.photo %>" alt="<%= ad.title %>">
-                        <h3><%= ad.title %></h3>
-                        <p><%= ad.price %> €</p>
-                        <button class="boton-favorito">❤️</button>
+                        <h3 class="titulo-articulo"><%= ad.title %></h3>
+                        <p class="descripcion-articulo" style="display: none;"><%= ad.description %></p>
+                        <p class="estado-articulo" style="display: none;"><%= ad.state ? 'Disponible' : 'Reservado' %></p>
+                        <p class="universidad-articulo"><strong>Universidad:</strong> <%= ad.university %></p>
+                        <span><%= ad.price %> €</span>
                     </div>
                 <% }) %>
             </div>

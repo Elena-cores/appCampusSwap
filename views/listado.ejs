@@ -80,7 +80,7 @@
                             <p class="descripcion-articulo" style="display: none;"><%= ad.description %></p> <!-- Descripción oculta -->
                             <p class="estado-articulo" style="display: none;"><%= ad.state %></p>
                             <span><%= ad.price %>€</span> <!-- Precio -->
-                            <button class="boton-favorito">♥</button>
+                            <button class="boton-favorito" onclick="toggleFavorite(event, <%= ad.id_ad %>)">❤️</button>
                         </div>
                     <% }) %>
                 </div>
@@ -112,5 +112,6 @@
     </div>
 
     <script src="/javascript/scriptList.js"></script>
+    <script src="/javascript/favoriteList.js"></script>
 </body>
 </html>
