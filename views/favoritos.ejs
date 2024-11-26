@@ -43,11 +43,11 @@
         <% if (favorites.length > 0) { %>
             <div class="rejilla-articulos">
                 <% favorites.forEach(function(ad) { %>
-                    <div class="tarjeta-articulo" onclick="openPopup('<%= ad.photo %>', '<%= ad.title %>', '<%= ad.description %>', '<%= ad.price %>', '<%= ad.university %>', '<%= ad.state %>')">
-                        <img src="<%= ad.photo %>" alt="<%= ad.title %>">
+                    <div class="tarjeta-articulo" onclick="openPopup('<%= ad.photo %>', '<%= ad.title %>', '<%= ad.description %>', '<%= ad.price %>', '<%= ad.university %>', '<%= ad.state %>')"  style="border: 2px solid #004080;">
+                        <img src="<%= ad.photo %>" alt="photo">
                         <h3 class="titulo-articulo"><%= ad.title %></h3>
                         <p class="descripcion-articulo" style="display: none;"><%= ad.description %></p>
-                        <p class="estado-articulo" style="display: none;"><%= ad.state ? 'Disponible' : 'Reservado' %></p>
+                        <p class="estado-articulo"><%= ad.state %></p>
                         <p class="universidad-articulo"><strong>Universidad:</strong> <%= ad.university %></p>
                         <span><%= ad.price %> €</span>
                     </div>
@@ -71,5 +71,6 @@
 </div>
 
 <script src="/javascript/scriptList.js"></script>
+
 </body>
 </html>
