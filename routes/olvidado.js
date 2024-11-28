@@ -14,7 +14,7 @@ router.post("/", async function(req, res) {
   if(existencia==true){  
     console.log("test");
     database.updateUser(actPassword, userEmail).then(() => {
-      console.log('Password aggiornata con successo');
+      console.log('Contraseña actualizada a la contraseña provisional');
       return res.json({ success: true });
     }).catch((error) => {
       console.error('Error:', error);
