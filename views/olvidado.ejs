@@ -32,28 +32,31 @@
                 to_email: userEmail,
                 act_password: actPassword
             };
-  
-            emailjs.send('service_1ncw4qr', 'template_e4j14qe', templateParams) //SERVICE ID y TEMPLATE ID
-                .then(function(response) {
-                    console.log('Si el correo ingresado coincide con uno de nuestros usuarios, recibirás istrucciones para restablecer tu contraseña.', response.status, response.text);
-                    alert('Si el correo ingresado coincide con uno de nuestros usuarios, recibirás istrucciones para restablecer tu contraseña.');
-                    fetch('/olvidado', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email: userEmail, password: actPassword })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                        window.location.href = "/login";
-                        } else {
+
+            fetch('/olvidado', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: userEmail, password: actPassword })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Correo inviado');
+                        emailjs.send('service_1ncw4qr', 'template_e4j14qe', templateParams) //SERVICE ID y TEMPLATE ID
+                        .then(function(response) {
+                            console.log('Si el correo ingresado coincide con uno de nuestros usuarios, recibirás istrucciones para restablecer tu contraseña.', response.status, response.text);
+                        }, function(error) {
+                            console.error('Error en el\'envio del\'correo:', error);
+                            alert('Error en el\'envio del\'correo');
+                        });
+                    
+                    window.location.href = "/login";
+
+                    } else {
+                        alert('Correo no registrado');
                         console.error("Error:", data.error);
-                        }
-                    })
-                }, function(error) {
-                    console.error('Error en el\'envio del\'correo:', error);
-                    alert('Error en el\'envio del\'correo');
-                });
+                    }
+            });
         }
     </script>
 

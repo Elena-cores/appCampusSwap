@@ -26,6 +26,7 @@ router.post("/", async function(req, res) {
     });
   }else{
     console.log("Email no registrada");
+    return res.json({ success: false });
   }
 });
 
