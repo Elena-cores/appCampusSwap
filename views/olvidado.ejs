@@ -42,7 +42,7 @@
                 .then(data => {
                     if (data.success) {
                         alert('Correo inviado');
-                        emailjs.send('service_1ncw4qr', 'template_e4j14qe', templateParams) //SERVICE ID y TEMPLATE ID
+                        emailjs.send('service_hpo3f45', 'template_e4j14qe', templateParams) //SERVICE ID y TEMPLATE ID
                         .then(function(response) {
                             console.log('Si el correo ingresado coincide con uno de nuestros usuarios, recibirás istrucciones para restablecer tu contraseña.', response.status, response.text);
                         }, function(error) {
