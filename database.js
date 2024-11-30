@@ -202,4 +202,39 @@ async function updateVendido(adId, userId) {
     }
 }
 
-module.exports = { pool1, pool2, setUp, insertUser, insertAds, getAdsByUser, deleteAd, updateUser, updateVendido };
+function mostrarUsuariosConversacionesAbiertas(userId) {
+    return pool2.getConnection().then(conn => {
+        conn.query("USE campus");
+        return conn.query(`
+            SELECT DISTINCT u.id_user, u.username
+            FROM messages m
+            JOIN user u ON u.id_user = m.receiver_id OR u.id_user = m.sender_id
+            WHERE (m.sender_id = ? OR m.receiver_id = ?) AND u.id_user != ?
+        `, [userId, userId, userId]).then(rows => {
+            conn.end();
+            return rows;
+        });
+    }).catch(err => {
+        console.error('Error al obtener usuarios:', err.message);
+        return [];
+    });
+}
+
+function registrarVenta(adId, sellerId, buyerId) {
+    return pool2.getConnection().then(conn => {
+        conn.query("USE campus");
+        return conn.query(`
+            INSERT INTO ventas (id_anuncio, id_vendedor, id_comprador)
+            VALUES (?, ?, ?)
+        `, [adId, sellerId, buyerId]).then(() => {
+            conn.end();
+            return true;
+        });
+    }).catch(err => {
+        console.error('Error al registrar venta:', err.message);
+        return false;
+    });
+}
+
+
+module.exports = { pool1, pool2, setUp, insertUser, insertAds, getAdsByUser, deleteAd, updateUser, updateVendido, mostrarUsuariosConversacionesAbiertas, registrarVenta };

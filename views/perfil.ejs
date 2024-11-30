@@ -48,91 +48,21 @@
                 <button class="venta-vendidos-boton" onclick="mostrarProductos('vendidos')">Vendidos</button>
             </div>
             <div id="product-list" class="product-list">
-                <!-- Aquí se cargarán los productos dinámicamente -->
             </div>
-
-            <script>
-                function mostrarProductos(tipo) {
-                    fetch(`/perfil/${tipo}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            const productList = document.getElementById('product-list');
-                            productList.innerHTML = ''; 
-                            if (data.length > 0) {
-                                data.forEach(ad => {
-                                    productList.innerHTML += `
-                                        <div class="product-item">
-                                            <div class="product">
-                                                <img src="${ad.photo}" alt="">
-                                                <div class="product-info">
-                                                    <h3>${ad.title}</h3>
-                                                    <p>
-                                                        ${ad.university}
-                                                        <br>Precio: ${ad.price} euros
-                                                        <br>Estado: ${ad.state}
-                                                    </p>
-                                                </div>
-                                                <div class="product-actions">
-                                                    ${
-                                                        ad.state !== 'Vendido'
-                                                        ? `<button class="mark-sold-button" onclick="updateVendido(${ad.id_ad})">Marcar como Vendido</button>`
-                                                        : ''
-                                                    }
-                                                    <button class="delete-button" onclick="deleteProduct(${ad.id_ad})">
-                                                        <img src="../images/eliminar.png" alt="Eliminar" class="delete-icon">
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>`;
-                                });
-                            } else {
-                                productList.innerHTML = '<p>No hay productos en esta categoría.</p>';
-                            }
-                        })
-                        .catch(error => console.error('Error al cargar productos:', error));
-                }
-
-                function deleteProduct(adId) {
-                    if (confirm('¿Estás seguro de que quieres eliminar este producto?')) {
-                        fetch(`/perfil/delete/${adId}`, { method: 'DELETE' })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    alert('Producto eliminado con éxito');
-                                    location.reload(); 
-                                } else {
-                                    alert('Error al eliminar el producto');
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                alert('Error al eliminar el producto');
-                            });
-                    }
-                }
-
-                function updateVendido(adId) {
-                    if (confirm('¿Estás seguro de que quieres marcar este producto como vendido?')) {
-                        fetch(`/perfil/marcar-vendido/${adId}`, { method: 'POST' })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    alert('Producto marcado como vendido');
-                                    location.reload(); 
-                                } else {
-                                    alert(data.message || 'Error al marcar el producto como vendido');
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                alert('Error al marcar el producto como vendido');
-                            });
-                    }
-                }
-
-                
-                document.addEventListener('DOMContentLoaded', () => mostrarProductos('en-venta'));
-            </script>
+            <div id="modal-mark-sold" class="modal">
+                <div class="modal-content">
+                    <h2>Marcar como vendido</h2>
+                    <p>¿Quién ha sido el comprador?</p>
+                    <input type="text" id="search-users" placeholder="Buscar usuario..." class="search-bar">
+                    <ul id="user-list" class="user-list">
+ 
+                    </ul>
+                    <div class="modal-actions">
+                        <button id="close-modal" class="btn btn-cancel">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+            <script src="/javascript/perfilList.js"></script>
 
             <div class="botones">
                 <a href="/nuevaPublicacion?from=perfil" class="nuevo-anuncio-boton">

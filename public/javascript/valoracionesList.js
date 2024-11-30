@@ -1,3 +1,5 @@
+//Valoraciones
+
 document.addEventListener('DOMContentLoaded', () => {
     const popup = document.getElementById('popup-nueva-valoracion');
     popup.classList.add('hidden');
@@ -5,7 +7,17 @@ document.addEventListener('DOMContentLoaded', () => {
     cargarValoraciones('comprado');
 });
 
+function cerrarTodosLosPopups() {
+    const popups = document.querySelectorAll('.popup');
+    popups.forEach(popup => {
+        popup.classList.add('hidden');
+        popup.style.display = 'none';
+        popup.setAttribute('aria-hidden', 'true');
+    });
+}
+
 async function mostrarPopupNuevaValoracion() {
+    cerrarTodosLosPopups();
     const popup = document.getElementById('popup-nueva-valoracion');
     const lista = document.querySelector('.lista-compras-no-valoradas');
     lista.innerHTML = '<p>Cargando compras no valoradas...</p>';
@@ -38,6 +50,7 @@ async function mostrarPopupNuevaValoracion() {
 }
 
 function valorarCompra(idVenta) {
+    cerrarTodosLosPopups(); 
     const popupDetalles = document.getElementById('popup-detalles-valoracion');
     const inputIdVenta = document.getElementById('id-venta');
 
@@ -80,18 +93,73 @@ alert('Error al enviar la valoración.');
 }
 }
 
+document.addEventListener('click', (event) => {
+
+    const isInsidePopup = event.target.closest('.popup') !== null;
+
+    if (!isInsidePopup && !event.target.matches('[onclick]')) {
+        cerrarTodosLosPopups();
+    }
+});
+
+
 function cerrarPopup() {
-    const popup = document.getElementById('popup-nueva-valoracion');
-    popup.classList.add('hidden');
-    popup.style.display = 'none';
-    popup.setAttribute('aria-hidden', 'true');
+    cerrarTodosLosPopups();
 }
 
 function cerrarPopupDetalles() {
-    const popup = document.getElementById('popup-detalles-valoracion');
-    popup.classList.add('hidden');
-    popup.style.display = 'none';
-    popup.setAttribute('aria-hidden', 'true');
+    cerrarTodosLosPopups();
 }
+
+
+function cargarValoraciones(tipo) {
+    const container = document.querySelector('.valoraciones-list');
+    const mensaje = document.querySelector('.mensaje');
+
+  
+    mensaje.textContent = 'Cargando valoraciones...';
+    container.innerHTML = '';
+
+    fetch(`/valoraciones/${tipo}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error en la carga (${response.status})`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            mensaje.textContent = ''; 
+
+            if (data.length > 0) {
+                data.forEach(v => {
+                    const valoracionDiv = document.createElement('div');
+                    valoracionDiv.classList.add('valoracion');
+
+                    valoracionDiv.innerHTML = `
+                        <div class="valoracion-header">
+                            <h3>${v.producto}</h3>
+                            <p><strong>${tipo === 'comprado' ? 'Vendedor' : 'Comprador'}:</strong> ${tipo === 'comprado' ? v.vendedor : v.comprador}</p>
+                        </div>
+                        <div class="valoracion-body">
+                            <p><strong>Valoración:</strong> ${'★'.repeat(v.valoracion)}</p>
+                            <p><strong>Comentario:</strong> ${v.comentario || 'Sin comentarios'}</p>
+                        </div>
+                        <div class="valoracion-footer">
+                            <p class="fecha"><strong>Fecha:</strong> ${new Date(v.FechaValoracion).toLocaleString()}</p>
+                        </div>
+                    `;
+                    container.appendChild(valoracionDiv);
+                });
+            } else {
+                mensaje.textContent = 'No hay valoraciones disponibles.';
+            }
+        })
+        .catch(err => {
+            mensaje.textContent = 'Error al cargar las valoraciones.';
+            console.error('Error al cargar valoraciones:', err);
+        });
+}
+
+document.addEventListener('DOMContentLoaded', () => cargarValoraciones('comprado'));
 
 document.getElementById('form-detalles-valoracion').addEventListener('submit', enviarValoracion);
