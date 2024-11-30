@@ -12,7 +12,9 @@ function checkAuth(req, res, next) {
 router.get('/', checkAuth, function(req, res) {
     res.render('valoraciones', {
         title: 'Valoraciones',
-        username: req.session.username 
+        username: req.session.username,
+        activePage: 'valoraciones'
+
     });
 });
 

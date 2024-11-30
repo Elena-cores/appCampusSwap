@@ -31,7 +31,7 @@ function setUp(conn){
   conn.query("USE campus");
   conn.query("CREATE TABLE IF NOT EXISTS user (id_user INT PRIMARY KEY NOT NULL AUTO_INCREMENT, name VARCHAR(50) NOT NULL "
       + ", surname VARCHAR(50) NOT NULL, username VARCHAR(50) NOT NULL UNIQUE, password VARCHAR(20) NOT NULL "
-      + ", email VARCHAR(50) NOT NULL UNIQUE)"
+      + ", email VARCHAR(50) NOT NULL UNIQUE, fechaRegistro TIMESTAMP DEFAULT CURRENT_TIMESTAMP)"
    );
   conn.query("CREATE TABLE IF NOT EXISTS ads (id_ad INT PRIMARY KEY NOT NULL AUTO_INCREMENT, title VARCHAR (500) NOT NULL, description VARCHAR(300) NOT NULL"
       + ", price DOUBLE NOT NULL, state ENUM('Disponible', 'Reservado', 'Vendido'), university ENUM('Ninguna', 'CEU', 'UCM', 'UPM'), photo VARCHAR(20), id_user INT, "

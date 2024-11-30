@@ -13,6 +13,7 @@ router.get('/', function(req, res, next) {
     res.render('favoritos', { 
       title: 'Favoritos',
       username: req.session.username,
+      activePage: 'favoritos',
       favorites: ads
     });
   }).catch(error => {

@@ -10,6 +10,7 @@ router.get('/', function(req, res, next) {
     res.render('perfil', { 
       title: 'Profile page',
       username: req.session.username,
+      activePage: 'perfil',
       userAds: ads
     });
   }).catch(error => {

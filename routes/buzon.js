@@ -46,7 +46,11 @@ router.get('/', function(req, res) {
     if (!req.session.userId) {
         return res.redirect('/login');
     }
-    res.render('buzon', { title: 'Buzón', username: req.session.username });
+    res.render('buzon', { 
+        title: 'Buzón', 
+        username: req.session.username,
+        activePage: 'buzon' 
+    });
 });
 
 // Ruta para obtener conversaciones
