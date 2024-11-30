@@ -1,149 +1,3 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    display: flex;
-    height: 100vh;
-    background-color: #f4f4f4;
-    position: relative;
-    width: 100%;
-}
-
-.main-content {
-    flex: 1;
-    margin-left: 250px;
-    width: calc(100% - 250px);
-    height: 100vh;
-    position: relative;
-}
-
-.sidebar nav {
-    margin-top: 30px;
-}
-
-.sidebar nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar nav li {
-    margin: 15px 0;
-}
-
-.sidebar nav a {
-    color: #fff;
-    text-decoration: none;
-    padding: 12px 15px;
-    display: flex;
-    align-items: center;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.sidebar nav a i {
-    margin-right: 10px;
-    width: 20px;
-    text-align: center;
-}
-
-.sidebar nav a:hover, 
-.sidebar nav a.activo {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateX(5px);
-}
-
-.sidebar nav a.logout {
-    margin-top: 30px;
-    color: #ff4444;
-}
-
-.sidebar nav a.logout:hover {
-    background-color: rgba(255, 68, 68, 0.2);
-}
-
-.sidebar {
-    width: 250px;
-    background-color: #3399ff;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    height: 100vh;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 2000;
-}
-
-.sidebar nav {
-    margin-top: 30px;
-}
-
-.sidebar nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar nav li {
-    margin: 15px 0;
-}
-
-.sidebar nav a {
-    color: #fff;
-    text-decoration: none;
-    padding: 12px 15px;
-    display: flex;
-    align-items: center;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.sidebar nav a i {
-    margin-right: 10px;
-    width: 20px;
-    text-align: center;
-}
-
-.sidebar nav a:hover, 
-.sidebar nav a.activo {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateX(5px);
-}
-
-.sidebar nav a.logout {
-    margin-top: 30px;
-    color: #ff4444;
-}
-
-.sidebar nav a.logout:hover {
-    background-color: rgba(255, 68, 68, 0.2);
-}
-
-header {
-    background-color: #ffffff;
-    color: #1a1a1a;
-    padding: 15px;
-    text-align: center;
-    border-bottom: 1px solid #e0e0e0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    position: fixed;
-    top: 0;
-    left: 250px;
-    right: 0;
-    z-index: 1000;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 600;
-}
-
 .seccion-mensajes {
     display: flex;
     gap: 20px;
@@ -153,7 +7,7 @@ header h1 {
     flex: 1;
     margin-top: 10px;
     position: fixed;
-    left: 260px;
+    left: 17.5%;
     right: 5px;
 }
 
@@ -165,6 +19,7 @@ header h1 {
     display: flex;
     flex-direction: column;
     padding: 10px;
+    margin-bottom: 10px;
 }
 
 .search-section {
@@ -278,48 +133,29 @@ header h1 {
     margin: 0;
 }
 
-.perfil {
+.chat-header {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
     text-align: center;
-    margin-bottom: 30px;
+    background: #f8f9fa;
+    margin-bottom: 20px; /* Añadimos un margen inferior */
+    box-sizing: border-box; /* Aseguramos que padding y border se incluyan en las dimensiones */
+    display: block; /* Garantizamos que sea un bloque separado */
 }
 
-.profile-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 3px solid #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.settings {
-    margin-top: auto;
-    text-align: left;
-    padding-left: 10px;
-    margin-bottom: 100px;
-}
-
-.settings img {
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.settings img:hover {
-    transform: rotate(90deg);
-}
 
 .chat-header {
     padding: 15px;
     border-bottom: 1px solid #e0e0e0;
     text-align: center;
     background: #f8f9fa;
+    margin-bottom: 20px;
 }
 
 .chat-container {
     display: flex;
     flex-direction: column;
-    height: calc(100% - 60px); /* Altura total menos el header */
+    height: calc(100% - 60px);
 }
 
 .messages-list {
@@ -405,6 +241,7 @@ header h1 {
     display: flex;
     gap: 10px;
     align-items: flex-end;
+    
 }
 
 .message-input-container textarea {
@@ -497,3 +334,4 @@ header h1 {
         max-width: 85%;
     }
 }
+
