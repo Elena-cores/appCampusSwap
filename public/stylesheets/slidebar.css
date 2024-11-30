@@ -17,6 +17,7 @@ html {
 }
 
 .sidebar {
+  position: fixed;
   width: 20%;
   background: linear-gradient(180deg, #2aa6e0 0%, #0077b6 100%);
   color: #fff;
@@ -92,6 +93,7 @@ nav a:hover, nav a.activo {
 }
 
 .main-content {
+  margin-left: 380px;
   width: 80%;
   padding: 20px;
 }

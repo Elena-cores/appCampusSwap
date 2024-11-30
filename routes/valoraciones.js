@@ -2,24 +2,22 @@ var express = require('express');
 var router = express.Router();
 const { pool2 } = require('../database');
 
+function checkAuth(req, res, next) {
+    if (!req.session.userId) {
+        return res.redirect('/login');
+    }
+    next();
+}
 
-
-router.get('/', function(req, res) {
-  if (!req.session.userId) {
-      return res.redirect('/login'); 
-  }
-
-  res.render('valoraciones', { 
-    title: 'Valoraciones',
-    username: req.session.username // obtener username de la sesión
-  });
+router.get('/', checkAuth, function(req, res) {
+    res.render('valoraciones', {
+        title: 'Valoraciones',
+        username: req.session.username 
+    });
 });
 
-router.get('/comprado', async function(req, res) {
-    let userId = req.session.userId; 
-    if (!userId) {
-        return res.status(403).json({ error: 'No autenticado' });
-    }
+router.get('/comprado', checkAuth, async function(req, res) {
+    let userId = req.session.userId;
 
     try {
         const conn = await pool2.getConnection();
@@ -42,11 +40,8 @@ router.get('/comprado', async function(req, res) {
     }
 });
 
-router.get('/vendido', async function(req, res) {
-    let userId = req.session.userId; 
-    if (!userId) {
-        return res.status(403).json({ error: 'No autenticado' });
-    }
+router.get('/vendido', checkAuth, async function(req, res) {
+    let userId = req.session.userId;
 
     try {
         const conn = await pool2.getConnection();
@@ -69,6 +64,91 @@ router.get('/vendido', async function(req, res) {
     }
 });
 
+router.get('/noValoradas', checkAuth, async function(req, res) {
+    let userId = req.session.userId;
 
+    try {
+        const conn = await pool2.getConnection();
+        await conn.query("USE campus");
+
+        const comprasNoValoradas = await conn.query(`
+            SELECT 
+                v.id_venta, 
+                u.username AS vendedor, 
+                a.title AS producto
+            FROM ventas v
+            JOIN user u ON v.id_vendedor = u.id_user
+            JOIN ads a ON v.id_anuncio = a.id_ad
+            WHERE v.id_comprador = ? 
+              AND v.valoracion = 0
+        `, [userId]);
+
+        conn.release();
+        res.json(comprasNoValoradas);
+    } catch (error) {
+        console.error('Error al obtener compras no valoradas:', error);
+        res.status(500).json({ error: 'Error al obtener compras no valoradas.' });
+    }
+});
+
+router.post('/valorar', checkAuth, async function(req, res) {
+    const { idVenta, calificacion, comentario } = req.body;
+    let userId = req.session.userId;
+
+    console.log('Datos recibidos:', { idVenta, calificacion, comentario });
+
+    if (!idVenta || !calificacion || !comentario) {
+        return res.status(400).json({ error: 'Datos inválidos. Todos los campos son obligatorios.' });
+    }
+
+    try {
+        const conn = await pool2.getConnection();
+        await conn.query("USE campus");
+
+        const venta = await conn.query(`
+            SELECT id_vendedor, id_anuncio 
+            FROM ventas 
+            WHERE id_venta = ? AND id_comprador = ?
+        `, [idVenta, userId]);
+
+        if (venta.length === 0) {
+            conn.release();
+            return res.status(400).json({ error: 'No se encontró la venta o no pertenece al usuario.' });
+        }
+
+        const { id_vendedor, id_anuncio } = venta[0];
+
+    
+        const valoracionExistente = await conn.query(`
+            SELECT COUNT(*) AS total 
+            FROM valoraciones 
+            WHERE comprador_id = ? AND ad_id = ?
+        `, [userId, id_anuncio]);
+
+        if (valoracionExistente[0].total > 0) {
+            conn.release();
+            return res.status(400).json({ error: 'Ya existe una valoración para esta venta.' });
+        }
+
+    
+        await conn.query(`
+            UPDATE ventas 
+            SET valoracion = 1 
+            WHERE id_venta = ? AND id_comprador = ?
+        `, [idVenta, userId]);
+
+        
+        await conn.query(`
+            INSERT INTO valoraciones (vendedor_id, comprador_id, ad_id, valoracion, comentario, FechaValoracion)
+            VALUES (?, ?, ?, ?, ?, NOW())
+        `, [id_vendedor, userId, id_anuncio, calificacion, comentario]);
+
+        conn.release();
+        res.json({ message: 'Compra valorada exitosamente.' });
+    } catch (error) {
+        console.error('Error al valorar la compra:', error);
+        res.status(500).json({ error: 'Error al valorar la compra.' });
+    }
+});
 
 module.exports = router;

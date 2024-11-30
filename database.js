@@ -75,6 +75,20 @@ function setUp(conn){
         )
     `);
 
+    conn.query(
+        `CREATE TABLE IF NOT EXISTS ventas (
+            id_venta INT AUTO_INCREMENT PRIMARY KEY,
+            id_vendedor INT NOT NULL,
+            id_comprador INT NOT NULL,
+            id_anuncio INT NOT NULL,
+            valoracion  BOOLEAN DEFAULT FALSE,
+            fecha_venta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (id_vendedor) REFERENCES user(id_user),
+            FOREIGN KEY (id_comprador) REFERENCES user(id_user),
+            FOREIGN KEY (id_anuncio) REFERENCES ads(id_ad)
+        )
+   `);
+
 }
 function insertUser(name, surname, username, password, email) {
   pool2.getConnection().then((conn) => {
