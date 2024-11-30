@@ -103,31 +103,3 @@ header {
   text-align: center;
 }
 
-.barra-busqueda {
-  width: 60%;
-  padding: 10px;
-  border: 2px solid #2aa6e0;
-  border-radius: 20px;
-  margin-top: 40px;
-  transition: all 0.3s ease;
-}
-
-.barra-busqueda:focus {
-  outline: none;
-  border-color: #00C2CB;
-  box-shadow: 0 0 10px rgba(0, 194, 203, 0.2);
-}
-
-.logo-campus-swap {
-  width: 175px;  
-  height: auto;
-  position: relative;
-  left: -75px;  
-  margin-left: auto;  
-  margin-top: -50px;  
-  transition: transform 0.3s ease;
-}
-
-.logo-campus-swap:hover {
-  transform: scale(1.05);
-}

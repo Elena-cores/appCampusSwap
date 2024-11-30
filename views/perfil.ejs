@@ -3,29 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/stylesheets/slidebar.css"> 
+    <link rel="stylesheet" href="/stylesheets/style.css"> 
     <link rel="stylesheet" href="/stylesheets/perfil.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> 
     <title>Perfil - Campus Swap</title>
 </head>
 <body>
-<div class="container">
+
     <%- include('partials/sidebar') %>
 
+    
+<div class="container">
     <div class="main-content">
+
         <header>
+            <h2>Tus productos</h2>
+        </header>
+
+        <div class="pestañas-productos">
+            <button class="venta-vendidos-boton" onclick="mostrarProductos('en-venta')">En venta</button>
+            <button class="venta-vendidos-boton" onclick="mostrarProductos('vendidos')">Vendidos</button>
             <input type="text" placeholder="Buscar productos..." class="barra-busqueda">
             <a href="/listado" class="seguir-comprando-boton">
                 <img src="../images/Campus.png" alt="Seguir Comprando" class="logo-campus-swap">
             </a>
-        </header>
+        </div>
+ 
+
+
+
 
         <section class="seccion-productos h2">
-            <h2>Tus productos</h2>
-            <div class="pestañas-productos">
-                <button class="venta-vendidos-boton" onclick="mostrarProductos('en-venta')">En venta</button>
-                <button class="venta-vendidos-boton" onclick="mostrarProductos('vendidos')">Vendidos</button>
-            </div>
+            
+  
             <div id="product-list" class="product-list">
             </div>
             <div id="modal-mark-sold" class="modal">
