@@ -40,7 +40,10 @@
 
                         <div class="chat-container">
                             <div id="chatHeader" class="chat-header">
-                                <h2>Selecciona un chat para comenzar</h2>
+                                <h2>Chat con <span id="chatUsername">Selecciona un chat para comenzar</span></h2>
+                                <button class="delete-chat-button" onclick="confirmDeleteChat()" style="display:none;">
+                                    <i class="fas fa-trash"></i>
+                                </button>
                             </div>
                             
                             <div id="messagesList" class="messages-list"></div>
@@ -105,7 +108,8 @@
         function startChat(userId, username) {
             document.getElementById('receiverId').value = userId;
             document.getElementById('sendMessageForm').style.display = 'block';
-            document.getElementById('chatHeader').innerHTML = `<h2>Chat con ${username}</h2>`;
+            document.getElementById('chatUsername').textContent = username;
+            document.querySelector('.delete-chat-button').style.display = 'block';
             loadChat(userId);
         }
 
@@ -197,11 +201,57 @@
                                     <span class="chat-item-name">${conversation.username}</span>
                                     <span class="chat-item-time">${lastMessageTime}</span>
                                 </div>
+                                <div class="chat-item-options">
+                                    <button class="options-button" onclick="event.stopPropagation(); toggleOptionsMenu(this)">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <div class="options-menu" style="display:none;">
+                                        <button class="delete-button" onclick="deleteConversation(${conversation.id_user})">Eliminar</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>`;
                 });
             } else {
                 conversationList.innerHTML = '<div class="no-conversations">No hay conversaciones.</div>';
+            }
+        }
+
+        // Función para mostrar/ocultar el menú de opciones
+        function toggleOptionsMenu(buttonElement) {
+            const optionsMenu = buttonElement.nextElementSibling;
+            optionsMenu.style.display = optionsMenu.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Función para mostrar/ocultar el botón de eliminación de conversación
+        function toggleDeleteButton(conversationElement) {
+            const deleteButton = conversationElement.querySelector('.delete-button');
+            if (deleteButton) {
+                deleteButton.style.display = deleteButton.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        // Función para eliminar una conversación
+        async function deleteConversation(userId) {
+            const response = await fetch(`/buzon/delete-conversation/${userId}`, {
+                method: 'DELETE'
+            });
+            const data = await response.json();
+            if (data.success) {
+                loadConversations();
+                document.getElementById('chatHeader').innerHTML = `<h2>Selecciona un chat para comenzar</h2>`;
+                document.getElementById('messagesList').innerHTML = '';
+                document.getElementById('sendMessageForm').style.display = 'none';
+                document.querySelector('.delete-chat-button').style.display = 'none';
+            } else {
+                alert(data.message);
+            }
+        }
+
+        // Función para confirmar la eliminación del chat
+        function confirmDeleteChat() {
+            if (confirm("¿Estás seguro de que quieres borrar este chat?")) {
+                deleteConversation(currentChatUserId);
             }
         }
 

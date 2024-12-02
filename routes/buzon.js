@@ -134,4 +134,22 @@ router.delete('/delete-message/:messageId', async (req, res) => {
     }
 });
 
+// Ruta para eliminar una conversación
+router.delete('/delete-conversation/:userId', async (req, res) => {
+    const currentUserId = req.session.userId;
+    const otherUserId = req.params.userId;
+
+    try {
+        const conn = await database.pool2.getConnection();
+        await conn.query("USE campus");
+        await conn.query(`DELETE FROM messages WHERE (sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)`, 
+            [currentUserId, otherUserId, otherUserId, currentUserId]);
+        conn.release();
+        res.json({ success: true, message: 'Conversación eliminada.' });
+    } catch (error) {
+        console.error("Error al eliminar la conversación:", error);
+        res.status(500).json({ success: false, message: 'Error en el servidor.' });
+    }
+});
+
 module.exports = router;
