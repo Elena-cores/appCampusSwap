@@ -25,6 +25,9 @@ function mostrarProductos(tipo) {
                                         ? `<button class="mark-sold-button" onclick="openMarkSoldModal(${ad.id_ad})">Marcar como Vendido</button>`
                                         : ''
                                     }
+                                    <button class="mark-sold-button" onclick="modifyProduct(${ad.id_ad})">
+                                        Modificar anuncio
+                                    </button>
                                     <button class="delete-button" onclick="deleteProduct(${ad.id_ad})">
                                         <img src="../images/eliminar.png" alt="Eliminar" class="delete-icon">
                                     </button>
@@ -56,6 +59,10 @@ function deleteProduct(adId) {
                 alert('Error al eliminar el producto');
             });
     }
+}
+
+function modifyProduct(adId) {
+    window.location.href = "/modificarPublicacion";
 }
 
 // Función para abrir el modal y mostrar los usuarios disponibles
