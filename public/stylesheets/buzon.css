@@ -277,6 +277,20 @@
     transform: scale(1.1);
 }
 
+.message button {
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-left: 10px;
+    display: none; /* Inicialmente oculto */
+}
+
+.message button:hover {
+    text-decoration: underline;
+}
+
 .user-results {
     padding: 15px;
     border-bottom: 1px solid #e0e0e0;

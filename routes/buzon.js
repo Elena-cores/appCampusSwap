@@ -112,4 +112,26 @@ router.get('/messages/:userId', async (req, res) => {
     }
 });
 
+// Ruta para eliminar mensajes
+router.delete('/delete-message/:messageId', async (req, res) => {
+    const messageId = req.params.messageId;
+    const userId = req.session.userId;
+
+    try {
+        const conn = await database.pool2.getConnection();
+        await conn.query("USE campus");
+        const result = await conn.query(`DELETE FROM messages WHERE id_message = ? AND sender_id = ?`, [messageId, userId]);
+        conn.release();
+
+        if (result.affectedRows > 0) {
+            res.json({ success: true, message: 'Mensaje eliminado.' });
+        } else {
+            res.json({ success: false, message: 'No se pudo eliminar el mensaje.' });
+        }
+    } catch (error) {
+        console.error("Error al eliminar el mensaje:", error);
+        res.status(500).json({ success: false, message: 'Error en el servidor.' });
+    }
+});
+
 module.exports = router;

@@ -120,14 +120,24 @@
             if (data.success) {
                 data.messages.forEach(message => {
                     const messageClass = message.sender_id === currentChatUserId ? 'received' : 'sent';
+                    const deleteButton = message.sender_id !== currentChatUserId ? `<button class="delete-button" onclick="deleteMessage(${message.id_message})" style="display:none;">Eliminar</button>` : '';
                     messagesList.innerHTML += `
-                        <div class="message ${messageClass}">
+                        <div class="message ${messageClass}" onclick="toggleDeleteButton(this)">
                             <div class="message-content">${message.content}</div>
                             <div class="message-timestamp">${formatDate(message.timestamp)}</div>
+                            ${deleteButton}
                         </div>`;
                 });
                 messagesList.scrollTop = messagesList.scrollHeight;
                 document.getElementById('sendMessageForm').style.display = 'block';
+            }
+        }
+
+        // Función para mostrar/ocultar el botón de eliminación
+        function toggleDeleteButton(messageElement) {
+            const deleteButton = messageElement.querySelector('.delete-button');
+            if (deleteButton) {
+                deleteButton.style.display = deleteButton.style.display === 'none' ? 'block' : 'none';
             }
         }
 
@@ -154,6 +164,19 @@
                 alert(data.message);
             }
         });
+
+        // Función para eliminar un mensaje
+        async function deleteMessage(messageId) {
+            const response = await fetch(`/buzon/delete-message/${messageId}`, {
+                method: 'DELETE'
+            });
+            const data = await response.json();
+            if (data.success) {
+                loadChat(currentChatUserId);
+            } else {
+                alert(data.message);
+            }
+        }
 
         // Función para cargar las conversaciones
         async function loadConversations() {
