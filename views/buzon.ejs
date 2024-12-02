@@ -51,7 +51,7 @@
                             <form id="sendMessageForm" class="message-form" style="display:none;">
                                 <input type="hidden" name="receiverId" id="receiverId">
                                 <div class="message-input-container">
-                                    <textarea name="content" placeholder="Escribe tu mensaje..." required></textarea>
+                                    <textarea name="content" id="messageContent" placeholder="Escribe tu mensaje..." required></textarea>
                                     <button type="submit"><i class="fas fa-paper-plane"></i></button>
                                 </div>
                             </form>
@@ -166,6 +166,14 @@
                 loadConversations();
             } else {
                 alert(data.message);
+            }
+        });
+
+        // Enviar mensaje al presionar Enter en el chat
+        document.getElementById('messageContent').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                document.getElementById('sendMessageForm').requestSubmit();
             }
         });
 
