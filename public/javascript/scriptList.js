@@ -134,7 +134,8 @@ document.getElementById('popup-overlay').addEventListener('click', closePopup);
 
 function contactSeller() {
     const sellerId = document.getElementById('contact-seller-btn').getAttribute('data-seller-id');
-    window.location.href = `/buzon?chatWith=${sellerId}`;
+    const productName = document.getElementById('popup-title').textContent;
+    window.location.href = `/buzon?chatWith=${sellerId}&productName=${encodeURIComponent(productName)}`;
 }
 
 

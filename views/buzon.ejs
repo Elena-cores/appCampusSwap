@@ -105,12 +105,16 @@
         });
 
         // Función para iniciar un chat
-        function startChat(userId, username) {
+        async function startChat(userId, username, initialMessage = '') {
             document.getElementById('receiverId').value = userId;
             document.getElementById('sendMessageForm').style.display = 'block';
             document.getElementById('chatUsername').textContent = username;
             document.querySelector('.delete-chat-button').style.display = 'block';
-            loadChat(userId);
+            await loadChat(userId);
+
+            if (initialMessage) {
+                await sendMessage(userId, initialMessage);
+            }
         }
 
         // Función para cargar un chat específico
@@ -146,11 +150,7 @@
         }
 
         // Función para enviar mensajes
-        document.getElementById('sendMessageForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const receiverId = e.target.receiverId.value;
-            const content = e.target.content.value;
-            
+        async function sendMessage(receiverId, content) {
             if (!content.trim()) return;
 
             const response = await fetch('/buzon/send-message', {
@@ -158,15 +158,22 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ receiverId, content })
             });
-            
+
             const data = await response.json();
             if (data.success) {
-                e.target.content.value = '';
-                loadChat(receiverId);
-                loadConversations();
+                document.getElementById('messageContent').value = '';
+                await loadChat(receiverId);
+                await loadConversations();
             } else {
                 alert(data.message);
             }
+        }
+
+        document.getElementById('sendMessageForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const receiverId = e.target.receiverId.value;
+            const content = e.target.content.value;
+            await sendMessage(receiverId, content);
         });
 
         // Enviar mensaje al presionar Enter en el chat
@@ -278,8 +285,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const chatWith = urlParams.get('chatWith');
-            if (chatWith) {
-                startChat(chatWith, ''); // Assuming you have a way to get the username from the user ID
+            const productName = urlParams.get('productName');
+            if (chatWith && productName) {
+                startChat(chatWith, '', `Contactado por el anuncio de ${productName}`);
             }
         });
     </script>
