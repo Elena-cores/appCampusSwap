@@ -1,7 +1,7 @@
 .seccion-mensajes {
     display: flex;
     gap: 20px;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 60px); /* Adjust height to account for header */
     padding: 20px;
     background: #f0f2f5;
     flex: 1;
@@ -9,6 +9,7 @@
     position: fixed;
     left: 17.5%;
     right: 5px;
+    overflow: hidden; /* Remove horizontal scroll */
 }
 
 .lista-conversaciones {
@@ -20,6 +21,7 @@
     flex-direction: column;
     padding: 10px;
     margin-bottom: 10px;
+    overflow-y: auto; /* Add vertical scroll */
 }
 
 .search-section {
@@ -198,6 +200,7 @@
     background: #f8f9fa;
     margin-bottom: 20px;
     position: relative;
+    flex-shrink: 0; /* Prevent header from shrinking */
 }
 
 .delete-chat-button {
@@ -411,5 +414,21 @@
     .message {
         max-width: 85%;
     }
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+header {
+    padding: 15px;
+    background: #004080;
+    color: white;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
 }
 

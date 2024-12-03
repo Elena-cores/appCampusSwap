@@ -8,6 +8,7 @@
 body,
 html {
   height: 100%;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .main-content {
@@ -123,6 +124,5 @@ header h2 {
     margin: 0;
     color: #ffffff;
 }
-  
-  
-  
+
+
