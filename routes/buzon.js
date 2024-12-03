@@ -31,11 +31,15 @@ router.post('/send-message', async (req, res) => {
     try {
         const conn = await database.pool2.getConnection();
         await conn.query("USE campus");
-        await conn.query(`INSERT INTO messages (sender_id, receiver_id, content, timestamp) VALUES (?, ?, ?, NOW())`, 
+        const result = await conn.query(`INSERT INTO messages (sender_id, receiver_id, content, timestamp) VALUES (?, ?, ?, NOW())`, 
             [senderId, receiverId, content]);
 
+        const messageId = result.insertId.toString(); // Convert messageId to string
         conn.release();
-        res.json({ success: true, message: 'Mensaje enviado.' });
+        res.json({ success: true, message: 'Mensaje enviado.', messageId });
+
+        // Emitir evento de nuevo mensaje
+        req.app.get('io').emit('messageReceived', { sender_id: senderId, receiver_id: receiverId, content });
     } catch (error) {
         console.error("Error al enviar el mensaje:", error);
         res.status(500).json({ success: false, message: 'Error en el servidor.' });
@@ -125,6 +129,7 @@ router.delete('/delete-message/:messageId', async (req, res) => {
 
         if (result.affectedRows > 0) {
             res.json({ success: true, message: 'Mensaje eliminado.' });
+            req.app.get('io').emit('messageDeleted', { messageId, userId });
         } else {
             res.json({ success: false, message: 'No se pudo eliminar el mensaje.' });
         }

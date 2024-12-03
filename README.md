@@ -28,6 +28,14 @@ Para instalar las dependencias usar el comando:
 >npm install
 ~~~
 
+Instalar Socket.io
+
+>npm install socket.io
+
+Instalar MariaDB
+
+>npm install mariadb
+
 Para ejecutar la aplicación usar el comando:
 ~~~
 >npm start

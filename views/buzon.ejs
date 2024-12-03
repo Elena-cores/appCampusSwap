@@ -62,7 +62,10 @@
         </div>
     </div>
 
+    <script src="/socket.io/socket.io.js"></script>
     <script>
+        const socket = io();
+
         let currentChatUserId = null;
 
         // Función para formatear la fecha
@@ -128,9 +131,9 @@
             if (data.success) {
                 data.messages.forEach(message => {
                     const messageClass = message.sender_id === currentChatUserId ? 'received' : 'sent';
-                    const deleteButton = message.sender_id !== currentChatUserId ? `<button class="delete-button" onclick="deleteMessage(${message.id_message})" style="display:none;">Eliminar</button>` : '';
+                    const deleteButton = message.sender_id !== currentChatUserId ? `<button class="delete-button" onclick="deleteMessage(${message.id_message})">Eliminar</button>` : '';
                     messagesList.innerHTML += `
-                        <div class="message ${messageClass}" onclick="toggleDeleteButton(this)">
+                        <div class="message ${messageClass}" data-message-id="${message.id_message}" onclick="toggleDeleteButton(this)">
                             <div class="message-content">${message.content}</div>
                             <div class="message-timestamp">${formatDate(message.timestamp)}</div>
                             ${deleteButton}
@@ -162,8 +165,18 @@
             const data = await response.json();
             if (data.success) {
                 document.getElementById('messageContent').value = '';
-                await loadChat(receiverId);
+                const messagesList = document.getElementById('messagesList');
+                const messageClass = 'sent';
+                const newMessage = `
+                    <div class="message ${messageClass}" data-message-id="${data.messageId}" onclick="toggleDeleteButton(this)">
+                        <div class="message-content">${content}</div>
+                        <div class="message-timestamp">${formatDate(new Date().toISOString())}</div>
+                        <button class="delete-button" onclick="deleteMessage(${data.messageId})">Eliminar</button>
+                    </div>`;
+                messagesList.innerHTML += newMessage;
+                messagesList.scrollTop = messagesList.scrollHeight;
                 await loadConversations();
+                socket.emit('newMessage', { receiverId, content });
             } else {
                 alert(data.message);
             }
@@ -191,11 +204,27 @@
             });
             const data = await response.json();
             if (data.success) {
-                loadChat(currentChatUserId);
+                socket.emit('messageDeleted', { messageId, userId: currentChatUserId });
+                removeMessageFromUI(messageId);
             } else {
                 alert(data.message);
             }
         }
+
+        // Función para eliminar un mensaje de la interfaz de usuario
+        function removeMessageFromUI(messageId) {
+            const messageElement = document.querySelector(`.message[data-message-id="${messageId}"]`);
+            if (messageElement) {
+                messageElement.remove();
+            }
+        }
+
+        // Escuchar la eliminación de mensajes en tiempo real
+        socket.on('messageDeleted', (data) => {
+            if (data.userId === currentChatUserId) {
+                removeMessageFromUI(data.messageId);
+            }
+        });
 
         // Función para cargar las conversaciones
         async function loadConversations() {
@@ -224,17 +253,10 @@
             }
         }
 
-        // Función para mostrar/ocultar el menú de opciones
-        function toggleOptionsMenu(buttonElement) {
-            const optionsMenu = buttonElement.nextElementSibling;
-            optionsMenu.style.display = optionsMenu.style.display === 'none' ? 'block' : 'none';
-        }
-
-        // Función para mostrar/ocultar el botón de eliminación de conversación
-        function toggleDeleteButton(conversationElement) {
-            const deleteButton = conversationElement.querySelector('.delete-button');
-            if (deleteButton) {
-                deleteButton.style.display = deleteButton.style.display === 'none' ? 'block' : 'none';
+        // Función para confirmar la eliminación del chat
+        function confirmDeleteChat() {
+            if (confirm("¿Estás seguro de que quieres borrar este chat?")) {
+                deleteConversation(currentChatUserId);
             }
         }
 
@@ -252,13 +274,6 @@
                 document.querySelector('.delete-chat-button').style.display = 'none';
             } else {
                 alert(data.message);
-            }
-        }
-
-        // Función para confirmar la eliminación del chat
-        function confirmDeleteChat() {
-            if (confirm("¿Estás seguro de que quieres borrar este chat?")) {
-                deleteConversation(currentChatUserId);
             }
         }
 
@@ -281,6 +296,22 @@
             if (chatWith && productName) {
                 startChat(chatWith, '', `Contactado por el anuncio de ${productName}`);
             }
+        });
+
+        // Escuchar nuevos mensajes en tiempo real
+        socket.on('messageReceived', async (message) => {
+            if (message.sender_id === currentChatUserId || message.receiver_id === currentChatUserId) {
+                const messagesList = document.getElementById('messagesList');
+                const messageClass = message.sender_id === currentChatUserId ? 'received' : 'sent';
+                const newMessage = `
+                    <div class="message ${messageClass}" data-message-id="${message.id_message}" onclick="toggleDeleteButton(this)">
+                        <div class="message-content">${message.content}</div>
+                        <div class="message-timestamp">${formatDate(new Date().toISOString())}</div>
+                    </div>`;
+                messagesList.innerHTML += newMessage;
+                messagesList.scrollTop = messagesList.scrollHeight;
+            }
+            await loadConversations();
         });
     </script>
 </body>

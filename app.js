@@ -2,6 +2,7 @@ var express = require('express');   // importar framework Express
 var createError = require('http-errors');   // módulo para manejar errores HTTP
 var path = require('path');     //modulo para manejar rutas de archivos
 var http = require('http');
+var socketIo = require('socket.io');
 var session = require('express-session');
 
 var indexRouter = require('./routes/index');
@@ -83,7 +84,14 @@ app.use(function(err, req, res, next) {
 
 // Crear el servidor HTTP
 const server = http.createServer(app);
+const io = socketIo(server);
 
+app.set('io', io);
+
+io.on('connection', (socket) => {
+    socket.on('disconnect', () => {
+    });
+});
 
 // Escuchar en el puerto
 server.listen(port, () => {
