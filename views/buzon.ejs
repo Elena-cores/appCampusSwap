@@ -216,14 +216,6 @@
                                     <span class="chat-item-name">${conversation.username}</span>
                                     <span class="chat-item-time">${lastMessageTime}</span>
                                 </div>
-                                <div class="chat-item-options">
-                                    <button class="options-button" onclick="event.stopPropagation(); toggleOptionsMenu(this)">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </button>
-                                    <div class="options-menu" style="display:none;">
-                                        <button class="delete-button" onclick="deleteConversation(${conversation.id_user})">Eliminar</button>
-                                    </div>
-                                </div>
                             </div>
                         </div>`;
                 });
