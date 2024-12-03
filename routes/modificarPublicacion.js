@@ -25,11 +25,11 @@ router.post("/", function(req, res, next) {
 
     async function updateAd() {
         try {
-            await database.insertAds(title, description, price, state, university, photo, userId);
-            res.redirect("/listado");
+            await database.updateAds(title, description, price, state, university, photo, userId);
+            res.redirect("/perfil");
         } catch (error) {
-            console.error("Error al registrar el anuncio:", error);
-            res.status(500).send("Error al registrar el anuncio.");
+            console.error("Error al modificar el anuncio:", error);
+            res.status(500).send("Error al modificar el anuncio.");
         }
     }
 

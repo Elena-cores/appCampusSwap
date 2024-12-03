@@ -147,6 +147,45 @@ function insertAds(title, description, price, state, university, photo, id_user)
   });
 }
 
+function updateAds(title, description, price, state, university, photo, id_user) {
+    pool2.getConnection().then((conn) => {
+        conn.query("USE campus");
+        let sql = `UPDATE ads SET title = '${title}',
+                    description = '${description}',
+                    price = ${price},
+                    state = '${state}',
+                    university = '${university}',
+                    photo = '${photo}',
+                    id_user = ${id_user}
+                    WHERE id_ad = 3`;
+  
+        conn.query(sql).then(() => {
+            console.log(`Anuncio modificado con éxito para el usuario con ID: ${id_user}`);
+            // Consulta adicional para verificar
+            return conn.query(`SELECT a.*, u.username 
+                             FROM ads a 
+                             JOIN user u ON a.id_user = u.id_user 
+                             WHERE a.id_user = ${id_user} 
+                             ORDER BY a.id_ad DESC LIMIT 1`);
+        }).then((result) => {
+            if(result.length > 0) {
+                console.log('Detalles del anuncio modificado:');
+                console.log(`- ID del anuncio: ${result[0].id_ad}`);
+                console.log(`- Título: ${result[0].title}`);
+                console.log(`- Descripción: ${result[0].description}`);
+                console.log(`- Precio: ${result[0].price}`);
+                console.log(`- Usuario: ${result[0].username} (ID: ${result[0].id_user})`);
+            }
+        }).catch(err => {
+            console.error("Error al modificar anuncio:", err.message);
+        }).finally(() => {
+            conn.end();
+        });
+    }).catch((err) => {
+        console.error("No se pudo conectar a la base de datos:", err.message);
+    });
+  }
+
 // Nueva función para obtener los anuncios de un usuario específico
 function getAdsByUser(id_user) {
   return pool2.getConnection().then((conn) => {
@@ -237,4 +276,4 @@ function registrarVenta(adId, sellerId, buyerId) {
 }
 
 
-module.exports = { pool1, pool2, setUp, insertUser, insertAds, getAdsByUser, deleteAd, updateUser, updateVendido, mostrarUsuariosConversacionesAbiertas, registrarVenta };
+module.exports = { pool1, pool2, setUp, insertUser, insertAds, updateAds, getAdsByUser, deleteAd, updateUser, updateVendido, mostrarUsuariosConversacionesAbiertas, registrarVenta };
