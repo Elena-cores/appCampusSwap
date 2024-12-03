@@ -26,6 +26,8 @@
         </div>
     </header>
 
+    <input type="hidden" id="current-user-id" value="<%= currentUserId %>">
+
     <div class="container">
         <!-- Contenido principal -->
         <main>
@@ -74,7 +76,7 @@
             <div class="rejilla-articulos">
                 <!-- Aquí iteramos sobre los anuncios y generamos las tarjetas dinámicamente -->
                     <% ads.forEach(function(ad) { %>
-                        <div class="tarjeta-articulo">
+                        <div class="tarjeta-articulo" data-seller-id="<%= ad.sellerId %>">
                             <img src="<%= ad.photo %>" alt="<%= ad.university %>">
                             <h3 class="titulo-articulo"><%= ad.title %></h3> 
                             <p class="descripcion-articulo" style="display: none;"><%= ad.description %></p> <!-- Descripción oculta -->
@@ -96,6 +98,7 @@
                 <p id="popup-price"></p>
                 <p id="popup-university"></p>
                 <p id="popup-state"></p> 
+                <button id="contact-seller-btn" class="contact-seller-btn" onclick="contactSeller()">Contactar al vendedor</button>
             </div>
 
         <!-- Sección de Twitter -->

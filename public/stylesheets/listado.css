@@ -295,3 +295,16 @@ main {
     margin-top: 8px;
     margin-left: 520px;
 }
+
+.contact-seller-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #33cc33;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}

@@ -9,8 +9,16 @@ router.get('/', function(req, res, next) {
     const ads = await conn.query('SELECT * FROM ads;');
     conn.end();
     const adsFiltrado = ads.filter(ad => ad.state === 'Disponible' || ad.state === 'Reservado');
+    const adsWithSeller = adsFiltrado.map(ad => ({
+        ...ad,
+        sellerId: ad.id_user
+    }));
     // Renderiza la página listado.ejs, pasando los anuncios (ads) obtenidos de la base de datos
-    res.render('listado', { title: 'Final catalogue page', ads: adsFiltrado });
+    res.render('listado', { 
+        title: 'Final catalogue page', 
+        ads: adsWithSeller, 
+        currentUserId: req.session.userId 
+    });
   }).catch((err) => {
     console.error("Error al recuperar anuncios:", err.message);
     res.status(500).send("Error al recuperar anuncios.");

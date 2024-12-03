@@ -273,6 +273,15 @@
 
         // Cargar conversaciones al inicio
         loadConversations();
+
+        // Iniciar chat automáticamente si el parámetro chatWith está presente
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const chatWith = urlParams.get('chatWith');
+            if (chatWith) {
+                startChat(chatWith, ''); // Assuming you have a way to get the username from the user ID
+            }
+        });
     </script>
 </body>
 </html>

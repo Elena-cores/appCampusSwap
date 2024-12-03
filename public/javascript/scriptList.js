@@ -99,6 +99,15 @@ document.querySelectorAll('.tarjeta-articulo').forEach(card => {
         const price = card.querySelector('span').textContent;
         const university = card.querySelector('img').alt;
         const state = card.querySelector('.estado-articulo').textContent;
+        const sellerId = card.getAttribute('data-seller-id');
+        const currentUserId = document.getElementById('current-user-id').value;
+
+        if (sellerId !== currentUserId) {
+            document.getElementById('contact-seller-btn').setAttribute('data-seller-id', sellerId);
+            document.getElementById('contact-seller-btn').style.display = 'block';
+        } else {
+            document.getElementById('contact-seller-btn').style.display = 'none';
+        }
 
         // Asignar valores al pop-up
         document.getElementById('popup-img').src = imgSrc;
@@ -122,6 +131,11 @@ function closePopup() {
 
 // event listener para para cerrar el pop-up al hacer clic fuera -> overlay
 document.getElementById('popup-overlay').addEventListener('click', closePopup);
+
+function contactSeller() {
+    const sellerId = document.getElementById('contact-seller-btn').getAttribute('data-seller-id');
+    window.location.href = `/buzon?chatWith=${sellerId}`;
+}
 
 
 
