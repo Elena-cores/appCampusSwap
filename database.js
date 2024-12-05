@@ -200,6 +200,20 @@ function getAdsByUser(id_user) {
   });
 }
 
+//Función para obtener un anuncio en particular
+function getAdById(id_ad){
+    return pool2.getConnection().then((conn) => {
+        conn.query("USE campus");
+        return conn.query(`SELECT * FROM ads WHERE id_ad = ${id_ad}`).then((rows) => {
+            conn.end();
+            return rows;
+        });
+    }).catch((err) => {
+        console.error("Error al obtener el anuncios:", err.message);
+        return [];
+    });
+}
+
 function deleteAd(adId, userId) {
   return pool2.getConnection().then((conn) => {
       conn.query("USE campus");
@@ -276,4 +290,4 @@ function registrarVenta(adId, sellerId, buyerId) {
 }
 
 
-module.exports = { pool1, pool2, setUp, insertUser, insertAds, updateAds, getAdsByUser, deleteAd, updateUser, updateVendido, mostrarUsuariosConversacionesAbiertas, registrarVenta };
+module.exports = { pool1, pool2, setUp, insertUser, insertAds, updateAds, getAdsByUser, getAdById, deleteAd, updateUser, updateVendido, mostrarUsuariosConversacionesAbiertas, registrarVenta };

@@ -15,13 +15,13 @@
     <form action="/modificarPublicacion" method="POST">
         <input type="hidden" name="id_ad" value="<%= id_ad %>">
         <label for="title">Título del producto:</label>
-        <input type="text" id="title" name="title" required>
+        <input type="text" id="title" name="title" value="<%= adData[0].title %>" required>
 
         <label for="description">Descripción:</label>
         <textarea id="description" name="description" required></textarea>
       
         <label for="price">Precio:</label>
-        <input type="number" id="price" name="price" step="0.01" required>
+        <input type="number" id="price" name="price" step="0.01" value="<%= adData[0].price %>" required>
       
         <label for="state">Estado:</label>
         <select id="state" name="state">
@@ -38,7 +38,7 @@
         </select>
       
         <label for="photo">Foto:</label>
-        <input type="text" id="photo" name="photo" required>
+        <input type="text" id="photo" name="photo" value="<%= adData[0].photo %>" required>
       
         <button type="submit">Modificar Publicación</button>
     </form>
