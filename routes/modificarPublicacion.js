@@ -4,7 +4,9 @@ var database = require('../database');
 
 router.get('/', function(req, res, next) {
     const from = req.query.from || 'perfil'; // obtener parametro 'from' de la url
-    res.render('modificarPublicacion', { title: 'Modificar Publicación', from: from });
+    const id_ad = req.query.id_ad; //obtener ID anuncio
+
+    res.render('modificarPublicacion', { title: 'Modificar Publicación', from: from, id_ad: id_ad});
 });
 
 router.post("/", function(req, res, next) {
@@ -14,6 +16,7 @@ router.post("/", function(req, res, next) {
     let state = req.body.state; 
     let university = req.body.university;
     let photo = req.body.photo;
+    let id_ad = req.body.id_ad;
     let userId = req.session.userId;
 
     // Verificar si userId existe
@@ -25,7 +28,7 @@ router.post("/", function(req, res, next) {
 
     async function updateAd() {
         try {
-            await database.updateAds(title, description, price, state, university, photo, userId);
+            await database.updateAds(title, description, price, state, university, photo, userId, id_ad);
             res.redirect("/perfil");
         } catch (error) {
             console.error("Error al modificar el anuncio:", error);

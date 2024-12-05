@@ -147,7 +147,7 @@ function insertAds(title, description, price, state, university, photo, id_user)
   });
 }
 
-function updateAds(title, description, price, state, university, photo, id_user) {
+function updateAds(title, description, price, state, university, photo, id_user, id_ad) {
     pool2.getConnection().then((conn) => {
         conn.query("USE campus");
         let sql = `UPDATE ads SET title = '${title}',
@@ -157,7 +157,7 @@ function updateAds(title, description, price, state, university, photo, id_user)
                     university = '${university}',
                     photo = '${photo}',
                     id_user = ${id_user}
-                    WHERE id_ad = 3`;
+                    WHERE id_ad = ${id_ad}`;
   
         conn.query(sql).then(() => {
             console.log(`Anuncio modificado con éxito para el usuario con ID: ${id_user}`);

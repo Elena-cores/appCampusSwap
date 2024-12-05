@@ -13,6 +13,7 @@
     <h1>Modificar Producto</h1>
 
     <form action="/modificarPublicacion" method="POST">
+        <input type="hidden" name="id_ad" value="<%= id_ad %>">
         <label for="title">Título del producto:</label>
         <input type="text" id="title" name="title" required>
 

@@ -62,7 +62,7 @@ function deleteProduct(adId) {
 }
 
 function modifyProduct(adId) {
-    window.location.href = "/modificarPublicacion";
+    window.location.href = `/modificarPublicacion?id_ad=${adId}`;
 }
 
 // Función para abrir el modal y mostrar los usuarios disponibles
