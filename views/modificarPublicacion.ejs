@@ -18,23 +18,23 @@
         <input type="text" id="title" name="title" value="<%= adData[0].title %>" required>
 
         <label for="description">Descripción:</label>
-        <textarea id="description" name="description" required></textarea>
+        <textarea id="description" name="description" required><%= adData[0].description %></textarea>
       
         <label for="price">Precio:</label>
         <input type="number" id="price" name="price" step="0.01" value="<%= adData[0].price %>" required>
       
         <label for="state">Estado:</label>
         <select id="state" name="state">
-          <option value="Disponible">Disponible</option>
-          <option value="Reservado">Reservado</option>
+          <option value="Disponible" <%= adData[0].state === 'Disponible' ? 'selected' : '' %>>Disponible</option>
+          <option value="Reservado" <%= adData[0].state === 'Reservado' ? 'selected' : '' %>>Reservado</option>
         </select>
       
         <label for="university">Universidad:</label>
         <select id="university" name="university" required>
-            <option value="Ninguna">Ninguna</option>
-            <option value="CEU">CEU</option>
-            <option value="UCM">UCM</option>
-            <option value="UPM">UPM</option>
+            <option value="Ninguna" <%= adData[0].university === 'Ninguna' ? 'selected' : '' %>>Ninguna</option>
+            <option value="CEU" <%= adData[0].university === 'CEU' ? 'selected' : '' %>>CEU</option>
+            <option value="UCM" <%= adData[0].university === 'UCM' ? 'selected' : '' %>>UCM</option>
+            <option value="UPM" <%= adData[0].university === 'UPM' ? 'selected' : '' %>>UPM</option>
         </select>
       
         <label for="photo">Foto:</label>
