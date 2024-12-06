@@ -7,7 +7,7 @@ header {
 .barra-busqueda {
     margin-left: 20px;
     margin-top: 40px;
-    width: 60%;
+    width: 56%;
     padding: 12px 40px; 
     border: 2px solid #2aa6e0;
     border-radius: 25px; 
@@ -23,9 +23,9 @@ header {
     width: 190px;  
     height: auto + 40px;
     position: relative;
-    left: 20px;  
+    left: 50px;  
     margin-left: auto;  
-    margin-top: -120px;  
+    margin-top: -200px;  
     transition: transform 0.3s ease;
   }
   
