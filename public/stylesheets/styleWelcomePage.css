@@ -18,6 +18,7 @@ html{
 	text-align: center;
 	border-radius: 20px;
 	padding: 10px;
+	margin: auto;
 }
 
 .logo-img{
@@ -145,7 +146,6 @@ html{
 .logo-img-login{
 	width: 190px;
 	height: 180px;
-	margin-top: 30px;
 }
 
 .input-login{
@@ -176,7 +176,7 @@ html{
 .tituloLogIn{
 	font-size: 18px;
 	font-family: "Lora", sans-serif;
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 }
 
 .botonAcceder{
@@ -185,6 +185,7 @@ html{
 	display: flex;
 	justify-content: center;
 	margin-top: 15px;
+	margin-bottom: 60px;
 }
 
 #logInbutton{
@@ -206,6 +207,7 @@ html{
     position: absolute;
     bottom: 20px;
     right: 20px;
+	margin-bottom: 8px;
 }
 
 .back-button {
@@ -213,7 +215,7 @@ html{
     color: white;
     background-color: #00c4cc; 
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 8px;
     font-family: 'Lora', serif;
     font-size: 16px;
     transition: background-color 0.3s ease;
