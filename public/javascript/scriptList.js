@@ -136,6 +136,7 @@ document.querySelectorAll('.tarjeta-articulo').forEach(card => {
         const state = card.querySelector('.estado-articulo').textContent;
         const sellerId = card.getAttribute('data-seller-id');
         const currentUserId = document.getElementById('current-user-id').value;
+        const username = card.getAttribute('data-username');
 
         if (sellerId !== currentUserId) {
             document.getElementById('contact-seller-btn').setAttribute('data-seller-id', sellerId);
@@ -151,6 +152,7 @@ document.querySelectorAll('.tarjeta-articulo').forEach(card => {
         document.getElementById('popup-price').textContent = `Precio: ${price}`;
         document.getElementById('popup-university').textContent = `Universidad: ${university}`;
         document.getElementById('popup-state').textContent = `Estado: ${state}`; 
+        document.getElementById('popup-username').textContent = `Vendedor: ${username}`;
 
         // Mostrar el pop-up y la capa de fondo
         document.getElementById('popup-overlay').style.display = 'block';
