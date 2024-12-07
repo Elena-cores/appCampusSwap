@@ -128,11 +128,10 @@ document.querySelector(".filtrado-botones button:nth-child(2)").addEventListener
 // Pop-up de tarjeta de artículo en listado
 document.querySelectorAll('.tarjeta-articulo').forEach(card => {
     card.addEventListener('click', function() {
-        const imgSrc = card.querySelector('img').src;
         const title = card.querySelector('.titulo-articulo').textContent; // conseguir title
         const description = card.querySelector('.descripcion-articulo').textContent; //conseguir descripción del producto
         const price = card.querySelector('span').textContent;
-        const university = card.querySelector('img').alt;
+        const university = card.querySelector('.universidad-articulo').textContent;
         const state = card.querySelector('.estado-articulo').textContent;
         const sellerId = card.getAttribute('data-seller-id');
         const currentUserId = document.getElementById('current-user-id').value;
@@ -146,7 +145,6 @@ document.querySelectorAll('.tarjeta-articulo').forEach(card => {
         }
 
         // Asignar valores al pop-up
-        document.getElementById('popup-img').src = imgSrc;
         document.getElementById('popup-title').textContent = title;
         document.getElementById('popup-description').textContent = description;
         document.getElementById('popup-price').textContent = `Precio: ${price}`;
