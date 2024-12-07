@@ -77,9 +77,9 @@
                 <!-- Aquí iteramos sobre los anuncios y generamos las tarjetas dinámicamente -->
                     <% ads.forEach(function(ad) { %>
                         <div class="tarjeta-articulo" data-seller-id="<%= ad.sellerId %>">
-                            <img src="<%= ad.photo %>" alt="<%= ad.university %>">
                             <h3 class="titulo-articulo"><%= ad.title %></h3> 
-                            <p class="descripcion-articulo" style="display: none;"><%= ad.description %></p> <!-- Descripción oculta -->
+                            <p class="descripcion-articulo" style="display: none;"><%= ad.description %></p>
+                            <p class="universidad-articulo" style="display: none;"><%= ad.university %></p>
                             <p class="estado-articulo" style="display: none;"><%= ad.state %></p>
                             <span><%= ad.price %>€</span> <!-- Precio -->
                             <button class="boton-favorito" onclick="toggleFavorite(event, '<%= ad.id_ad %>')">❤️</button>
@@ -92,7 +92,6 @@
             <div id="popup">
                 <button class="close-btn" onclick="closePopup()">Cerrar ✖</button>
                 <br>
-                <img id="popup-img" src="" alt="Imagen del artículo" style="width: 100%; height: auto; margin-top: 20px;">
                 <h3 id="popup-title"></h3>
                 <p id="popup-description"></p>
                 <p id="popup-price"></p>
