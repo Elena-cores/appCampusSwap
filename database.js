@@ -1,6 +1,7 @@
 const mysql = require("mariadb");
 
 const pool1 = mysql.createPool({
+  //host: "100.127.20.104",
   host: "localhost",
   user: "root", 
   password: "root",
@@ -9,6 +10,7 @@ const pool1 = mysql.createPool({
 });
 
 const pool2 = mysql.createPool({
+  //host: "100.127.20.104",
   host: "localhost",
   user: "root", 
   password: "root",
@@ -34,7 +36,7 @@ function setUp(conn){
       + ", email VARCHAR(50) NOT NULL UNIQUE, fechaRegistro TIMESTAMP DEFAULT CURRENT_TIMESTAMP)"
    );
   conn.query("CREATE TABLE IF NOT EXISTS ads (id_ad INT PRIMARY KEY NOT NULL AUTO_INCREMENT, title VARCHAR (500) NOT NULL, description VARCHAR(300) NOT NULL"
-      + ", price DOUBLE NOT NULL, state ENUM('Disponible', 'Reservado', 'Vendido'), university ENUM('Ninguna', 'CEU', 'UCM', 'UPM'), photo VARCHAR(20), id_user INT, "
+      + ", price DOUBLE NOT NULL, state ENUM('Disponible', 'Reservado', 'Vendido'), university ENUM('Ninguna', 'CEU', 'UCM', 'UPM'), id_user INT, "
       + "FOREIGN KEY (id_user) REFERENCES user(id_user))"
   );
   conn.query(`
@@ -108,16 +110,16 @@ function insertUser(name, surname, username, password, email) {
   });
 }
 
-function insertAds(title, description, price, state, university, photo, id_user) {
+function insertAds(title, description, price, state, university, id_user) {
   pool2.getConnection().then((conn) => {
       conn.query("USE campus");
-      let sql = `INSERT INTO ads (title, description, price, state, university, photo, id_user) 
+      console.log(id_user);
+      let sql = `INSERT INTO ads (title, description, price, state, university, id_user) 
                  VALUES ('${title}',
                         '${description}', 
                          ${price}, 
                          '${state}', 
                          '${university}', 
-                         '${photo}',
                          ${id_user})`;
 
       conn.query(sql).then(() => {

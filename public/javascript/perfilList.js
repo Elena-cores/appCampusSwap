@@ -10,7 +10,6 @@ function mostrarProductos(tipo) {
                     productList.innerHTML += `
                         <div class="product-item">
                             <div class="product">
-                                <img src="${ad.photo}" alt="">
                                 <div class="product-info">
                                     <h3>${ad.title}</h3>
                                     <p>

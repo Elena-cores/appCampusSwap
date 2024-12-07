@@ -13,8 +13,8 @@ router.post("/", function(req, res, next) {
     let price = parseFloat(req.body.price); 
     let state = req.body.state; 
     let university = req.body.university;
-    let photo = req.body.photo;
     let userId = req.session.userId;
+    console.log(req.session);
 
     // Verificar si userId existe
     if (!userId) {
@@ -25,7 +25,7 @@ router.post("/", function(req, res, next) {
 
     async function insertAd() {
         try {
-            await database.insertAds(title, description, price, state, university, photo, userId);
+            await database.insertAds(title, description, price, state, university, userId);
             res.redirect("/listado");
         } catch (error) {
             console.error("Error al registrar el anuncio:", error);

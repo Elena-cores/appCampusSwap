@@ -213,7 +213,7 @@ main {
     align-items: center;
     font-family: 'Lora', serif;
     overflow-y: auto;
-    height: 90%;
+    height: 100%;
 }
 
 .feed-twitter h3 {
@@ -253,6 +253,7 @@ main {
     border-radius: 30px;
     font-size: 16px;
     transition: background-color 0.3s;
+    margin-top: 20px;
 }
 
 .boton-twitter-ver:hover {

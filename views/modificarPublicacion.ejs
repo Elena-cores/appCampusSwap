@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/stylesheets/nuevaPublicacion.css"> <!-- Enlace a tu CSS -->
+    <link rel="stylesheet" href="/stylesheets/nuevaPublicacion.css">
     <title>Modificar Producto</title>
 </head>
 <body>
@@ -36,9 +36,6 @@
             <option value="UCM" <%= adData[0].university === 'UCM' ? 'selected' : '' %>>UCM</option>
             <option value="UPM" <%= adData[0].university === 'UPM' ? 'selected' : '' %>>UPM</option>
         </select>
-      
-        <label for="photo">Foto:</label>
-        <input type="text" id="photo" name="photo" value="<%= adData[0].photo %>" required>
       
         <button type="submit">Modificar Publicación</button>
     </form>
