@@ -123,7 +123,7 @@ main {
 
 .boton-venta {
     padding: 12px 25px;
-    background-color: #33cc33;
+    background-color: #379762;
     border: none;
     color: white;
     cursor: pointer;
@@ -133,10 +133,11 @@ main {
     gap: 12px;
     font-size: 16px;
     transition: background-color 0.3s;
+    text-decoration: none;
 }
 
 .boton-venta:hover {
-    background-color: #28a428;
+    background-color: #379762;
 }
 
 .filtrado-botones button {
@@ -167,8 +168,8 @@ main {
 
 .tarjeta-articulo {
     transition: all 0.3s ease;
-    background-color: white;
-    border: 1px solid #ddd;
+    background-color: rgb(228, 228, 229);
+    border: 1px solid #000000;
     padding: 15px;
     text-align: center;
     border-radius: 10px;
