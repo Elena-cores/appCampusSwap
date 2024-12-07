@@ -20,7 +20,6 @@ router.post("/", function(req, res, next) {
     let price = parseFloat(req.body.price); 
     let state = req.body.state; 
     let university = req.body.university;
-    let photo = req.body.photo;
     let id_ad = req.body.id_ad;
     let userId = req.session.userId;
 
@@ -33,7 +32,7 @@ router.post("/", function(req, res, next) {
 
     async function updateAd() {
         try {
-            await database.updateAds(title, description, price, state, university, photo, userId, id_ad);
+            await database.updateAds(title, description, price, state, university, userId, id_ad);
             res.redirect("/perfil");
         } catch (error) {
             console.error("Error al modificar el anuncio:", error);

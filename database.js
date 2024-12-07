@@ -149,7 +149,7 @@ function insertAds(title, description, price, state, university, id_user) {
   });
 }
 
-function updateAds(title, description, price, state, university, photo, id_user, id_ad) {
+function updateAds(title, description, price, state, university, id_user, id_ad) {
     pool2.getConnection().then((conn) => {
         conn.query("USE campus");
         let sql = `UPDATE ads SET title = '${title}',
@@ -157,7 +157,6 @@ function updateAds(title, description, price, state, university, photo, id_user,
                     price = ${price},
                     state = '${state}',
                     university = '${university}',
-                    photo = '${photo}',
                     id_user = ${id_user}
                     WHERE id_ad = ${id_ad}`;
   
