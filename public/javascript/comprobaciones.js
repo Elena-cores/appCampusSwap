@@ -12,8 +12,13 @@ function hasUpperCase(password) {
     return /[A-Z]/.test(password); 
 }
 
+function hasSpecialCharacter(password) {
+    return /[@$!%*?&]/.test(password);
+}
+
 module.exports = {
     hasNumber,
     hasLowerCase,
-    hasUpperCase
+    hasUpperCase,
+    hasSpecialCharacter
 };

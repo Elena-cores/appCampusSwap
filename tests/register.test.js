@@ -2,7 +2,8 @@ const assert = require('assert');
 const { 
     hasNumber,
     hasLowerCase,
-    hasUpperCase
+    hasUpperCase,
+    hasSpecialCharacter
     } = require('../public/javascript/comprobaciones.js');
 
 describe('Validación de contraseñas', () => {
@@ -22,6 +23,12 @@ describe('Validación de contraseñas', () => {
         const password = 'password1';
         assert.strictEqual(hasUpperCase(password), false);
         assert.strictEqual(hasUpperCase('Password1'), true);
+    });
+
+    it('Validar que contraseña contiene al menos un carácter especial', () => {
+        const password = 'Secure123';
+        assert.strictEqual(hasSpecialCharacter(password), false);
+        assert.strictEqual(hasSpecialCharacter('Secure123!'), true);
     });
 
 });

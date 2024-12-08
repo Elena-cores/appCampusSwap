@@ -4,7 +4,8 @@ var database = require('../database');
 var {  
     hasNumber,
     hasLowerCase,
-    hasUpperCase } = require('../public/javascript/comprobaciones');
+    hasUpperCase,
+    hasSpecialCharacter } = require('../public/javascript/comprobaciones');
 
 /* GET register form */
 router.get('/', function(req, res, next) {
@@ -23,6 +24,7 @@ router.post("/", async function(req, res, next) {
     if (!hasNumber(psw)) errors.password = 'La contraseña debe tener al menos un número.'; 
     if (!hasLowerCase(psw)) errors.password = 'La contraseña debe tener al menos una letra minúscula.';
     if (!hasUpperCase(psw)) errors.password = 'La contraseña debe tener al menos una letra mayúscula.';
+    if (!hasSpecialCharacter(psw)) errors.password = 'La contraseña debe tener al menos un carácter especial.';
 
     // Si hay errores, devolver la página con los errores y los valores válidos
     if (Object.keys(errors).length > 0) {
