@@ -100,7 +100,7 @@ main {
 
 .boton-buscar {
     padding: 12px 25px;
-    background-color: #378197;
+    background-color: #2aa6e0;
     border: none;
     color: white;
     cursor: pointer;
@@ -123,7 +123,7 @@ main {
 
 .boton-venta {
     padding: 12px 25px;
-    background-color: #379762;
+    background-color: #2aa6e0;
     border: none;
     color: white;
     cursor: pointer;
@@ -156,7 +156,7 @@ main {
 }
 
 .filtrado-botones {
-    margin-right: 150px;
+    margin-right: 110px;
 }
 
 /* Estilos para la cuadrícula de artículos */
@@ -168,18 +168,19 @@ main {
 
 .tarjeta-articulo {
     transition: all 0.3s ease;
-    background-color: rgb(228, 228, 229);
+    background-color: #004080;
     border: 1px solid #000000;
     padding: 15px;
     text-align: center;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: white;
 }
 
 .tarjeta-articulo:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    background-color: rgb(164, 199, 224);
+    background-color: rgb(35, 100, 147);
 }
 
 .tarjeta-articulo img {
