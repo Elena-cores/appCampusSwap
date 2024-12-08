@@ -16,9 +16,15 @@ function hasSpecialCharacter(password) {
     return /[@$!%*?&]/.test(password);
 }
 
+function hasMinLength(password, min = 8) {
+    return password.length >= min;
+}
+
+
 module.exports = {
     hasNumber,
     hasLowerCase,
     hasUpperCase,
-    hasSpecialCharacter
+    hasSpecialCharacter,
+    hasMinLength
 };

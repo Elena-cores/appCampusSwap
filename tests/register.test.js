@@ -3,7 +3,8 @@ const {
     hasNumber,
     hasLowerCase,
     hasUpperCase,
-    hasSpecialCharacter
+    hasSpecialCharacter,
+    hasMinLength
     } = require('../public/javascript/comprobaciones.js');
 
 describe('Validación de contraseñas', () => {
@@ -29,6 +30,12 @@ describe('Validación de contraseñas', () => {
         const password = 'Secure123';
         assert.strictEqual(hasSpecialCharacter(password), false);
         assert.strictEqual(hasSpecialCharacter('Secure123!'), true);
+    });
+
+    it('Validar que contraseña tiene longitud mínima de 8 caracteres', () => {
+        const password = 'Short';
+        assert.strictEqual(hasMinLength(password), false);
+        assert.strictEqual(hasMinLength('LongEnough'), true);
     });
 
 });
