@@ -10,6 +10,7 @@ router.get('/', function(req, res, next) {
     res.render('perfil', { 
       title: 'Profile page',
       username: req.session.username,
+      fechaRegistro: req.session.fechaRegistro,
       activePage: 'perfil',
       userAds: ads
     });

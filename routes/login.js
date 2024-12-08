@@ -13,21 +13,25 @@ router.post('/', function(req, res, next) {
     if(email && pwd) {
        database.pool2.getConnection().then(async (conn) => {
         conn.query("USE campus");
-        var consulta = await conn.query(`SELECT id_user, username FROM user WHERE email ="${email}" AND password = "${pwd}";`);
+        var consulta = await conn.query(`SELECT id_user, username, fechaRegistro FROM user WHERE email ="${email}" AND password = "${pwd}";`);
 
         if(consulta.length > 0) {
             // Añadir logs para verificar
             console.log("Usuario encontrado:");
             console.log("ID:", consulta[0].id_user);
             console.log("Username:", consulta[0].username);
+            console.log("FechaRegistro:", consulta[0].fechaRegistro);
 
+            const fechaRegistro = new Date(consulta[0].fechaRegistro); 
             req.session.userId = consulta[0].id_user;
             req.session.username = consulta[0].username;
+            req.session.fechaRegistro = fechaRegistro.getFullYear();;
 
             // Verificar que se guardó en la sesión
             console.log("Sesión guardada:");
             console.log("Session userId:", req.session.userId);
             console.log("Session username:", req.session.username);
+            console.log("Session fecha:", req.session.fechaRegistro);
 
             conn.end();
             res.redirect("/listado");
