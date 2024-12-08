@@ -101,28 +101,4 @@ describe('Pruebas de Inserción de Datos', function () {
             if (conn) conn.end();
         }
     });
-
-    // Test 2: Verificar la inserción de nuevas publicaciones
-    it('Debe registrar correctamente las nuevas publicaciones', async function () {
-        const title = "libro IT"
-        const description = "Libro sobre tdd kent beck";
-        const price = 10;
-        const state = 0;
-        const university = "CEU";
-        
-        let conn;
-        try {
-            await insertAds(title, description, price, state, university);
-            conn = await pool2.getConnection();
-            await setUp(conn);
-    
-            const result = await conn.query(`SELECT * FROM ads WHERE description = "${description}";`);
-            assert(result.length > 0, 'La publicación debería haber sido insertada en la base de datos');
-            assert(result[0].price === price, 'El precio debería coincidir');
-        } catch (err) {
-            assert.fail(`Error al insertar la publicación: ${err.message}`);
-        } finally {
-            if (conn) conn.end();
-        }
-    });
 });

@@ -5,12 +5,11 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "mocha './tests/database.test.js' './tests/favoritos.test.js'"
+    "test": "mocha './tests/database.test.js' './tests/register.test.js'"
   },
   "author": "Myriam Figueroa, Ramiro Marcos, David Pérez, Tommaso Bazzanela, Ángel Castillo y Elena Cores",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
     "ejs": "~2.6.1",
     "express": "^4.21.2",
     "express-session": "^1.18.1",
