@@ -4,12 +4,13 @@ function hasNumber(password) {
     return /\d/.test(password);
 }
 
-function isPasswordSecure(password) {
-    return (
-        hasNumber(password) 
-    );
+function hasLowerCase(password) {
+    return /[a-z]/.test(password);
 }
 
+
+
 module.exports = {
-    hasNumber
+    hasNumber,
+    hasLowerCase
 };

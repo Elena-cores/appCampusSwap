@@ -1,10 +1,18 @@
 const assert = require('assert');
-const { hasNumber } = require('../public/javascript/comprobaciones.js');
+const { 
+    hasNumber,
+    hasLowerCase
+    } = require('../public/javascript/comprobaciones.js');
 
 describe('Validación de contraseñas', () => {
-    it('Contraseña sin número', () => {
-        const password = 'SecurePassword!';
+    it('Contraseña contiene al menos un número', () => {
+        const password = 'SecurePassword';
         assert.strictEqual(hasNumber(password), false);
+    });
+
+    it('Contraseña contiene al menos una letra minúscula', () => {
+        const password = 'SECUREPASSWORD';
+        assert.strictEqual(hasLowerCase(password), false);
     });
 
 });

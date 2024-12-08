@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var database = require('../database');
-var { hasNumber } = require('../public/javascript/comprobaciones');
+var {  
+    hasNumber,
+    hasLowerCase } = require('../public/javascript/comprobaciones');
 
 /* GET register form */
 router.get('/', function(req, res, next) {
@@ -17,9 +19,8 @@ router.post("/", async function(req, res, next) {
 
     // Validaciones
     let errors = {};
-    if (!hasNumber(psw)) {
-        errors.password = 'La contraseña debe tener al menos un número.';
-    }
+    if (!hasNumber(psw)) errors.password = 'La contraseña debe tener al menos un número.'; 
+    if (!hasLowerCase(psw)) errors.password = 'La contraseña debe tener al menos una letra minúscula.';
 
     // Si hay errores, devolver la página con los errores y los valores válidos
     if (Object.keys(errors).length > 0) {
