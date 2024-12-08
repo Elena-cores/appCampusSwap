@@ -224,3 +224,9 @@ html{
 .back-button:hover {
     background-color: #009ea6; 
 }
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}

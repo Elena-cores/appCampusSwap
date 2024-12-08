@@ -15,25 +15,28 @@
 		<form action="/register" method="POST">
 			<div class="container">
 				<div class="input-register">
-					<input required type="text" placeholder="Nombre" name="name">
+					<input required type="text" placeholder="Nombre" name="name" value="<%= values.name || '' %>">
 				</div>
 
 				<div class="input-register">
-					<input required type="text" placeholder="Apellidos" name="surname">
+					<input required type="text" placeholder="Apellidos" name="surname" value="<%= values.surname || '' %>">
 				</div>
 
 				<div class="input-register">
-					<input required type="text" placeholder="Nombre de usuario" name="username">
+					<input required type="text" placeholder="Nombre de usuario" name="username" value="<%= values.username || '' %>">
 				</div>
-				
+
 				<div class="input-register">
-					<input required type="email" placeholder="Dirección de e-mail" name="email">
+					<input required type="email" placeholder="Dirección de e-mail" name="email" value="<%= values.email || '' %>">
 				</div>
 
 				<div class="input-register">
 					<input required type="password" placeholder="Contraseña" name="password">
+					<% if (errors.password) { %>
+						<p class="error-message"><%= errors.password %></p>
+					<% } %>
 				</div>
-
+				
 				<div class="botonCrearCuenta">
 					<button id="registerbutton" type="submit"> Crear Cuenta </button>
 				</div>

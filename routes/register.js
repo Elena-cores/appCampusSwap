@@ -1,26 +1,42 @@
 var express = require('express');
 var router = express.Router();
 var database = require('../database');
+var { hasNumber } = require('../public/javascript/comprobaciones');
 
-/* GET users listing. */
+/* GET register form */
 router.get('/', function(req, res, next) {
-    res.render('register', { title: 'registro de nuevos usuarios' });
+    res.render('register', { title: 'registro de nuevos usuarios', errors: {}, values: {} });
 });
 
-router.post("/", function(req, res, next) {
+router.post("/", async function(req, res, next) {
     let name = req.body.name;
-    let surname = req.body.surname; 
+    let surname = req.body.surname;
     let username = req.body.username;
-    let psw = req.body.password; 
-    let email = req.body.email;  
+    let psw = req.body.password;
+    let email = req.body.email;
 
-    async function insertUser() {
-        database.insertUser(name, surname, username, psw, email);
-        res.redirect("/login");
+    // Validaciones
+    let errors = {};
+    if (!hasNumber(psw)) {
+        errors.password = 'La contraseña debe tener al menos un número.';
     }
 
-    insertUser();
+    // Si hay errores, devolver la página con los errores y los valores válidos
+    if (Object.keys(errors).length > 0) {
+        return res.render('register', {
+            title: 'registro de nuevos usuarios',
+            errors,
+            values: { name, surname, username, email }
+        });
+    }
+
+    // Si no hay errores, insertar usuario en la base de datos
+    try {
+        await database.insertUser(name, surname, username, psw, email);
+        res.redirect("/login");
+    } catch (err) {
+        next(err); // Manejo de errores para bd
+    }
 });
 
 module.exports = router;
-
