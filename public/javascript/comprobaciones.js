@@ -20,11 +20,21 @@ function hasMinLength(password, min = 8) {
     return password.length >= min;
 }
 
+function isPasswordSecure(password) {
+    return (
+        hasMinLength(password) &&
+        hasUpperCase(password) &&
+        hasLowerCase(password) &&
+        hasNumber(password) &&
+        hasSpecialCharacter(password)
+    );
+}
 
 module.exports = {
     hasNumber,
     hasLowerCase,
     hasUpperCase,
     hasSpecialCharacter,
-    hasMinLength
+    hasMinLength,
+    isPasswordSecure
 };

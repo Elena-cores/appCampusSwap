@@ -4,7 +4,8 @@ const {
     hasLowerCase,
     hasUpperCase,
     hasSpecialCharacter,
-    hasMinLength
+    hasMinLength,
+    isPasswordSecure
     } = require('../public/javascript/comprobaciones.js');
 
 describe('Validación de contraseñas', () => {
@@ -36,6 +37,12 @@ describe('Validación de contraseñas', () => {
         const password = 'Short';
         assert.strictEqual(hasMinLength(password), false);
         assert.strictEqual(hasMinLength('LongEnough'), true);
+    });
+
+    it('Contraseña válida', () => {
+        const password = 'secure!';
+        assert.strictEqual(isPasswordSecure(password), false);
+        assert.strictEqual(isPasswordSecure('Secure123!'), true);
     });
 
 });
