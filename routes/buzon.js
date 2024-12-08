@@ -88,6 +88,7 @@ router.get('/', function(req, res) {
     res.render('buzon', { 
         title: 'Buzón', 
         username: req.session.username,
+        fechaRegistro: req.session.fechaRegistro,
         activePage: 'buzon' 
     });
 });

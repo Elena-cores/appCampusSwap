@@ -13,8 +13,8 @@ router.get('/', checkAuth, function(req, res) {
     res.render('valoraciones', {
         title: 'Valoraciones',
         username: req.session.username,
-        activePage: 'valoraciones'
-
+        fechaRegistro: req.session.fechaRegistro,
+        activePage: 'valoraciones',
     });
 });
 

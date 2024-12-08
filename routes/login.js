@@ -22,10 +22,9 @@ router.post('/', function(req, res, next) {
             console.log("Username:", consulta[0].username);
             console.log("FechaRegistro:", consulta[0].fechaRegistro);
 
-            const fechaRegistro = new Date(consulta[0].fechaRegistro); 
             req.session.userId = consulta[0].id_user;
             req.session.username = consulta[0].username;
-            req.session.fechaRegistro = fechaRegistro.getFullYear();;
+            req.session.fechaRegistro = new Date(consulta[0].fechaRegistro).getFullYear();
 
             // Verificar que se guardó en la sesión
             console.log("Sesión guardada:");
