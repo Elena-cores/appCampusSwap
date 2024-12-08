@@ -1,8 +1,43 @@
 var express = require('express');
 var router = express.Router();
 var database = require('../database');
+const { pool2 } = require('../database');
 
 // Ruta para buscar usuarios
+
+
+function checkAuth(req, res, next) {
+    if (!req.session.userId) {
+        return res.redirect('/login');
+    }
+    next();
+}
+
+
+router.post('/get-user-valoraciones', checkAuth, async function(req, res) {
+    let userId = req.body.userId
+
+    try {
+        const conn = await pool2.getConnection();
+        await conn.query("USE campus");
+
+        const valoraciones = await conn.query(`
+            SELECT v.*, u1.username AS comprador, a.title AS producto 
+            FROM valoraciones v
+            JOIN user u1 ON v.comprador_id = u1.id_user
+            JOIN ads a ON v.ad_id = a.id_ad
+            WHERE v.vendedor_id = ?
+            ORDER BY v.FechaValoracion DESC
+        `, [userId]);
+
+        conn.release();
+        res.json(valoraciones);
+    } catch (error) {
+        console.error('Error al obtener valoraciones como vendedor:', error);
+        res.status(500).json({ error: 'Error al obtener las valoraciones como vendedor.' });
+    }
+});
+
 router.post('/search', async (req, res) => {
     const { username } = req.body;
 

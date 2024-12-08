@@ -20,9 +20,12 @@ var nuevaPublicacionRouter = require('./routes/nuevaPublicacion');
 var modificarPublicacionRouter = require('./routes/modificarPublicacion');
 var ajustesRouter = require('./routes/ajustes');
 var isAuthenticated = require('./middleware/authMiddleware');
+const cors = require('cors')
 
 var app = express();
 var port = process.env.PORT || 3000;
+
+app.use(cors())
 
 
 // Configuración del motor de vistas

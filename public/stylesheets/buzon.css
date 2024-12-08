@@ -143,6 +143,18 @@
     transform: translateY(-50%);
 }
 
+.chat-header button#boton-valoraciones{
+    position: absolute;
+    left: 15px;
+    background-color: #0084ff;   
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
 .options-button {
     background: none;
     border: none;
@@ -194,6 +206,9 @@
 }
 
 .chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 15px;
     border-bottom: 1px solid #e0e0e0;
     text-align: center;
@@ -431,4 +446,5 @@ header {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 10;
 }
+
 

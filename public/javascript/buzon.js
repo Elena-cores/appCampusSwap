@@ -46,9 +46,20 @@ document.getElementById('searchUserForm').addEventListener('submit', async (e) =
 async function startChat(userId, username, initialMessage = '') {
     document.getElementById('receiverId').value = userId;
     document.getElementById('sendMessageForm').style.display = 'block';
+    document.getElementById('boton-valoraciones').setAttribute('onclick' , `fetch("buzon/get-user-valoraciones", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json"},
+        body: JSON.stringify({
+        "userId": ${userId}})
+        })
+        .then(response => response.json())  
+        .then(data => console.log(data))    // log the parsed JSON data
+        .catch(error => console.error('Error:', error));`)
     document.getElementById('chatUsername').textContent = username;
     document.querySelector('.delete-chat-button').style.display = 'block';
     await loadChat(userId);
+
 
     if (initialMessage) {
         await sendMessage(userId, initialMessage);
