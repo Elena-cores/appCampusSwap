@@ -8,9 +8,12 @@ function hasLowerCase(password) {
     return /[a-z]/.test(password);
 }
 
-
+function hasUpperCase(password) {
+    return /[A-Z]/.test(password); 
+}
 
 module.exports = {
     hasNumber,
-    hasLowerCase
+    hasLowerCase,
+    hasUpperCase
 };
