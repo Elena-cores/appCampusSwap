@@ -10,12 +10,18 @@ router.get('/', function(req, res, next) {
   let userId = req.session.userId;
 
   database.getFavoritesByUser(userId).then(ads => {
+    const adsFiltrado = ads.filter(ad => ad.state === 'Disponible' || ad.state === 'Reservado');
+    const adsWithSeller = adsFiltrado.map(ad => ({
+        ...ad,
+        sellerId: ad.id_user,
+        sellerUsername: ad.seller_username
+    }));
     res.render('favoritos', { 
       title: 'Favoritos',
       username: req.session.username,
       fechaRegistro: req.session.fechaRegistro,
       activePage: 'favoritos',
-      favorites: ads
+      favorites: adsWithSeller
     });
   }).catch(error => {
     console.error("Error al obtener favoritos del usuario:", error);

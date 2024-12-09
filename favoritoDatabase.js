@@ -40,9 +40,10 @@ async function getFavoritesByUser(user_id) {
       conn = await pool2.getConnection();
       await conn.query("USE campus");
       const rows = await conn.query(`
-        SELECT ads.* 
+        SELECT ads.*, user.username AS seller_username
         FROM ads
         JOIN favorites ON ads.id_ad = favorites.ad_id
+        JOIN user ON ads.id_user = user.id_user
         WHERE favorites.user_id = ?`, [user_id]);
       return rows;
     } catch (err) {

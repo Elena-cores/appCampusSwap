@@ -27,6 +27,7 @@
                         <p class="descripcion-articulo" style="display: none;"><%= ad.description %></p>
                         <p class="estado-articulo"><%= ad.state %></p>
                         <p class="universidad-articulo"><strong>Universidad:</strong> <%= ad.university %></p>
+                        <p class="nombre-vendedor"><strong>Vendedor:</strong> <%= ad.sellerUsername %></p>
                         <span><%= ad.price %> €</span>
                         <button class="boton-favorito" onclick="toggleFavorite(event, <%= ad.id_ad %>)" title="Quitar de favoritos">❤️</button>
                     </div>
