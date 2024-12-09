@@ -108,34 +108,34 @@ function filterByPrice() {
 // Filtrar por estado
 // JavaScript para filtrar por estado
 function filterByState(state) {
-    // Obtener todas las tarjetas
     const cards = document.querySelectorAll(".tarjeta-articulo");
 
-    // Iterar sobre cada tarjeta para filtrar
     cards.forEach(card => {
-        const cardState = card.getAttribute("data-state"); // Asegúrate de que cada tarjeta tenga un atributo "data-state"
-        
-        if (cardState === state || state === "") {
-            card.style.display = "block";
+        const cardState = card.getAttribute("data-state")?.trim().toLowerCase(); // Normaliza el estado de la tarjeta
+        const filterState = state.trim().toLowerCase(); // Normaliza el estado del filtro
+
+        if (cardState === filterState || state === "") {
+            card.style.display = "block"; // Mostrar si coincide o si se selecciona "Mostrar Todos"
         } else {
-            card.style.display = "none";
+            card.style.display = "none"; // Ocultar si no coincide
         }
     });
 }
 
-// Evento para mostrar las opciones de estado
-const dropdownBtn = document.querySelector(".dropdown-btn");
-const dropdownContent = document.querySelector(".dropdown-content");
 
-dropdownBtn.addEventListener("click", () => {
-    dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
+// Evento para mostrar las opciones de estado
+const estadoDropdownBtn = document.querySelector(".estado-dropdown-btn");
+const estadoDropdownContent = document.querySelector(".estado-dropdown-content");
+
+estadoDropdownBtn.addEventListener("click", (event) => {
+    event.stopPropagation(); // Evita conflictos con otros dropdowns
+    estadoDropdownContent.style.display = 
+        estadoDropdownContent.style.display === "block" ? "none" : "block";
 });
 
-// Asegúrate de que el contenido desaparezca al hacer clic fuera del dropdown
-document.addEventListener("click", (event) => {
-    if (!event.target.closest(".dropdown")) {
-        dropdownContent.style.display = "none";
-    }
+// Ocultar el dropdown si se hace clic fuera
+document.addEventListener("click", () => {
+    estadoDropdownContent.style.display = "none";
 });
 
 function showAllProducts() {
