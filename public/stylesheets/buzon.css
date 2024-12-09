@@ -491,8 +491,8 @@ header {
 
 .cerrar {
     position: absolute;
-    top: 10px;
-    right: 20px;
+    top: 20px;
+    right: 25px;
     font-size: 35px;
     font-weight: bold;
     color: #333;

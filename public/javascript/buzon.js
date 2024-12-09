@@ -62,7 +62,8 @@ async function startChat(userId, username, initialMessage = '') {
             const contenidoModal = modalValoraciones.querySelector('.contenido-modal');
             const listaValoraciones = document.getElementById('valoraciones-lista');
     
-            contenidoModal.innerHTML = "<h2 class='modalTitle'>Valoraciones</h2>";
+            contenidoModal.innerHTML = "<span id='cerrarModal' class='cerrar'>&times;</span>" + 
+            "<h2 class='modalTitle'>Valoraciones</h2>";
             if (data && data.length > 0) {
                 data.forEach(valoracion => {
                     const valoracionItem = document.createElement('div');
@@ -79,6 +80,9 @@ async function startChat(userId, username, initialMessage = '') {
             }
     
             modalValoraciones.style.display = 'block';
+            document.getElementById('cerrarModal').onclick = () => {
+                modalValoraciones.style.display = 'none';
+    };
         })
         .catch(error => console.error('Error:', error));
     `);
