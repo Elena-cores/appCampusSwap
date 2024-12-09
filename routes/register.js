@@ -27,6 +27,12 @@ router.post("/", async function(req, res, next) {
     if (!hasUpperCase(psw)) errors.password = 'La contraseña debe tener al menos una letra mayúscula.';
     if (!hasSpecialCharacter(psw)) errors.password = 'La contraseña debe tener al menos un carácter especial.';
     if (!hasMinLength(psw)) errors.password = 'La contraseña debe tener al menos 8 caracteres.';
+    try {
+        if (await database.EmailExists(email)) errors.email = 'Correo asignado a otro usuario';
+        if (await database.UserExists(username)) errors.username = 'Nombre de usuario ya en uso';
+    } catch (err) {
+        next(err); // Manejo de errores para bd
+    }
 
     // Si hay errores, devolver la página con los errores y los valores válidos
     if (Object.keys(errors).length > 0) {
