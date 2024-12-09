@@ -163,11 +163,9 @@ function updateAds(title, description, price, state, university, id_user, id_ad)
         conn.query(sql).then(() => {
             console.log(`Anuncio modificado con éxito para el usuario con ID: ${id_user}`);
             // Consulta adicional para verificar
-            return conn.query(`SELECT a.*, u.username 
-                             FROM ads a 
-                             JOIN user u ON a.id_user = u.id_user 
-                             WHERE a.id_user = ${id_user} 
-                             ORDER BY a.id_ad DESC LIMIT 1`);
+            return conn.query(`SELECT * 
+                             FROM ads   
+                             WHERE id_ad = ${id_ad}`);
         }).then((result) => {
             if(result.length > 0) {
                 console.log('Detalles del anuncio modificado:');
@@ -175,7 +173,9 @@ function updateAds(title, description, price, state, university, id_user, id_ad)
                 console.log(`- Título: ${result[0].title}`);
                 console.log(`- Descripción: ${result[0].description}`);
                 console.log(`- Precio: ${result[0].price}`);
-                console.log(`- Usuario: ${result[0].username} (ID: ${result[0].id_user})`);
+                console.log(`- Estado: ${result[0].state}`);
+                console.log(`- Universidad: ${result[0].university}`);
+                console.log(`- ID Usuario: ${result[0].id_user}`);
             }
         }).catch(err => {
             console.error("Error al modificar anuncio:", err.message);
