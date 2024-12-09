@@ -290,5 +290,38 @@ function registrarVenta(adId, sellerId, buyerId) {
     });
 }
 
+function EmailExists(email){
+    return pool2.getConnection().then((conn) => {
+        conn.query("USE campus");
+        return conn.query(`SELECT * FROM user WHERE email = ?`, [email]).then((rows) => {
+            conn.end();
+            if (rows.length > 0) {
+                return true; 
+            } else {
+                return false;
+            }
+        });
+    }).catch(err => {
+        console.error("Error al conectarse con la base de datos", err.message); 
+        return false;
+    });
+}
 
-module.exports = { pool1, pool2, setUp, insertUser, insertAds, updateAds, getAdsByUser, getAdById, deleteAd, updateUser, updateVendido, mostrarUsuariosConversacionesAbiertas, registrarVenta };
+function UserExists(username){
+    return pool2.getConnection().then((conn) => {
+        conn.query("USE campus");
+        return conn.query(`SELECT * FROM user WHERE username = ?`, [username]).then((rows) => {
+            conn.end();
+            if (rows.length > 0) {
+                return true; 
+            } else {
+                return false;
+            }
+        });
+    }).catch(err => {
+        console.error("Error al conectarse con la base de datos", err.message); 
+        return false;
+    });
+}
+
+module.exports = { pool1, pool2, setUp, insertUser, insertAds, updateAds, getAdsByUser, getAdById, deleteAd, updateUser, updateVendido, mostrarUsuariosConversacionesAbiertas, registrarVenta, EmailExists, UserExists };
