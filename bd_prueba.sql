@@ -533,7 +533,6 @@ UNLOCK TABLES;
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` VALUES
-INSERT INTO `user` (id_user, name, surname, username, password, email, fechaRegistro) VALUES
 (1,'Liam','Smith','liam.smith1','Secure1#Pass','liam.smith1@gmail.com','2023-05-23 12:22:01'),
 (2,'Noah','Johnson','noah.johnson2','Secure2#Pass','noah.johnson2@gmail.com','2024-03-19 09:11:35'),
 (3,'Oliver','Williams','oliver.williams3','Secure3#Pass','oliver.williams3@gmail.com','2022-11-04 07:45:12'),
