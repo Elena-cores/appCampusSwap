@@ -8,12 +8,12 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/api/change-password', isAuthenticated, async (req, res) => {
-    const { email, currentPassword, newPassword } = req.body;
-
+    const { currentPassword, newPassword } = req.body;
+    let userId = req.session.userId;
     try {
         const conn = await database.pool2.getConnection();
         await conn.query("USE campus");
-        const [user] = await conn.query("SELECT * FROM user WHERE email = ?", [email]);
+        const [user] = await conn.query("SELECT * FROM user WHERE id_user = ?", [userId]);
 
         if (!user) {
             conn.release();
@@ -30,7 +30,7 @@ router.post('/api/change-password', isAuthenticated, async (req, res) => {
             return res.status(400).json({ success: false, message: "La nueva contraseña no puede ser igual a la contraseña actual" });
         }
 
-        await conn.query("UPDATE user SET password = ? WHERE email = ?", [newPassword, email]);
+        await conn.query("UPDATE user SET password = ? WHERE id_user = ?", [newPassword, userId]);
         conn.release();
 
         res.json({ success: true, message: "Contraseña cambiada exitosamente" });
