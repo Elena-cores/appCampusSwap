@@ -24,10 +24,16 @@
 
 				<div class="input-register">
 					<input required type="text" placeholder="Nombre de usuario" name="username" value="<%= values.username || '' %>">
+					<% if (errors.username) { %>
+						<p class="error-message"><%= errors.username %></p>
+					<% } %>
 				</div>
 
 				<div class="input-register">
 					<input required type="email" placeholder="Dirección de e-mail" name="email" value="<%= values.email || '' %>">
+					<% if (errors.email) { %>
+						<p class="error-message"><%= errors.email %></p>
+					<% } %>
 				</div>
 
 				<div class="input-register">
