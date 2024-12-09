@@ -16,9 +16,6 @@
 		<form id="changePasswordForm" onsubmit="return handleChangePassword(event)">
 			<div class="container">
 				<div class="input-login">
-					<input required type="email" id="email" placeholder="Correo electrónico" required>
-				</div>
-				<div class="input-login">
 					<input required type="password" id="currentPassword" placeholder="Contraseña actual" required>
 				</div>
 				<div class="input-login">
@@ -37,7 +34,6 @@
 			function handleChangePassword(event) {
 				event.preventDefault();
 
-				const email = document.getElementById("email").value;
 				const currentPassword = document.getElementById("currentPassword").value;
 				const newPassword = document.getElementById("newPassword").value;
 				const confirmPassword = document.getElementById("confirmPassword").value;
@@ -53,7 +49,7 @@
 				fetch('/modificar/api/change-password', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ email, currentPassword, newPassword })
+					body: JSON.stringify({ currentPassword, newPassword })
 				})
 						.then(response => response.json())
 						.then(data => {
