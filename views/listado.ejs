@@ -115,41 +115,6 @@
                 <button class="boton-twitter-ver" onclick="window.location.href='https://x.com/USPCEU'">Ver en X</button>
         </aside>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const tarjetas = document.querySelectorAll(".tarjeta-articulo");
-        
-            // Lista de colores oscuros
-            const darkColors = [
-               "#FF6F61", 
-                "#FFA177", 
-                "#FFD166", 
-                "#80C687", 
-                "#4BA3C7", 
-                "#6A8DCD", 
-                "#A084CA", 
-                "#D67ACF"
-            ];
-        
-            // Función para obtener un color aleatorio de la lista
-            const getRandomColor = () => {
-                const randomIndex = Math.floor(Math.random() * darkColors.length);
-                return darkColors[randomIndex];
-            };
-        
-            // Agregar evento hover a cada tarjeta
-            tarjetas.forEach((tarjeta) => {
-                tarjeta.addEventListener("mouseenter", () => {
-                    tarjeta.style.backgroundColor = getRandomColor();
-                });
-        
-                // Restaurar el color de fondo al salir (opcional)
-                tarjeta.addEventListener("mouseleave", () => {
-                    tarjeta.style.backgroundColor = ""; // Vuelve al color original
-                });
-            });
-        });
-    </script>
 
     <script src="/javascript/scriptList.js"></script>
     <script src="/javascript/favoriteList.js"></script>
