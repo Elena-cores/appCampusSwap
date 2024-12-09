@@ -11,6 +11,7 @@
 .header-content {
     display: flex;
     align-items: center;
+    margin-left: 132px;
     gap: 400px; /* Añadir espacio entre el título y los botones */
 }
 .header-title {
@@ -40,7 +41,7 @@
 .carousel {
     position: relative;
     text-align: center;
-    margin: 20px 0;
+    margin: 20px 40px;
 }
 .carousel-title {
     font-size: 36px;
