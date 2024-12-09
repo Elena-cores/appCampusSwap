@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var database = require('../database');
 const { pool2 } = require('../database');
 
 function checkAuth(req, res, next) {
@@ -10,12 +11,23 @@ function checkAuth(req, res, next) {
 }
 
 router.get('/', checkAuth, function(req, res) {
-    res.render('valoraciones', {
-        title: 'Valoraciones',
-        username: req.session.username,
-        fechaRegistro: req.session.fechaRegistro,
-        activePage: 'valoraciones',
-    });
+    let userId = req.session.userId;
+    database.getValutation(userId).then(valutation => {
+        let valoracionMedia="";
+        for(let i=0; i<valutation; i++){
+          valoracionMedia += "★";
+        }
+        res.render('valoraciones', {
+            title: 'Valoraciones',
+            username: req.session.username,
+            fechaRegistro: req.session.fechaRegistro,
+            activePage: 'valoraciones',
+            valoracionMedia: valoracionMedia
+        });
+      }).catch(error => {
+        console.error("Error al obtener media valoraciones:", error);
+        res.status(500).send("Error al cargar el perfil.");
+      });
 });
 
 router.get('/comprado', checkAuth, async function(req, res) {
