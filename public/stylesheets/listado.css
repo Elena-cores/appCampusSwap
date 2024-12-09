@@ -141,6 +141,12 @@ main {
     background-color: #379762;
 }
 
+.filtrado-botones {
+    display: flex; /* Configurar el contenedor como flexbox */
+    align-items: center; /* Alinear verticalmente los elementos */
+    gap: 10px; /* Espaciado horizontal entre los elementos */
+}
+
 .filtrado-botones button {
     margin-right: 10px;
     padding: 12px 20px;
@@ -371,4 +377,33 @@ main {
 
 .contact-seller-btn:hover {
     background-color: #28a428;
+}
+
+/*dropdown*/
+
+/* Price filter */
+.price-filter {
+    display: flex;
+    align-items: right;
+    gap: 10px;
+}
+
+.price-filter input {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100px;
+}
+
+.price-filter button {
+    background-color: #007BFF;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.price-filter button:hover {
+    background-color: #0056b3;
 }

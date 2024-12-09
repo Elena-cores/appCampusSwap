@@ -91,8 +91,8 @@ document.querySelectorAll('.filter-category').forEach(link => {
 
 // filtrar por rango de precio
 function filterByPrice() {
-    const minPrice = parseFloat(prompt("Introduce el precio mínimo (0-9000):", "0")) || 0;
-    const maxPrice = parseFloat(prompt("Introduce el precio máximo (0-9000):", "9000")) || 9000;
+    const minPrice = parseFloat(document.getElementById("min-price").value) || 0;
+    const maxPrice = parseFloat(document.getElementById("max-price").value) || 9000;
 
     const cards = document.querySelectorAll(".tarjeta-articulo");
     cards.forEach(card => {
@@ -106,19 +106,37 @@ function filterByPrice() {
 }
 
 // Filtrar por estado
-function filterByState() {
-    const stateFilter = prompt("Introduce el estado para filtrar ('Disponible' o 'Reservado'):", "Disponible").toLowerCase();
-
+// JavaScript para filtrar por estado
+function filterByState(state) {
+    // Obtener todas las tarjetas
     const cards = document.querySelectorAll(".tarjeta-articulo");
+
+    // Iterar sobre cada tarjeta para filtrar
     cards.forEach(card => {
-        const state = card.querySelector(".estado-articulo").textContent.toLowerCase();
-        if (state === stateFilter) {
+        const cardState = card.getAttribute("data-state"); // Asegúrate de que cada tarjeta tenga un atributo "data-state"
+        
+        if (cardState === state || state === "") {
             card.style.display = "block";
         } else {
             card.style.display = "none";
         }
     });
 }
+
+// Evento para mostrar las opciones de estado
+const dropdownBtn = document.querySelector(".dropdown-btn");
+const dropdownContent = document.querySelector(".dropdown-content");
+
+dropdownBtn.addEventListener("click", () => {
+    dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
+});
+
+// Asegúrate de que el contenido desaparezca al hacer clic fuera del dropdown
+document.addEventListener("click", (event) => {
+    if (!event.target.closest(".dropdown")) {
+        dropdownContent.style.display = "none";
+    }
+});
 
 function showAllProducts() {
     const cards = document.querySelectorAll(".tarjeta-articulo");

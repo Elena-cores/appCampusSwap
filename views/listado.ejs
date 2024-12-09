@@ -69,9 +69,23 @@
                   </button>
                 </a>
                 <div class="filtrado-botones">
-                    <button>Estado</button>
-                    <button>Precio</button>
-                </div>
+                     <!-- Dropdown para Estado -->
+        <div class="dropdown">
+            <button class="dropdown-btn">Estado</button>
+            <div class="dropdown-content">
+                <button onclick="filterByState('Disponible')">Disponible</button>
+                <button onclick="filterByState('Reservado')">Reservado</button>
+                <button onclick="filterByState('')">Mostrar Todos</button>
+            </div>
+        </div>
+
+        <!-- Rango de precio -->
+        <div class="price-filter">
+            <input type="number" id="min-price" placeholder="Min. precio" min="0" max="9000">
+            <input type="number" id="max-price" placeholder="Max. precio" min="0" max="9000">
+            <button onclick="filterByPrice()">OK</button>
+        </div>
+    </div>
             </div>
 
             <!-- Tarjeta de productos -->
