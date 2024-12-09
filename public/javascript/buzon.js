@@ -46,20 +46,45 @@ document.getElementById('searchUserForm').addEventListener('submit', async (e) =
 async function startChat(userId, username, initialMessage = '') {
     document.getElementById('receiverId').value = userId;
     document.getElementById('sendMessageForm').style.display = 'block';
-    document.getElementById('boton-valoraciones').setAttribute('onclick' , `fetch("buzon/get-user-valoraciones", {
-        method: "POST",
-        headers: {
-        "Content-Type": "application/json"},
-        body: JSON.stringify({
-        "userId": ${userId}})
+    document.getElementById('boton-valoraciones').setAttribute('onclick', 
+        `fetch("buzon/get-user-valoraciones", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "userId": ${userId}
+            })
         })
-        .then(response => response.json())  
-        .then(data => console.log(data))    // log the parsed JSON data
-        .catch(error => console.error('Error:', error));`)
-    document.getElementById('chatUsername').textContent = username;
-    document.querySelector('.delete-chat-button').style.display = 'block';
-    await loadChat(userId);
-
+        .then(response => response.json())
+        .then(data => {
+            const modalValoraciones = document.getElementById('modalValoraciones');
+            const contenidoModal = modalValoraciones.querySelector('.contenido-modal');
+            const listaValoraciones = document.getElementById('valoraciones-lista');
+    
+            contenidoModal.innerHTML = "<h2 class='modalTitle'>Valoraciones</h2>";
+            if (data && data.length > 0) {
+                data.forEach(valoracion => {
+                    const valoracionItem = document.createElement('div');
+                    valoracionItem.classList.add('valoracion-item');
+                    valoracionItem.innerHTML = \`
+                    <p><strong>Producto: </strong> \${valoracion.producto}</p>
+                    <p><strong>Valoración: </strong> \${valoracion.valoracion} estrellas</p>
+                    <p><strong>Comentario: </strong> \${valoracion.comentario}</p>
+                    <p><strong>Fecha: </strong> \${formatDate(valoracion.FechaValoracion)}</p>\`;
+                    contenidoModal.appendChild(valoracionItem);
+                });
+            } else {
+                contenidoModal.innerHTML += "<p>No hay valoraciones disponibles.</p>";
+            }
+    
+            modalValoraciones.style.display = 'block';
+        })
+        .catch(error => console.error('Error:', error));
+    `);
+        document.getElementById('chatUsername').textContent = username;
+        document.querySelector('.delete-chat-button').style.display = 'block';
+        await loadChat(userId);
 
     if (initialMessage) {
         await sendMessage(userId, initialMessage);
@@ -140,6 +165,19 @@ document.getElementById('messageContent').addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         document.getElementById('sendMessageForm').requestSubmit();
+    }
+});
+
+var modal = document.getElementById("modalValoraciones");
+var boton = document.getElementById("boton-valoraciones");
+
+boton.addEventListener("click",function() {
+    modal.style.display = "block";
+});
+
+window.addEventListener("click",function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
     }
 });
 
