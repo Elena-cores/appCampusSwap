@@ -19,6 +19,7 @@ var modificarRouter = require('./routes/modificar');
 var nuevaPublicacionRouter = require('./routes/nuevaPublicacion');
 var modificarPublicacionRouter = require('./routes/modificarPublicacion');
 var ajustesRouter = require('./routes/ajustes');
+var aboutRouter = require('./routes/about');
 var isAuthenticated = require('./middleware/authMiddleware');
 const cors = require('cors')
 
@@ -50,6 +51,7 @@ app.use('/logout', logoutRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/olvidado', olvidadoRouter);
+app.use('/about', aboutRouter);
 
 app.use('/listado', isAuthenticated, listadoRouter);
 app.use('/perfil', isAuthenticated, perfilRouter);

@@ -10,7 +10,6 @@ body {
 header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     background-color: #004080;
     color: white;
     padding: 15px 30px;
@@ -24,6 +23,7 @@ header {
 .header-title {
     font-size: 28px;
     font-weight: bold;
+    margin-left: 450px;
 }
 
 .profile {
@@ -35,6 +35,7 @@ header {
     cursor: pointer;
     border-radius: 50%;
     border: 2px solid white;
+    margin-left: 40px;
 }
 
 .dropdown-content {
@@ -122,6 +123,7 @@ main {
 }
 
 .boton-venta {
+    text-decoration: none;
     padding: 12px 25px;
     background-color: #2aa6e0;
     border: none;
@@ -133,7 +135,6 @@ main {
     gap: 12px;
     font-size: 16px;
     transition: background-color 0.3s;
-    text-decoration: none;
 }
 
 .boton-venta:hover {
@@ -326,6 +327,27 @@ main {
     position: relative;
     border-radius: 10px;
 }
+
+.btn {
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    padding: 10px 20px;
+    border: 2px solid #ccc;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    display: inline-block;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-left: 250px;
+}
+
+.btn:hover {
+    background-color: #f0f0f0; 
+    color: black; 
+    border-color: #aaa; 
+}
+
 
 .close-btn {
     width: 14%;
