@@ -24,7 +24,7 @@ function filterProducts(){
     cards.forEach(card  =>{
         const title = card.querySelector('.titulo-articulo').textContent.toLowerCase(); 
         const description = card.querySelector("p").textContent.toLowerCase();
-        const university = card.querySelector("img").alt.toLowerCase();
+        const university = card.querySelector('.universidad-articulo').textContent.toLowerCase();
 
         const matchTitle = title.includes(filter);
         const matchDes = description.includes(filter);
@@ -53,7 +53,7 @@ function filterByUniversity(university) {
     const cards = document.querySelectorAll(".tarjeta-articulo");
 
     cards.forEach(card => {
-        const cardUniversity = card.querySelector("img").alt.toLowerCase();
+        const cardUniversity = card.querySelector('.universidad-articulo').textContent.toLowerCase();
 
         if (cardUniversity.includes(university)) {
             card.style.display = "block";
