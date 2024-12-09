@@ -4,24 +4,35 @@ var database = require('../database');
 var express = require('express');
 var router = express.Router();
 var database = require('../favoritoDatabase');
+var database1 = require('../database');
 
 // Obtener los favoritos del usuario
 router.get('/', function(req, res, next) {
   let userId = req.session.userId;
 
   database.getFavoritesByUser(userId).then(ads => {
-    const adsFiltrado = ads.filter(ad => ad.state === 'Disponible' || ad.state === 'Reservado');
-    const adsWithSeller = adsFiltrado.map(ad => ({
+    database1.getValutation(userId).then(valutation => {
+      let valoracionMedia="";
+      for(let i=0; i<valutation; i++){
+        valoracionMedia += "★";
+      }
+      const adsFiltrado = ads.filter(ad => ad.state === 'Disponible' || ad.state === 'Reservado');
+      const adsWithSeller = adsFiltrado.map(ad => ({
         ...ad,
         sellerId: ad.id_user,
         sellerUsername: ad.seller_username
-    }));
-    res.render('favoritos', { 
-      title: 'Favoritos',
-      username: req.session.username,
-      fechaRegistro: req.session.fechaRegistro,
-      activePage: 'favoritos',
-      favorites: adsWithSeller
+      }));
+      res.render('favoritos', { 
+        title: 'Favoritos',
+        username: req.session.username,
+        fechaRegistro: req.session.fechaRegistro,
+        activePage: 'favoritos',
+        favorites: adsWithSeller,
+        valoracionMedia: valoracionMedia
+      });
+    }).catch(error => {
+      console.error("Error al obtener media valoraciones:", error);
+      res.status(500).send("Error al cargar el perfil.");
     });
   }).catch(error => {
     console.error("Error al obtener favoritos del usuario:", error);
