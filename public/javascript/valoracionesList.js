@@ -160,6 +160,5 @@ function cargarValoraciones(tipo) {
         });
 }
 
-document.addEventListener('DOMContentLoaded', () => cargarValoraciones('comprado'));
 
 document.getElementById('form-detalles-valoracion').addEventListener('submit', enviarValoracion);
