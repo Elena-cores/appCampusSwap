@@ -110,9 +110,9 @@ function filterByPrice() {
 function filterByState(state) {
     const cards = document.querySelectorAll(".tarjeta-articulo");
 
-    cards.forEach(card => {
-        const cardState = card.getAttribute("data-state")?.trim().toLowerCase(); // Normaliza el estado de la tarjeta
-        const filterState = state.trim().toLowerCase(); // Normaliza el estado del filtro
+    cards.forEach(card => { 
+        const cardState = card.getAttribute("data-state")?.toLowerCase(); //normalizar 
+        const filterState = state.trim().toLowerCase(); 
 
         if (cardState === filterState || state === "") {
             card.style.display = "block"; // Mostrar si coincide o si se selecciona "Mostrar Todos"
