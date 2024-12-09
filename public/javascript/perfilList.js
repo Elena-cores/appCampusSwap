@@ -1,6 +1,11 @@
-//perfil
-function mostrarProductos(tipo) {
-    fetch(`/perfil/${tipo}`)
+let estadoActual = 'en-venta';
+const barraBusqueda = document.querySelector('.barra-busqueda');
+barraBusqueda.addEventListener('input', () => {
+  mostrarProductos(estadoActual, barraBusqueda.value);
+});
+
+function mostrarProductos(tipo, query = '') {
+    fetch(`/perfil/${tipo}?q=${encodeURIComponent(query)}`)
         .then(response => response.json())
         .then(data => {
             const productList = document.getElementById('product-list');
@@ -41,6 +46,11 @@ function mostrarProductos(tipo) {
         .catch(error => console.error('Error al cargar productos:', error));
 }
 
+function cambiarEstado(nuevoEstado) {
+    estadoActual = nuevoEstado;
+    mostrarProductos(nuevoEstado, barraBusqueda.value);
+}
+
 function deleteProduct(adId) {
     if (confirm('¿Estás seguro de que quieres eliminar este producto?')) {
         fetch(`/perfil/delete/${adId}`, { method: 'DELETE' })
@@ -64,20 +74,19 @@ function modifyProduct(adId) {
     window.location.href = `/modificarPublicacion?id_ad=${adId}`;
 }
 
-// Función para abrir el modal y mostrar los usuarios disponibles
+
 function openMarkSoldModal(adId) {
     const modal = document.getElementById('modal-mark-sold');
     const userList = document.getElementById('user-list');
     const searchBar = document.getElementById('search-users');
 
-    userList.innerHTML = ''; // Limpia la lista de usuarios antes de cargar
+    userList.innerHTML = '';
 
-    // Fetch usuarios desde el backend
+    
     fetch('/perfil/conversaciones')
         .then(response => response.json())
         .then(users => {
             if (users.length > 0) {
-                // Renderiza la lista de usuarios
                 userList.innerHTML = users.map(user => `
                     <li>
                         <span>${user.username}</span>
@@ -85,15 +94,15 @@ function openMarkSoldModal(adId) {
                     </li>
                 `).join('');
 
-                // Agrega el evento de búsqueda a la barra
+                
                 searchBar.addEventListener('input', () => {
-                    const query = searchBar.value.toLowerCase(); // Texto ingresado en minúsculas
-                    const items = userList.querySelectorAll('li'); // Selecciona todos los elementos de la lista
+                    const query = searchBar.value.toLowerCase(); 
+                    const items = userList.querySelectorAll('li'); 
 
                     // Filtra los elementos de la lista
                     items.forEach(item => {
-                        const username = item.querySelector('span').textContent.toLowerCase(); // Nombre del usuario
-                        item.style.display = username.includes(query) ? '' : 'none'; // Muestra/oculta según la coincidencia
+                        const username = item.querySelector('span').textContent.toLowerCase();
+                        item.style.display = username.includes(query) ? '' : 'none'; 
                     });
                 });
             } else {
@@ -105,16 +114,15 @@ function openMarkSoldModal(adId) {
             userList.innerHTML = '<li>Error al cargar usuarios.</li>';
         });
 
-    // Muestra el modal
+    
     modal.style.display = 'block';
 }
 
-// Función para cerrar el modal
+
 document.getElementById('close-modal').addEventListener('click', () => {
     document.getElementById('modal-mark-sold').style.display = 'none';
 });
 
-// Función para marcar un producto como vendido con un comprador seleccionado
 function markAsSold(adId, buyerId) {
     fetch(`/perfil/marcar-vendido/${adId}`, {
         method: 'POST',
@@ -132,10 +140,5 @@ function markAsSold(adId, buyerId) {
         })
         .catch(error => console.error('Error al marcar como vendido:', error));
 }
-
-// Función para cerrar el modal
-document.getElementById('close-modal').addEventListener('click', () => {
-    document.getElementById('modal-mark-sold').style.display = 'none';
-});
 
 document.addEventListener('DOMContentLoaded', () => mostrarProductos('en-venta'));

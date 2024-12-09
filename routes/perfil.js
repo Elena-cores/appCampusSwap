@@ -20,12 +20,21 @@ router.get('/', function(req, res, next) {
   });
 });
 
-
 router.get('/en-venta', function(req, res) {
   let userId = req.session.userId;
+  let query = req.query.q ? req.query.q.toLowerCase() : '';
 
   database.getAdsByUser(userId).then(ads => {
     let enVentaAds = ads.filter(ad => ad.state === 'Disponible' || ad.state === 'Reservado');
+
+    // Filtrar por término de búsqueda si se proporcionó
+    if (query) {
+      enVentaAds = enVentaAds.filter(ad => 
+        (ad.title && ad.title.toLowerCase().includes(query)) ||
+        (ad.description && ad.description.toLowerCase().includes(query))
+      );
+    }
+
     res.json(enVentaAds);
   }).catch(error => {
     console.error("Error al obtener anuncios en venta:", error);
@@ -33,12 +42,21 @@ router.get('/en-venta', function(req, res) {
   });
 });
 
-
 router.get('/vendidos', function(req, res) {
   let userId = req.session.userId;
+  let query = req.query.q ? req.query.q.toLowerCase() : '';
 
   database.getAdsByUser(userId).then(ads => {
     let vendidosAds = ads.filter(ad => ad.state === 'Vendido');
+
+    // Filtrar por término de búsqueda si se proporcionó
+    if (query) {
+      vendidosAds = vendidosAds.filter(ad => 
+        (ad.title && ad.title.toLowerCase().includes(query)) ||
+        (ad.description && ad.description.toLowerCase().includes(query))
+      );
+    }
+
     res.json(vendidosAds);
   }).catch(error => {
     console.error("Error al obtener anuncios vendidos:", error);
@@ -52,9 +70,9 @@ router.delete('/delete/:id', function(req, res) {
 
   database.deleteAd(adId, userId).then(result => {
     if (result) {
-        res.json({ success: true });
+      res.json({ success: true });
     } else {
-        res.status(403).json({ success: false, message: 'No autorizado para eliminar este anuncio' });
+      res.status(403).json({ success: false, message: 'No autorizado para eliminar este anuncio' });
     }
   }).catch(error => {
     console.error("Error al eliminar anuncio:", error);
@@ -66,10 +84,10 @@ router.get('/conversaciones', (req, res) => {
   let userId = req.session.userId; 
 
   database.mostrarUsuariosConversacionesAbiertas(userId).then(users => {
-      res.json(users); 
+    res.json(users); 
   }).catch(error => {
-      console.error('Error al obtener conversaciones:', error);
-      res.status(500).json({ error: 'Error al cargar conversaciones.' });
+    console.error('Error al obtener conversaciones:', error);
+    res.status(500).json({ error: 'Error al cargar conversaciones.' });
   });
 });
 
