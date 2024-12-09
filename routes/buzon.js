@@ -85,12 +85,23 @@ router.get('/', function(req, res) {
     if (!req.session.userId) {
         return res.redirect('/login');
     }
-    res.render('buzon', { 
-        title: 'Buzón', 
-        username: req.session.username,
-        fechaRegistro: req.session.fechaRegistro,
-        activePage: 'buzon' 
-    });
+    let userId = req.session.userId;
+    database.getValutation(userId).then(valutation => {
+        let valoracionMedia="";
+        for(let i=0; i<valutation; i++){
+          valoracionMedia += "★";
+        }
+        res.render('buzon', { 
+            title: 'Buzón', 
+            username: req.session.username,
+            fechaRegistro: req.session.fechaRegistro,
+            activePage: 'buzon', 
+            valoracionMedia: valoracionMedia
+        });
+      }).catch(error => {
+        console.error("Error al obtener media valoraciones:", error);
+        res.status(500).send("Error al cargar el perfil.");
+      });
 });
 
 // Ruta para obtener conversaciones
