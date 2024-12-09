@@ -168,11 +168,16 @@ document.getElementById('messageContent').addEventListener('keydown', (e) => {
     }
 });
 
-var modal = document.getElementById("modalValoraciones");
-var boton = document.getElementById("boton-valoraciones");
+const modal = document.getElementById('modalValoraciones');
+const boton = document.getElementById('boton-valoraciones');
+const cerrarModal = document.getElementById('cerrarModal');
 
 boton.addEventListener("click",function() {
     modal.style.display = "block";
+});
+
+cerrarModal.addEventListener('click', () => {
+    modal.style.display = 'none';
 });
 
 window.addEventListener("click",function(event) {
