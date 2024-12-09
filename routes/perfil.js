@@ -7,12 +7,22 @@ router.get('/', function(req, res, next) {
   let userId = req.session.userId;
 
   database.getAdsByUser(userId).then(ads => {
-    res.render('perfil', { 
-      title: 'Profile page',
-      username: req.session.username,
-      fechaRegistro: req.session.fechaRegistro,
-      activePage: 'perfil',
-      userAds: ads
+    database.getValutation(userId).then(valutation => {
+      let valoracionMedia="";
+      for(let i=0; i<valutation; i++){
+        valoracionMedia += "★";
+      }
+      res.render('perfil', { 
+        title: 'Profile page',
+        username: req.session.username,
+        fechaRegistro: req.session.fechaRegistro,
+        activePage: 'perfil',
+        userAds: ads,
+        valoracionMedia: valoracionMedia
+      });
+    }).catch(error => {
+      console.error("Error al obtener media valoraciones:", error);
+      res.status(500).send("Error al cargar el perfil.");
     });
   }).catch(error => {
     console.error("Error al obtener anuncios del usuario:", error);
