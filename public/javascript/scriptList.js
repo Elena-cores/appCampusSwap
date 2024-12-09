@@ -120,6 +120,18 @@ function filterByState() {
     });
 }
 
+function showAllProducts() {
+    const cards = document.querySelectorAll(".tarjeta-articulo");
+    cards.forEach(card => {
+        card.style.display = "block"; // Mostrar todas las tarjetas
+    });
+}
+
+document.getElementById('show-all').addEventListener('click', function(event) {
+    event.preventDefault(); 
+    showAllProducts();
+});
+
 // event listeners para los botones de filtrado
 document.querySelector(".filtrado-botones button:nth-child(1)").addEventListener("click", filterByState); 
 document.querySelector(".filtrado-botones button:nth-child(2)").addEventListener("click", filterByPrice); 
