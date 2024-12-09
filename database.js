@@ -215,6 +215,23 @@ function getAdById(id_ad){
     });
 }
 
+function getValutation(id_user){
+    return pool2.getConnection().then((conn) => {
+        conn.query("USE campus");
+        return conn.query(`SELECT valoracion FROM valoraciones WHERE vendedor_id = ${id_user}`).then((rows) => {
+            conn.end();
+            let suma = 0;
+            for(let i=0; i<rows.length; i++){
+                suma += rows[i].valoracion;
+            }
+            return (suma/rows.length);
+        });
+    }).catch((err) => {
+        console.error("Error al obtener la valoracion media:", err.message);
+        return [];
+    });
+}
+
 function deleteAd(adId, userId) {
   return pool2.getConnection().then((conn) => {
       conn.query("USE campus");
@@ -324,4 +341,4 @@ function UserExists(username){
     });
 }
 
-module.exports = { pool1, pool2, setUp, insertUser, insertAds, updateAds, getAdsByUser, getAdById, deleteAd, updateUser, updateVendido, mostrarUsuariosConversacionesAbiertas, registrarVenta, EmailExists, UserExists };
+module.exports = { pool1, pool2, setUp, insertUser, insertAds, updateAds, getAdsByUser, getAdById, deleteAd, updateUser, updateVendido, mostrarUsuariosConversacionesAbiertas, registrarVenta, EmailExists, UserExists, getValutation };
