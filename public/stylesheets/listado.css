@@ -379,17 +379,30 @@ main {
     background-color: #28a428;
 }
 
-.boton-filtrar-estado {
+.estado-dropdown {
+    position: relative;
+}
+.estado-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 2;
+}
+.estado-dropdown-content button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
     padding: 10px 20px;
-    background-color: #007bff;
-    color: rgb(0, 0, 0);
     border: none;
     cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
 }
-.boton-filtrar-estado:hover {
-    background-color: #0056b3;
+
+.estado-dropdown-content button:hover {
+    background-color: #f0f0f0;
 }
 
 /* Price filter */

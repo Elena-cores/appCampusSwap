@@ -106,30 +106,12 @@ function filterByPrice() {
 }
 
 // Filtrar por estado
-// Filtrar por estado usando prompt
-function promptFilterByState() {
-    const state = prompt("Filtrar por estado: escribe 'Disponible', 'Reservado' o deja vacío para mostrar todos.");
-    if (state === null) return; // Si el usuario cancela el prompt, no hacer nada
-
-    const normalizedState = state.trim().toLowerCase();
-
-    // Validar la entrada del usuario y aplicar el filtro
-    if (["disponible", "reservado", ""].includes(normalizedState)) {
-        filterByState(normalizedState.charAt(0).toUpperCase() + normalizedState.slice(1)); // Capitaliza la entrada
-    } else {
-        alert("Entrada inválida. Por favor, escribe 'Disponible', 'Reservado' o deja vacío.");
-    }
-}
-
-// Filtrar por estado
 function filterByState(state) {
-    console.log("Filtrando por estado:", state);
     const cards = document.querySelectorAll(".tarjeta-articulo");
-    const filterState = state.trim().toLowerCase();
 
     cards.forEach(card => { 
-        const cardState = card.getAttribute("data-state")?.trim().toLowerCase();
-        console.log("Estado de tarjeta:", cardState);
+        const cardState = card.getAttribute("data-state")?.toLowerCase(); //normalizar 
+        const filterState = state.trim().toLowerCase(); 
 
         if (filterState === "" || cardState === filterState) {
             card.style.display = "block"; // Mostrar si coincide o si se selecciona "Mostrar Todos"
@@ -138,6 +120,20 @@ function filterByState(state) {
         }
     });
 }
+
+// Evento para mostrar las opciones de estado
+const estadoDropdownBtn = document.querySelector(".estado-dropdown-btn");
+const estadoDropdownContent = document.querySelector(".estado-dropdown-content");
+estadoDropdownBtn.addEventListener("click", (event) => {
+    event.stopPropagation(); // Evita conflictos con otros dropdowns
+    estadoDropdownContent.style.display = 
+        estadoDropdownContent.style.display === "block" ? "none" : "block";
+});
+// Ocultar el dropdown si se hace clic fuera
+document.addEventListener("click", () => {
+    estadoDropdownContent.style.display = "none";
+});
+
 function showAllProducts() {
     const cards = document.querySelectorAll(".tarjeta-articulo");
     cards.forEach(card => {

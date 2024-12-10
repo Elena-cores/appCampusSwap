@@ -69,7 +69,15 @@
                   </button>
                 </a>
     <div class="filtrado-botones">
-        <button onclick="promptFilterByState()" class="boton-filtrar-estado">Estado</button>
+         <!-- Dropdown para Estado -->
+         <div class="dropdown estado-dropdown">
+            <button class="dropdown-btn estado-dropdown-btn">Estado</button>
+            <div class="dropdown-content estado-dropdown-content">
+                <button onclick="filterByState('Disponible')">Disponible</button>
+                <button onclick="filterByState('Reservado')">Reservado</button>
+                <button onclick="filterByState('')">Mostrar Todos</button>
+            </div>
+        </div>
 
         <!-- Rango de precio -->
         <div class="price-filter">
@@ -84,7 +92,7 @@
             <div class="rejilla-articulos">
                 <!-- Aquí iteramos sobre los anuncios y generamos las tarjetas dinámicamente -->
                     <% ads.forEach(function(ad) { %>
-                        <div class="tarjeta-articulo" data-seller-id="<%= ad.sellerId %>" data-username="<%= ad.sellerUsername%>"  data-state="<%= ad.state %>">
+                        <div class="tarjeta-articulo" data-seller-id="<%= ad.sellerId %>" data-username="<%= ad.sellerUsername%>">
                             <h3 class="titulo-articulo"><%= ad.title %></h3> 
                             <p class="descripcion-articulo" style="display: none;"><%= ad.description %></p>
                             <p class="universidad-articulo" style="display: none;"><%= ad.university %></p>
@@ -122,7 +130,7 @@
         </aside>
     </div>
 
-    <script src="/javascript/scriptList.js" defer></script>
+    <script src="/javascript/scriptList.js"></script>
     <script src="/javascript/favoriteList.js"></script>
 </body>
 </html>
