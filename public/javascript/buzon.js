@@ -1,4 +1,3 @@
-
 const socket = io();
 
 let currentChatUserId = null;
@@ -86,12 +85,12 @@ async function startChat(userId, username, initialMessage = '') {
         })
         .catch(error => console.error('Error:', error));
     `);
-        document.getElementById('chatUsername').textContent = username;
-        document.querySelector('.delete-chat-button').style.display = 'block';
-        await loadChat(userId);
+    document.getElementById('chatUsername').textContent = username;
+    document.querySelector('.delete-chat-button').style.display = 'block';
+    await loadChat(userId);
 
     if (initialMessage) {
-        await sendMessage(userId, initialMessage);
+        await sendMessage(userId, initialMessage, false);
     }
 }
 
@@ -128,7 +127,7 @@ function toggleDeleteButton(messageElement) {
 }
 
 // Función para enviar mensajes
-async function sendMessage(receiverId, content) {
+async function sendMessage(receiverId, content, addToUI = true) {
     if (!content.trim()) return;
 
     const response = await fetch('/buzon/send-message', {
@@ -140,16 +139,18 @@ async function sendMessage(receiverId, content) {
     const data = await response.json();
     if (data.success) {
         document.getElementById('messageContent').value = '';
-        const messagesList = document.getElementById('messagesList');
-        const messageClass = 'sent';
-        const newMessage = `
-            <div class="message ${messageClass}" data-message-id="${data.messageId}" onclick="toggleDeleteButton(this)">
-                <div class="message-content">${content}</div>
-                <div class="message-timestamp">${formatDate(new Date().toISOString())}</div>
-                <button class="delete-button" onclick="deleteMessage(${data.messageId})">Eliminar</button>
-            </div>`;
-        messagesList.innerHTML += newMessage;
-        messagesList.scrollTop = messagesList.scrollHeight;
+        if (addToUI) {
+            const messagesList = document.getElementById('messagesList');
+            const messageClass = 'sent';
+            const newMessage = `
+                <div class="message ${messageClass}" data-message-id="${data.messageId}" onclick="toggleDeleteButton(this)">
+                    <div class="message-content">${content}</div>
+                    <div class="message-timestamp">${formatDate(new Date().toISOString())}</div>
+                    <button class="delete-button" onclick="deleteMessage(${data.messageId})">Eliminar</button>
+                </div>`;
+            messagesList.innerHTML += newMessage;
+            messagesList.scrollTop = messagesList.scrollHeight;
+        }
         await loadConversations();
         socket.emit('newMessage', { receiverId, content });
     } else {
